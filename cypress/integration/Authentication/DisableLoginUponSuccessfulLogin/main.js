@@ -1,14 +1,17 @@
-Given('un Consommateur identifié', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
+
+import '../../../../common/cypress/integration/Authentication/common/PersonaType'
+import { login } from '../../../../common/cypress/integration/Authentication/common/Helpers'
+
+Given('un {PersonaType} identifié', function (persona) {
+  login(persona)
 });
 
 When("il navigue vers l'interface d'identification", function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  cy.visit('/login')
 });
 
 Then("il est redirigé vers la page d'accueil", function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  cy.url().should('not.include', '/login')
+  // TODO: verify that the user is redirected to the home page
 });
