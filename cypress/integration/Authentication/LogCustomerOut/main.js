@@ -15,7 +15,6 @@ When('il se déconnecte', function () {
 
 Then('sa session se ferme', function () {
   // 1. double-check that the authentication token is not present anymore in the cookies
-  // 2. double-check that the "me" query returns failure
   return 'pending'
 })
 
