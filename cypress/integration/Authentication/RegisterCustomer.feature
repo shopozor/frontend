@@ -19,6 +19,7 @@ Fonctionnalité: Enregistrer un nouveau client
 
     Etant donné un e-mail non reconnu par le Shopozor
     Lorsqu'un client accepte la politique du Shopozor relative aux cookies
+    Et accepte les conditions générales d'utilisation du Shopozor 
     Et fait une demande d'enregistrement avec cet e-mail
     Alors il obtient un message stipulant qu'un e-mail lui a été transmis
 
