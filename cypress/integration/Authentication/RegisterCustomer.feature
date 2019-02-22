@@ -1,7 +1,5 @@
 #language: fr
 
-# ajouter l'obligation d'accepter les cookies et de lire notre politique sur les cookies
-
 @initial-release @login
 Fonctionnalité: Enregistrer un nouveau client
 
