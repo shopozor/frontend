@@ -44,14 +44,12 @@ Fonctionnalité: Enregistrer un nouveau client
     Etant donné un client qui a confirmé son adresse e-mail dans les temps
     Lorsqu'il définit son mot de passe
     Alors il obtient un message stipulant que la création du compte a été effectuée avec succès
-    Et son compte est créé
     Mais il n'est pas identifié dans le Shopozor
 
   Scénario: Le client confirme son adresse e-mail trop tard
   
     Lorsque le client consulte son lien de confirmation trop tard
     Alors il obtient un message stipulant que le lien a expiré
-    Et son compte n'est pas activé
 
   Scénario: Le client confirme la création de compte une deuxième fois
   
