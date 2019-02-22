@@ -18,7 +18,8 @@ Fonctionnalité: Enregistrer un nouveau client
     L'adresse, les nom et prénom du client seront demandés plus tard si nécessaire. 
 
     Etant donné un e-mail non reconnu par le Shopozor
-    Lorsqu'un client fait une demande d'enregistrement avec cet e-mail
+    Lorsqu'un client accepte la politique du Shopozor relative aux cookies
+    Et fait une demande d'enregistrement avec cet e-mail
     Alors il obtient un message stipulant qu'un e-mail lui a été transmis
 
   Scénario: Le client n'est pas nouveau
@@ -55,5 +56,3 @@ Fonctionnalité: Enregistrer un nouveau client
   
     Lorsque le client consulte son lien de confirmation une deuxième fois
     Alors il obtient un message stipulant que le lien a expiré
-    
-  # Scénario: Le client doit accepter le règlement sur les cookies
