@@ -36,6 +36,8 @@ Fonctionnalité: Enregistrer un nouveau client
 
   Scénario: Le client confirme son adresse e-mail dans les temps
   
+    # Le lien est du type http://localhost:4000/#/activate/<uidb64>/<token>
+
     Lorsque le client consulte son lien de confirmation dans les temps
     Alors il est redirigé vers une interface où il peut définir son mot de passe
 
