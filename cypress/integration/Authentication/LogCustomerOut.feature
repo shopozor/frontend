@@ -8,7 +8,7 @@ Fonctionnalité: Déconnecter un client
   de telle sorte que je doive entrer mes identifiants à nouveau pour m'y reconnecter.*  
 
   Plan du Scénario: Le client est connecté
-    Etant donné un <utilisateur> connecté au Shopozor 
+    Etant donné un <utilisateur> connecté
     Lorsqu'il se déconnecte
     Alors sa session se ferme
     Et il est redirigé vers la page d'accueil
