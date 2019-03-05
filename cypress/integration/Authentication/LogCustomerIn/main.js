@@ -11,39 +11,43 @@ import TokenHandler from '../../../../common/cypress/integration/Authentication/
 import { injectResponseFixtureIfFaked } from '../../../../common/cypress/integration/common/fakeServer'
 
 
-Given('un client non identifié', function () {
+Given('^un client non identifié$', function () {
   getTokenCookie().should('not.exist')
 });
 
-When('un client s\'identifie avec un e-mail et un mot de passe invalides', function () {
-  injectResponseFixtureIfFaked('Authentication/LogCustomerIn/Responses/WrongCredentials')
+function accessLoginInterface() {
   cy.visit('/login')
+}
+
+When('^un client s\'identifie avec un e-mail et un mot de passe invalides$', function () {
+  injectResponseFixtureIfFaked('Authentication/LogCustomerIn/Responses/WrongCredentials')
+  accessLoginInterface()
   cy.fixture('Authentication/Credentials/InvalidEmailAndPassword')
     .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
 });
 
-When('un client s\'identifie avec un e-mail valide et un mot de passe invalide', function () {
+When('^un client s\'identifie avec un e-mail valide et un mot de passe invalide$', function () {
   injectResponseFixtureIfFaked('Authentication/LogCustomerIn/Responses/WrongCredentials')
-  cy.visit('/login')
+  accessLoginInterface()
   cy.fixture(`Authentication/Credentials/${persona}`)
     .then(user => connectWithUserCredentialsViaGui(user.email, user.password + 'a'))
 });
 
-When('un {PersonaType} s\'identifie avec un e-mail et un mot de passe valides', function (persona) {
+When('^un {PersonaType} s\'identifie avec un e-mail et un mot de passe valides$', function (persona) {
   injectResponseFixtureIfFaked(`Authentication/LogCustomerIn/Responses/${persona}`)
-  cy.visit('/login')
+  accessLoginInterface()
   cy.fixture(`Authentication/Credentials/${persona}`)
     .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
 });
 
-Then('il obtient un message d\'erreur stipulant que ses identifiants sont incorrects', function () {
+Then('^il obtient un message d\'erreur stipulant que ses identifiants sont incorrects$', function () {
   cy.get('@graphql').then(() => {
     cy.get('.incorrectIdentifiers')
       .should('be.visible')
   })
 });
 
-Then('sa session s\'ouvre pour {SessionDurationType}', function (expectedDuration) {
+Then('^sa session s\'ouvre pour {SessionDurationType}$', function (expectedDuration) {
   cy.get('@graphql').then(() => {
     const handler = new TokenHandler
     handler.getToken().then(token => {

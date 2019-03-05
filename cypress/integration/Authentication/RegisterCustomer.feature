@@ -7,6 +7,33 @@ Fonctionnalité: Enregistrer un nouveau client
   je veux pouvoir y créer un compte avec un e-mail et un mot de passe,  
   afin d'avoir accès à toutes ses fonctionnalités.*  
 
+  Scénario: Le client active le bouton de création de compte
+
+    Tant que l'utilisateur n'a pas validé la politique relative aux cookies 
+    ainsi que les conditions générales, le bouton permettant d'envoyer la 
+    requête de création de compte au serveur est désactivé. 
+
+    Etant donné un utilisateur ayant accédé au formulaire d'enregistrement
+    Lorsqu'il accepte la politique relative aux cookies 
+    Et les conditions générales d'utilisation 
+    Alors la création de compte est possible 
+
+  Scénario: Le client désactive le bouton de création de compte en n'acceptant plus la politique des cookies
+
+    Etant donné un utilisateur ayant accédé au formulaire d'enregistrement
+    Et qui a accepté la politique relative aux cookies
+    Et les conditions générales d'utilisation
+    Lorsqu'il n'accepte plus la politique relative aux cookies 
+    Alors la création de compte n'est plus possible
+
+  Scénario: Le client désactive le bouton de création de compte en n'acceptant plus les conditions générales
+
+    Etant donné un utilisateur ayant accédé au formulaire d'enregistrement
+    Et qui a accepté la politique relative aux cookies
+    Et les conditions générales d'utilisation
+    Lorsqu'il n'accepte plus les conditions générales
+    Alors la création de compte n'est plus possible
+
   Scénario: Le client est nouveau
 
     Le client n'entre qu'un e-mail pour s'enregistrer. Si celui-ci est valide, i.e. 
@@ -18,10 +45,10 @@ Fonctionnalité: Enregistrer un nouveau client
     Un client est connu du Shopozor si, et seulement si, son e-mail est inclus dans 
     sa base de données.
 
-    Etant donné un client inconnu du Shopozor
-    Et qui accepte la politique relative aux cookies
+    Lorsqu'un client inconnu entre son e-mail dans le formulaire d'enregistrement
+    Et accepte la politique relative aux cookies
     Et les conditions générales d'utilisation 
-    Lorsqu'il fait une demande d'enregistrement
+    Et fait la demande d'enregistrement
     Alors il obtient un message stipulant qu'un e-mail lui a été transmis
 
   Scénario: Un utilisateur s'enregistre avec un e-mail déjà connu
@@ -34,12 +61,12 @@ Fonctionnalité: Enregistrer un nouveau client
     Lorsqu'un utilisateur enregistré fait une demande d'enregistrement
     Alors il obtient un message stipulant qu'un e-mail lui a été transmis
 
-  Scénario: Le client confirme son adresse e-mail dans les temps
+  Scénario: Le client accède à l'interface de définition du mot de passe
   
     # Le lien est du type http://localhost:4000/#/activate/<uidb64>/<token>
     # Il suffit de visiter cette adresse et vérifier qu'il contient un formulaire qui permet de changer le mot de passe
 
-    Lorsque le client consulte son lien de confirmation dans les temps
+    Lorsqu'un client consulte son lien de confirmation de création de compte
     Alors il est redirigé vers une interface où il peut définir son mot de passe
 
   @not-e2e
@@ -49,21 +76,10 @@ Fonctionnalité: Enregistrer un nouveau client
     # mettre en place mailtrap et consulter cette boîte mail durant le test. Dans une 
     # première phase, nous ne considérons pas ce scénario durant les test e2e.
 
-    Etant donné un nouveau client qui suit le lien de confirmation de création de compte
+    Etant donné un client qui consulte son lien de confirmation de création de compte
     Lorsqu'il définit son mot de passe dans les temps
     Alors il obtient un message stipulant que la création du compte a été effectuée avec succès
-    Mais il n'est pas identifié dans le Shopozor
-
-  @not-e2e
-  Scénario: Le client confirme son adresse e-mail trop tard
-
-    # Tester ce scénario "end-to-end" n'est pas raisonnable car il faudrait en principe 
-    # attendre suffisamment longtemps pour que le lien expire. Il est possible de faire 
-    # avancer le temps durant les tests côté serveur mais pas durant les tests e2e. 
-
-    Etant donné un nouveau client qui a reçu un lien de confirmation de création de compte
-    Lorsqu'il définit son mot de passe trop tard
-    Alors il obtient un message stipulant que le lien a expiré
+    Mais il n'est pas identifié
 
   @not-e2e
   Scénario: Le client confirme la création de compte une deuxième fois
@@ -72,6 +88,18 @@ Fonctionnalité: Enregistrer un nouveau client
     # mettre en place mailtrap et consulter cette boîte mail durant le test. Dans une 
     # première phase, nous ne considérons pas ce scénario durant les test e2e.
 
-    Etant donné un nouveau client qui a reçu un lien de confirmation de création de compte
-    Lorsque le client consulte son lien de confirmation une deuxième fois
+    Etant donné un client qui a consulté son lien de confirmation de création de compte
+    Et qui a déjà défini son mot de passe dans les temps
+    Lorsqu'il définit son mot de passe une deuxième fois
+    Alors il obtient un message stipulant que le lien a expiré
+
+  @not-e2e
+  Scénario: Le client confirme son adresse e-mail trop tard
+
+    # Tester ce scénario "end-to-end" n'est pas raisonnable car il faudrait en principe 
+    # attendre suffisamment longtemps pour que le lien expire. Il est possible de faire 
+    # avancer le temps durant les tests côté serveur mais pas durant les tests e2e. 
+
+    Etant donné un client qui consulte son lien de confirmation de création de compte 
+    Lorsqu'il définit son mot de passe trop tard
     Alors il obtient un message stipulant que le lien a expiré
