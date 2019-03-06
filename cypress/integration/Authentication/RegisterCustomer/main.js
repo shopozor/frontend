@@ -5,7 +5,7 @@ function accessRegistrationInterface() {
   cy.visit('/register')
 }
 
-Given("^un utilisateur ayant accédé au formulaire d'enregistrement$", function () {
+Given("^un utilisateur (?:ayant accédé|accède) au formulaire d'enregistrement$", function () {
   accessRegistrationInterface()
 });
 
@@ -86,6 +86,18 @@ When("^il définit son mot de passe trop tard$", function () {
 
 When("^il définit son mot de passe une deuxième fois$", function () {
   newCustomerDefinesPasswordWhenLinkExpired()
+})
+
+Then("^il peut consulter la politique relative aux cookies$", function () {
+  // assert that the link to the cookies policy exists
+  // assert that the link to the cookies policy is working
+  return 'pending'
+})
+
+Then("^il peut consulter les conditions générales$", function () {
+  // assert that the link to the general conditions exists
+  // assert that the link to the general conditions is working
+  return 'pending'
 })
 
 // TODO: possibly group the following two Then steps together

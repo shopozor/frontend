@@ -7,7 +7,17 @@ Fonctionnalité: Enregistrer un nouveau client
   je veux pouvoir y créer un compte avec un e-mail et un mot de passe,  
   afin d'avoir accès à toutes ses fonctionnalités.*  
 
-  Scénario: Le client active le bouton de création de compte
+  Scénario: L'utilisateur consulte la politique relative aux cookies
+
+    Lorsqu'un utilisateur accède au formulaire d'enregistrement
+    Alors il peut consulter la politique relative aux cookies 
+
+  Scénario: L'utilisateur consulte les conditions générales
+
+    Lorsqu'un utilisateur accède au formulaire d'enregistrement
+    Alors il peut consulter les conditions générales
+
+  Scénario: L'utilisateur active le bouton de création de compte
 
     Tant que l'utilisateur n'a pas validé la politique relative aux cookies 
     ainsi que les conditions générales, le bouton permettant d'envoyer la 
@@ -18,7 +28,7 @@ Fonctionnalité: Enregistrer un nouveau client
     Et les conditions générales d'utilisation 
     Alors la création de compte est possible 
 
-  Scénario: Le client désactive le bouton de création de compte en n'acceptant plus la politique des cookies
+  Scénario: L'utilisateur désactive le bouton de création de compte en n'acceptant plus la politique des cookies
 
     Etant donné un utilisateur ayant accédé au formulaire d'enregistrement
     Et qui a accepté la politique relative aux cookies
@@ -26,7 +36,7 @@ Fonctionnalité: Enregistrer un nouveau client
     Lorsqu'il n'accepte plus la politique relative aux cookies 
     Alors la création de compte n'est plus possible
 
-  Scénario: Le client désactive le bouton de création de compte en n'acceptant plus les conditions générales
+  Scénario: L'utilisateur désactive le bouton de création de compte en n'acceptant plus les conditions générales
 
     Etant donné un utilisateur ayant accédé au formulaire d'enregistrement
     Et qui a accepté la politique relative aux cookies
@@ -63,9 +73,6 @@ Fonctionnalité: Enregistrer un nouveau client
 
   Scénario: Le client accède à l'interface de définition du mot de passe
   
-    # Le lien est du type http://localhost:4000/#/activate/<uidb64>/<token>
-    # Il suffit de visiter cette adresse et vérifier qu'il contient un formulaire qui permet de changer le mot de passe
-
     Lorsqu'un client consulte son lien de confirmation de création de compte
     Alors il est redirigé vers une interface où il peut définir son mot de passe
 
