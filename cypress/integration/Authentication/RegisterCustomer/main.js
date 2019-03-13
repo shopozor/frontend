@@ -5,12 +5,10 @@ function accessRegistrationInterface() {
   cy.visit('/register')
 }
 
-// OK
 Given("^un utilisateur (?:ayant accédé|accède) au formulaire d'enregistrement$", function () {
   accessRegistrationInterface()
 });
 
-// OK
 When("^un client inconnu entre son e-mail dans le formulaire d'enregistrement$", function () {
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulCustomerCreation')
   accessRegistrationInterface()
@@ -20,38 +18,32 @@ When("^un client inconnu entre son e-mail dans le formulaire d'enregistrement$",
     .then(user => fillUserRegistrationGui(user.email))
 });
 
-// OK
 When("^(?:il|qui a)?\s?accept(?:e|é) la politique relative aux cookies$", function () {
   // 1. check the cookies policy checkbox 
   return 'pending'
 });
 
-// OK
 When("^les conditions générales d'utilisation$", function () {
   // 1. check the general conditions checkbox
   return 'pending'
 });
 
-// OK
 When("^il n'accepte plus la politique relative aux cookies$", function () {
   // 1. uncheck the cookies policy checkbox
   return 'pending'
 })
 
-// OK
 When("^il n'accepte plus les conditions générales$", function () {
   // 1. uncheck the general conditions checkbox
   return 'pending'
 })
 
-// OK
 When("^fait la demande d'enregistrement$", function () {
   // 1. assert that the register button is enabled
   // 2. click the register button
   return 'pending'
 });
 
-// OK
 When("^un utilisateur entre l'e-mail d'un compte actif dans le formulaire d'enregistrement$", function () {
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulCustomerCreation')
   accessRegistrationInterface()
@@ -63,7 +55,6 @@ When("^un utilisateur entre l'e-mail d'un compte actif dans le formulaire d'enre
   return 'pending'
 });
 
-// OK
 When("^un utilisateur entre l'e-mail d'un compte inactif dans le formulaire d'enregistrement$", function () {
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulCustomerCreation')
   accessRegistrationInterface()
@@ -75,14 +66,12 @@ When("^un utilisateur entre l'e-mail d'un compte inactif dans le formulaire d'en
   return 'pending'
 });
 
-// OK
 When("^(?:un|le) client (?:qui)?\s?(?:consulte|a consulté) son lien d'activation de compte$", function () {
   // TODO: visit /activate/uidb64/token <-- get from fixtures
   cy.visit('/activate/uidb64/token')
 });
 
 // TODO: refactor the following two steps so that they call the same function (they indeed write the password in the field)
-// OK
 When("^(?:qui a|il) tap(?:e|é) un mot de passe conforme dans le champ correspondant$", function () {
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulAccountConfirmation')
   cy.fixture('Authentication/Credentials/NewCustomer')
@@ -93,7 +82,6 @@ When("^(?:qui a|il) tap(?:e|é) un mot de passe conforme dans le champ correspon
   // TODO: click the set password button
 })
 
-// OK
 When("^(?:il|qui a déjà) définit? un mot de passe conforme dans les temps$", function () {
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulAccountConfirmation')
   cy.fixture('Authentication/Credentials/NewCustomer')
@@ -104,7 +92,6 @@ When("^(?:il|qui a déjà) définit? un mot de passe conforme dans les temps$", 
   // TODO: click the set password button
 });
 
-// OK
 When("^il rend son mot de passe non conforme$", function () {
   // 1. empty password field
   return 'pending'
@@ -128,14 +115,12 @@ When("^il définit un mot de passe conforme une deuxième fois$", function () {
   newCustomerDefinesValidPasswordWhenLinkExpired()
 })
 
-// OK
 Then("^il peut consulter la politique relative aux cookies$", function () {
   // assert that the link to the cookies policy exists
   // assert that the link to the cookies policy is working
   return 'pending'
 })
 
-// OK
 Then("^il peut consulter les conditions générales$", function () {
   // assert that the link to the general conditions exists
   // assert that the link to the general conditions is working
@@ -143,26 +128,22 @@ Then("^il peut consulter les conditions générales$", function () {
 })
 
 // TODO: possibly group the following two Then steps together
-// OK
 Then("^la création de compte est possible$", function () {
   // 1. assert that the registration button is enabled
   return 'pending'
 });
 
-// OK
 Then("^la création de compte n'est plus possible$", function () {
   // 1. assert that the registration button is disabled
   return 'pending'
 })
 
-// OK
 Then("^il obtient un message stipulant qu'un e-mail lui a été transmis$", function () {
   // if the graphql query was successful, then the frontend receives the SuccessfulCustomerCreation response, i.e. an answer with no data and no errors
   // upon clicking the registration button, you need to check that the message about the e-mail is displayed
   return 'pending'
 });
 
-// OK
 Then("^il est redirigé vers une interface où il peut définir son mot de passe$", function () {
   // 1. assert that there is an input field for a password
   return 'pending'
