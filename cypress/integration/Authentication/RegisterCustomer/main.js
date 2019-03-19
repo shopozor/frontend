@@ -87,8 +87,8 @@ When("un utilisateur entre l'e-mail d'un compte inactif et un mot de passe non c
 });
 
 function visitActivationLink() {
-  // TODO: visit /activate/uidb64/token <-- get from fixtures
-  cy.visit('/activate/uidb64/token')
+  cy.fixture('Authentication/ConfirmationLinks.json')
+    .then(links => cy.visit(links.activation))
 }
 
 When("un client (?:qui)?\s?(?:consulte|a consulté) son lien d'activation de compte dans les temps", function () {
