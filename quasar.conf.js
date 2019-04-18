@@ -7,7 +7,6 @@ module.exports = function (ctx) {
     boot: [
       'apollo',
       'i18n',
-      'vue-i18n',
       'vuelidate'
     ],
 

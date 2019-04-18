@@ -1,6 +1,7 @@
 <template>
   <q-page>
     {{ $t('welcome') }}
+    {{ $i18n.locale }}
   </q-page>
 </template>
 
