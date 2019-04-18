@@ -5,7 +5,10 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'i18n'
+      'apollo',
+      'i18n',
+      'vue-i18n',
+      'vuelidate'
     ],
 
     css: [
@@ -25,19 +28,23 @@ module.exports = function (ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
-        'QLayout',
-        'QHeader',
-        'QDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
         'QBtn',
+        'QDrawer',
+        'QHeader',
         'QIcon',
-        'QList',
+        'QInput',
         'QItem',
+        'QItemLabel',
         'QItemSection',
-        'QItemLabel'
+        'QLayout',
+        'QList',
+        'QPage',
+        'QPageContainer',
+        'QSelect',
+        'QSeparator',
+        'QToggle',
+        'QToolbar',
+        'QToolbarTitle'
       ],
 
       directives: [
@@ -46,7 +53,8 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Cookies'
       ]
 
       // iconSet: 'ionicons-v4'
@@ -68,6 +76,22 @@ module.exports = function (ctx) {
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /node_modules/
+        })
+
+        // config for using embedded <i18n> template components
+        // https://quasar-framework.org/components/internationalization.html#Setting-up-Translation-Blocks-in-your-SFCs
+        cfg.module.rules.push({
+          resourceQuery: /blockType=i18n/,
+          use: [
+            { loader: '@kazupon/vue-i18n-loader' },
+            { loader: 'yaml-loader' }
+          ]
+        })
+
+        cfg.module.rules.push({
+          test: /\.(graphql)$/,
+          loader: 'graphql-tag/loader',
+          exclude: /(node_modules)/
         })
       }
     },
@@ -134,8 +158,7 @@ module.exports = function (ctx) {
       // bundler: 'builder', // or 'packager'
 
       extendWebpack (cfg) {
-        // do something with Electron main process Webpack cfg
-        // chainWebpack also available besides this extendWebpack
+        // do something with Electron process Webpack cfg
       },
 
       packager: {

@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import routes from './routes'
+import { generateRoutes, checkIfUserCanAccess } from '../../common/src/router/Helpers'
+import { links, accessRules } from './links'
+import store from '../store'
+
+const routes = generateRoutes({ links, accessRules, permissions: store.getters.permissions })
 
 Vue.use(VueRouter)
 
@@ -12,14 +16,18 @@ Vue.use(VueRouter)
 
 export default function (/* { store, ssrContext } */) {
   const Router = new VueRouter({
-    scrollBehavior: () => ({ x: 0, y: 0 }),
+    scrollBehavior: () => ({ y: 0 }),
     routes,
 
     // Leave these as is and change from quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
+  })
+
+  Router.beforeEach((to, from, next) => {
+    const routeIsAccessible = checkIfUserCanAccess({ to, permissions: store.getters.permissions })
+    next(routeIsAccessible)
   })
 
   return Router
