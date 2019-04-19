@@ -43,9 +43,8 @@ function removeToken () {
 function adaptPermissions (received) {
   const permissions = received.map(permissionPack => permissionPack.code)
   if (permissions.every(permission => permission !== types.permissions.NOT_CONNECTED)) {
-    permissions.push(types.permissions.CUSTOMER)
-  }
-  return permissions
+    return [types.permissions.CUSTOMER]
+  } else return [types.permissions.NOT_CONNECTED]
 }
 
 export function signup ({ commit }, { email, password }) {

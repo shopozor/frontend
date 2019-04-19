@@ -29,7 +29,7 @@ When('un client s\'identifie avec un e-mail et un mot de passe invalides', funct
 When('un client s\'identifie avec un e-mail valide et un mot de passe invalide', function () {
   injectResponseFixtureIfFaked('Authentication/LogCustomerIn/Responses/WrongCredentials')
   accessLoginInterface()
-  cy.fixture(`Authentication/Credentials/${persona}`)
+  cy.fixture(`Authentication/Credentials/Consommateur`)
     .then(user => connectWithUserCredentialsViaGui(user.email, user.password + 'a'))
 });
 
