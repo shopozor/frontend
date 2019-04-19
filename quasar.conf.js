@@ -28,6 +28,7 @@ module.exports = function (ctx) {
 
       components: [
         'QBtn',
+        'QCheckbox',
         'QDrawer',
         'QHeader',
         'QIcon',
@@ -44,7 +45,8 @@ module.exports = function (ctx) {
         'QSpinner',
         'QToggle',
         'QToolbar',
-        'QToolbarTitle'
+        'QToolbarTitle',
+        'QTooltip'
       ],
 
       directives: [
@@ -64,6 +66,11 @@ module.exports = function (ctx) {
     supportIE: false,
 
     build: {
+      env: ctx.dev ? {
+        API: JSON.stringify('http://localhost:8000/graphql/')
+      } : {
+        API: JSON.stringify('GRAPHQL_API')
+      },
       scopeHoisting: true,
       // vueRouterMode: 'history',
       // vueCompiler: true,
