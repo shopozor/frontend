@@ -7,11 +7,6 @@
             {{ $t('login.invalidCredentials') }}
           </q-item-section>
         </q-item>
-        <q-item class="userIsNotStaff bg-warning" v-if="userIsNotStaff">
-          <q-item-section>
-            {{ $t('login.userIsNotStaff') }}
-          </q-item-section>
-        </q-item>
         <q-item>
           <q-item-section>
             <q-input
@@ -61,8 +56,7 @@ export default {
       email: '',
       password: '',
       stayLoggedIn: true,
-      invalidCredentials: false,
-      userIsNotStaff: false
+      invalidCredentials: false
     }
   },
   methods: {
@@ -78,7 +72,6 @@ export default {
     },
     handleError (errors) {
       this.invalidCredentials = errors.some(error => error.message === 'WRONG_CREDENTIALS')
-      this.userIsNotStaff = errors.some(error => error.message === 'USER_NOT_ADMIN')
     },
     focusPassword () {
       this.$refs.password.focus()

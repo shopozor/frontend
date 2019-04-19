@@ -22,7 +22,7 @@ function accessLoginInterface() {
 When('un client s\'identifie avec un e-mail et un mot de passe invalides', function () {
   injectResponseFixtureIfFaked('Authentication/LogCustomerIn/Responses/WrongCredentials')
   accessLoginInterface()
-  cy.fixture('Authentication/Credentials/InvalidEmailAndPassword')
+  cy.fixture('Authentication/Credentials/NewCustomer')
     .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
 });
 

@@ -1,9 +1,26 @@
 // import * as request from '../simulateServer/users/requestUsers'
-import { apolloClient } from '../../boot/apollo'
+// import { apolloClient } from '../../boot/apollo'
 import * as cookie from '../../../common/src/store/cookie'
 import types from '../../../common/src/types'
 
-import LogIn from './graphql/login.graphql'
+// import LogIn from './graphql/login.graphql'
+
+import Consommateur from '../../../cypress/fixtures/Authentication/Credentials/Consommateur.json'
+import InactiveCustomer from '../../../cypress/fixtures/Authentication/Credentials/InactiveCustomer.json'
+import NewCustomer from '../../../cypress/fixtures/Authentication/Credentials/NewCustomer.json'
+import Producteur from '../../../cypress/fixtures/Authentication/Credentials/Producteur.json'
+import Responsable from '../../../cypress/fixtures/Authentication/Credentials/Responsable.json'
+import Rex from '../../../cypress/fixtures/Authentication/Credentials/Rex.json'
+import Softozor from '../../../cypress/fixtures/Authentication/Credentials/Softozor.json'
+
+import ConsommateurR from '../../../cypress/fixtures/Authentication/LogCustomerIn/Responses/Consommateur.json'
+import ProducteurR from '../../../cypress/fixtures/Authentication/LogCustomerIn/Responses/Producteur.json'
+import ResponsableR from '../../../cypress/fixtures/Authentication/LogCustomerIn/Responses/Responsable.json'
+import RexR from '../../../cypress/fixtures/Authentication/LogCustomerIn/Responses/Rex.json'
+import SoftozorR from '../../../cypress/fixtures/Authentication/LogCustomerIn/Responses/Softozor.json'
+import WrongCredentialsR from '../../../cypress/fixtures/Authentication/LogCustomerIn/Responses/WrongCredentials.json'
+
+const credentials = [ Consommateur, InactiveCustomer, NewCustomer, Producteur, Responsable, Rex, Softozor ]
 
 function saveUser ({ email, userId, token }) {
   cookie.set({ cookieId: types.cookies.EMAIL, cookieValue: email, cookieDuration: 30 })
@@ -40,39 +57,75 @@ export function signup ({ commit }, { email, password }) {
   //   .catch(error => commit('error', error))
 }
 
+// export function login ({ commit }, { email, password, stayLoggedIn }) {
+//   return new Promise((resolve, reject) => {
+//     apolloClient
+//       .mutate({
+//         mutation: LogIn,
+//         variables: {
+//           email,
+//           password
+//         }
+//       })
+//       .then(response => {
+//         const content = response.data.login
+//         const errors = content.errors
+//         if (errors.length > 0) {
+//           commit('error', errors)
+//           reject(errors)
+//         } else {
+//           const token = content.token
+//           const userId = content.user.id
+//           commit('storePermissions', {
+//             email,
+//             token,
+//             userId,
+//             permissions: adaptPermissions(content.user.permissions)
+//           })
+//           stayLoggedIn ? saveUser({ email, userId, token }) : saveToken({ token })
+//           resolve(response)
+//         }
+//       })
+//       .catch(error => {
+//         commit('error', error)
+//         reject(error)
+//       })
+//   })
+// }
+
 export function login ({ commit }, { email, password, stayLoggedIn }) {
   return new Promise((resolve, reject) => {
-    apolloClient
-      .mutate({
-        mutation: LogIn,
-        variables: {
-          email,
-          password
-        }
+    const credential = credentials.find(cred => cred.email === email)
+
+    var response = WrongCredentialsR
+    if (credential && password === credential.password) {
+      switch (email) {
+        case Consommateur.email: response = ConsommateurR; break
+        case Producteur.email: response = ProducteurR; break
+        case Responsable.email: response = ResponsableR; break
+        case Rex.email: response = RexR; break
+        case Softozor.email: response = SoftozorR; break
+        default: break
+      }
+    }
+
+    const content = response.data.login
+    const errors = content.errors
+    if (errors.length > 0) {
+      commit('error', errors)
+      reject(errors)
+    } else {
+      const token = content.token
+      const userId = content.user.id
+      commit('storePermissions', {
+        email,
+        token,
+        userId,
+        permissions: adaptPermissions(content.user.permissions)
       })
-      .then(response => {
-        const content = response.data.login
-        const errors = content.errors
-        if (errors.length > 0) {
-          commit('error', errors)
-          reject(errors)
-        } else {
-          const token = content.token
-          const userId = content.user.id
-          commit('storePermissions', {
-            email,
-            token,
-            userId,
-            permissions: adaptPermissions(content.user.permissions)
-          })
-          stayLoggedIn ? saveUser({ email, userId, token }) : saveToken({ token })
-          resolve(response)
-        }
-      })
-      .catch(error => {
-        commit('error', error)
-        reject(error)
-      })
+      stayLoggedIn ? saveUser({ email, userId, token }) : saveToken({ token })
+      resolve(response)
+    }
   })
 }
 
