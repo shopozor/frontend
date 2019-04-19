@@ -2,7 +2,8 @@ import { apolloClient } from '../../boot/apollo'
 import * as cookie from '../../../common/src/store/cookie'
 import types from '../../../common/src/types'
 
-import LogIn from './graphql/login.graphql'
+import LogIn from '../../../cypress/fixtures/graphql/login.graphql'
+import SignUp from '../../../cypress/fixtures/graphql/signup.graphql'
 
 function saveUser ({ email, userId, token }) {
   cookie.set({ cookieId: types.cookies.EMAIL, cookieValue: email, cookieDuration: 30 })
@@ -30,12 +31,24 @@ function adaptPermissions (received) {
 }
 
 export function signup ({ commit }, { email, password }) {
-  // request
-  //   .signup({ email, password })
-  //   .then(response => {
-  //     this.$router.push({ path: '/ConfirmationEmailSent' })
-  //   })
-  //   .catch(error => commit('error', error))
+  return new Promise((resolve, reject) => {
+    apolloClient
+      .mutate({
+        mutation: SignUp,
+        variables: {
+          email,
+          password
+        }
+      })
+      .then(response => {
+        console.log(response)
+        resolve(response)
+      })
+      .catch(error => {
+        commit('error', error)
+        reject(error)
+      })
+  })
 }
 
 export function login ({ commit }, { email, password, stayLoggedIn }) {
