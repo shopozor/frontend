@@ -167,6 +167,6 @@ export function logout ({ commit }) {
       commit('logout')
       removeToken()
       resolve()
-    }, 1000)
+    }, 500)
   })
 }
