@@ -10,13 +10,14 @@ pipeline {
   stages {
     stage('Node Modules Installation') {
       steps {
-        sh "CYPRESS_CACHE_FOLDER=$WORKSPACE/.cache npm i"
+        sh "CYPRESS_CACHE_FOLDER=$WORKSPACE/.cache yarn"
       }
     }
     stage('Performing acceptance tests') {
       steps {
         deleteFolder(REPORTS_FOLDER)
-        sh "CYPRESS_CACHE_FOLDER=$WORKSPACE/.cache npm run start:ci"
+        // TODO: replace GRAPHQL_API in quasar.conf.js with the same value as that of dev
+        sh "CYPRESS_CACHE_FOLDER=$WORKSPACE/.cache yarn run start:ci"
       }
     }
   }
