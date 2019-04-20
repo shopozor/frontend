@@ -36,7 +36,8 @@ Fonctionnalité: Enregistrer un nouveau client
     Lorsqu'un client inconnu entre son e-mail et un mot de passe non conforme dans le formulaire d'enregistrement
     Et accepte la politique relative aux cookies
     Et les conditions générales d'utilisation 
-    Alors le bouton d'enregistrement est désactivé
+    Et fait la demande d'enregistrement
+    Alors le champ du mot de passe est marqué comme erroné
 
   @HackerAbuse
   Scénario: Un utilisateur s'enregistre avec l'e-mail d'un compte actif
@@ -76,7 +77,8 @@ Fonctionnalité: Enregistrer un nouveau client
     Lorsqu'un utilisateur entre l'e-mail d'un compte inactif et un mot de passe non conforme dans le formulaire d'enregistrement
     Et accepte la politique relative aux cookies
     Et les conditions générales d'utilisation 
-    Alors le bouton d'enregistrement est désactivé
+    Et fait la demande d'enregistrement
+    Alors le champ du mot de passe est marqué comme erroné
 
   @not-e2e
   Scénario: Le client active son compte à temps

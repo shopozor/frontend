@@ -112,6 +112,10 @@ Then("il obtient un message stipulant qu'un e-mail lui a été transmis", functi
   cy.get('[id="emailSentDialog"]').should('be.visible')
 });
 
+Then("le champ du mot de passe est marqué comme erroné", function () {
+  cy.get('[id="password"]').should('have.class', 'q-field--error')
+})
+
 Then("il obtient un message stipulant que l'activation du compte a été effectuée avec succès", function () {
   // the graphql query returns the SuccessfulAccountConfirmation response, i.e. 
   // an answer with no data and no errors
@@ -119,9 +123,9 @@ Then("il obtient un message stipulant que l'activation du compte a été effectu
   return 'pending'
 });
 
-Then("le bouton d'enregistrement est désactivé", function () {
-  submitBtnIsDisabled()
-})
+// Then("le bouton d'enregistrement est désactivé", function () {
+//   submitBtnIsDisabled()
+// })
 
 Then("il n'est pas identifié", function () {
   // TODO: double-check that the session cookie doesn't contain any token
