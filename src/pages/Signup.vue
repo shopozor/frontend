@@ -5,11 +5,11 @@
         <q-item>
           <q-item-section>
             <q-input
+              id="email"
               v-model="email"
               type="email"
               :float-label="$t('profile.email')"
               @blur="$v.email.$touch"
-              @keyup.enter="focusPassword"
               :error="$v.email.$error"
               :label="$t('signup.email.label')"
               :hint="$t('signup.email.hint')"
@@ -26,12 +26,11 @@
         <q-item>
             <q-item-section>
               <q-input
-                ref="password"
+                id="password"
                 v-model="password"
                 type="password"
                 :float-label="$t('profile.password')"
                 @blur="$v.password.$touch"
-                @keyup.enter="focusConfirmPassword"
                 :error="$v.password.$error"
                 :label="$t('signup.password.label')"
                 :hint="$t('signup.password.hint')"
@@ -48,11 +47,10 @@
         <q-item>
           <q-item-section>
             <q-input
-              ref="confirmPassword"
+              id="confirmPassword"
               v-model="confirmPassword"
               type="password"
               @blur="$v.confirmPassword.$touch"
-              @keyup.enter="submit"
               :error="$v.confirmPassword.$error"
               :label="$t('signup.confirmPassword.label')"
               :hint="$t('signup.confirmPassword.hint')"
@@ -68,7 +66,10 @@
         </q-item>
         <q-item>
           <q-item-section>
-            <q-checkbox v-model="acceptCookies" :label="$t('signup.cookiesPolicy.accept')" />
+            <q-checkbox
+              id="acceptCookies"
+              v-model="acceptCookies"
+              :label="$t('signup.cookiesPolicy.accept')" />
           </q-item-section>
           <q-item-section side>
             <q-icon name="help" size="2em">
@@ -80,7 +81,10 @@
         </q-item>
         <q-item>
           <q-item-section>
-            <q-checkbox v-model="acceptTermsOfService" :label="$t('signup.termsOfService.accept')" />
+            <q-checkbox
+              id="acceptTermsOfService"
+              v-model="acceptTermsOfService"
+              :label="$t('signup.termsOfService.accept')" />
           </q-item-section>
           <q-item-section side>
             <q-icon name="help" size="2em">
@@ -92,6 +96,7 @@
         </q-item>
         <q-item class="row justify-center">
           <q-btn
+            id="createAccount"
             class="q-ma-md"
             color="primary"
             :label="$t('signup.createAccount')"
@@ -100,6 +105,26 @@
         </q-item>
       </q-list>
     </div>
+    <q-dialog v-model="creatingAccount" persistent>
+      <q-card>
+        <q-card-section>
+          <div>{{ $t('signup.creatingAccount') }}</div>
+        </q-card-section>
+        <q-card-section class="text-center">
+          <q-spinner size="5em" color="primary" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-dialog id="emailSentDialog" v-model="emailSent" persistent>
+      <q-card>
+        <q-card-section>
+          <div>{{ $t('signup.emailSent') }}</div>
+        </q-card-section>
+        <q-card-actions align="center">
+          <q-btn label="ok" color="primary" @click="$router.push('/')" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -114,7 +139,9 @@ export default {
       password: '',
       confirmPassword: '',
       acceptCookies: false,
-      acceptTermsOfService: false
+      acceptTermsOfService: false,
+      creatingAccount: false,
+      emailSent: false
     }
   },
   validations: {
@@ -134,8 +161,8 @@ export default {
     },
     disableCreateAccount () {
       const disable =
-        this.$v.email.invalid ||
-        this.$v.password.invalid ||
+        this.$v.email.$invalid ||
+        this.$v.password.$invalid ||
         this.password !== this.confirmPassword ||
         !this.acceptCookies ||
         !this.acceptTermsOfService
@@ -144,19 +171,23 @@ export default {
     }
   },
   methods: {
-    focusPassword () {
-      this.$refs.password.focus()
-    },
-    focusConfirmPassword () {
-      this.$refs.confirmPassword.focus()
-    },
     submit () {
       this.$v.$touch()
 
       if (this.$v.$error) {
         this.$q.notify(this.$t('signup.correctErrors'))
       } else {
+        this.creatingAccount = true
+        const vm = this
         this.$store.dispatch('signup', {email: this.email, password: this.password})
+          .then(() => {
+            vm.creatingAccount = false
+            vm.emailSent = true
+          })
+          .catch(() => {
+            vm.creatingAccount = false
+            // vm.error = true
+          })
       }
     }
   }

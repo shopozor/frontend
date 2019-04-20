@@ -2,9 +2,14 @@ import { When, Then } from 'cypress-cucumber-preprocessor/steps'
 
 import { injectResponseFixtureIfFaked } from '../../../../common/cypress/integration/common/fakeServer'
 
+import { fillUserRegistrationGui, isFieldValid, acceptCookies, acceptTermsOfService, submitBtnIsEnabled, submitRegistration, submitBtnIsDisabled } from './helpers'
+import types from '../../../../common/src/types'
+
+// TODO: transfer that to fixtures ?
+const invalidPassword = "a"
+
 function accessRegistrationInterface() {
-  // is /register the correct route?
-  cy.visit('/register')
+  cy.visit(`/${types.links.SIGNUP}`)
 }
 
 // TODO: create type for parsing "conforme" / "non conforme" and simplify the following steps using that terminology
@@ -13,11 +18,9 @@ When("un client inconnu entre son e-mail et un mot de passe conforme dans le for
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulCustomerCreation')
   accessRegistrationInterface()
   cy.fixture('Authentication/Credentials/NewCustomer')
-    // you need to provide the fillUserRegistrationGui
-    // that method must not be in the common folder
     .then(user => {
-      // TODO: assert the password is compliant
       fillUserRegistrationGui(user.email, user.password)
+      isFieldValid('password', true)
     })
 });
 
@@ -25,65 +28,47 @@ When("un client inconnu entre son e-mail et un mot de passe non conforme dans le
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/NonCompliantPassword')
   accessRegistrationInterface()
   cy.fixture('Authentication/Credentials/NewCustomer')
-    // you need to provide the fillUserRegistrationGui
-    // that method must not be in the common folder
     .then(user => {
-      // TODO: assert the password is compliant
-      password = ""
-      fillUserRegistrationGui(user.email, password)
+      fillUserRegistrationGui(user.email, invalidPassword)
+      isFieldValid('password', false)
     })
 });
 
 When("accepte la politique relative aux cookies", function () {
-  // 1. check the cookies policy checkbox 
-  return 'pending'
+  acceptCookies()
 });
 
 When("les conditions générales d'utilisation", function () {
-  // 1. check the general conditions checkbox
-  return 'pending'
+  acceptTermsOfService()
 });
 
 When("fait la demande d'enregistrement", function () {
-  // 1. assert that the register button is enabled
-  // 2. click the register button
-  return 'pending'
+  submitBtnIsEnabled()
+  submitRegistration()
 });
 
 When("un utilisateur entre l'e-mail d'un compte actif et un mot de passe conforme dans le formulaire d'enregistrement", function () {
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulCustomerCreation')
   accessRegistrationInterface()
   cy.fixture('Authentication/Credentials/Consommateur')
-    // you need to provide the fillUserRegistrationGui
-    // that method must not be in the common folder
-    // TODO: assert password compliance
     .then(user => fillUserRegistrationGui(user.email, user.password))
-  // TODO: click the registration button
-  return 'pending'
+  isFieldValid('password', true)
 });
 
 When("un utilisateur entre l'e-mail d'un compte inactif et un mot de passe conforme dans le formulaire d'enregistrement", function () {
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulCustomerCreation')
   accessRegistrationInterface()
   cy.fixture('Authentication/Credentials/InactiveCustomer')
-    // you need to provide the fillUserRegistrationGui
-    // that method must not be in the common folder
-    // TODO: assert password compliance
     .then(user => fillUserRegistrationGui(user.email, user.password))
-  // TODO: click the registration button
-  return 'pending'
+  isFieldValid('password', true)
 });
 
 When("un utilisateur entre l'e-mail d'un compte inactif et un mot de passe non conforme dans le formulaire d'enregistrement", function () {
   injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/NonCompliantPassword')
   accessRegistrationInterface()
   cy.fixture('Authentication/Credentials/InactiveCustomer')
-    // you need to provide the fillUserRegistrationGui
-    // that method must not be in the common folder
-    // TODO: assert password non-compliance
-    .then(user => fillUserRegistrationGui(user.email, user.password))
-  // TODO: click the registration button
-  return 'pending'
+    .then(user => fillUserRegistrationGui(user.email, invalidPassword))
+  isFieldValid('password', false)
 });
 
 function visitActivationLink() {
@@ -91,7 +76,15 @@ function visitActivationLink() {
     .then(links => cy.visit(links.activation))
 }
 
-When("un client (?:qui)?\s?(?:consulte|a consulté) son lien d'activation de compte dans les temps", function () {
+When("un client consulte son lien d'activation de compte dans les temps", function () {
+  // this step must be faked because we don't call the underlying graphql query 
+  // in the end-to-end mode (see gherkin comment)
+  let isGraphqlFaked = true
+  injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulAccountConfirmation', isGraphqlFaked)
+  visitActivationLink()
+});
+
+When("un client qui a consulté son lien d'activation de compte dans les temps", function () {
   // this step must be faked because we don't call the underlying graphql query 
   // in the end-to-end mode (see gherkin comment)
   let isGraphqlFaked = true
@@ -116,14 +109,7 @@ When("il le consulte une deuxième fois", function () {
 })
 
 Then("il obtient un message stipulant qu'un e-mail lui a été transmis", function () {
-  // if the graphql query was successful, then the frontend receives the SuccessfulCustomerCreation response, i.e. an answer with no data and no errors
-  // upon clicking the registration button, you need to check that the message about the e-mail is displayed
-  return 'pending'
-});
-
-Then("il est redirigé vers une interface où il peut définir son mot de passe", function () {
-  // 1. assert that there is an input field for a password
-  return 'pending'
+  cy.get('[id="emailSentDialog"]').should('be.visible')
 });
 
 Then("il obtient un message stipulant que l'activation du compte a été effectuée avec succès", function () {
@@ -133,10 +119,8 @@ Then("il obtient un message stipulant que l'activation du compte a été effectu
   return 'pending'
 });
 
-Then("il obtient un message stipulant que son mot de passe n'est pas conforme", function () {
-  // the graphql query returns NonCompliantPassword response
-  // TODO: you need to check that the corresponding message is displayed upon clicking the activation button
-  return 'pending'
+Then("le bouton d'enregistrement est désactivé", function () {
+  submitBtnIsDisabled()
 })
 
 Then("il n'est pas identifié", function () {

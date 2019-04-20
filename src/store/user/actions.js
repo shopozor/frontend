@@ -2,8 +2,8 @@ import { apolloClient } from '../../boot/apollo'
 import * as cookie from '../../../common/src/store/cookie'
 import types from '../../../common/src/types'
 
-import LogIn from '../../../cypress/fixtures/graphql/login.graphql'
-import SignUp from '../../../cypress/fixtures/graphql/signup.graphql'
+import LogIn from '../../../graphql/login.graphql'
+import SignUp from '../../../graphql/signup.graphql'
 
 function saveUser ({ email, userId, token }) {
   cookie.set({ cookieId: types.cookies.EMAIL, cookieValue: email, cookieDuration: 30 })
@@ -48,6 +48,7 @@ export function signup ({ commit }, { email, password }) {
         commit('error', error)
         reject(error)
       })
+    // setTimeout(() => resolve(), 1000)
   })
 }
 

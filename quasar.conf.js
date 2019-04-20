@@ -28,7 +28,11 @@ module.exports = function (ctx) {
 
       components: [
         'QBtn',
+        'QCard',
+        'QCardActions',
+        'QCardSection',
         'QCheckbox',
+        'QDialog',
         'QDrawer',
         'QHeader',
         'QIcon',
