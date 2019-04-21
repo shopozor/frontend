@@ -7,6 +7,7 @@ module.exports = function (ctx) {
     boot: [
       'apollo',
       'i18n',
+      'leaflet',
       'vuelidate'
     ],
 
