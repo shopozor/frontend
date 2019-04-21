@@ -6,3 +6,7 @@
 	path = cypress/fixtures
 	url = https://github.com/softozor/shopozor-fixtures
 	branch = master
+[submodule "common"]
+	path = common
+	url = https://bitbucket.org/softozor/shopozor-common-frontend
+	branch = master
