@@ -25,3 +25,15 @@ export default {
   }
 }
 </script>
+
+<test lang="jest">
+import ValidityIcon from '../ValidityIcon'
+import { mountQuasar } from '../../../test/jest/utils'
+
+describe('Validity Icon', ()  => {
+  it('passes a test', () => {
+    const wrapper = mountQuasar(ValidityIcon)
+    expect(1).toBe(1)
+  })
+})
+</test>

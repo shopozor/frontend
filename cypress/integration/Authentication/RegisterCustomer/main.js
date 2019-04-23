@@ -76,15 +76,7 @@ function visitActivationLink() {
     .then(links => cy.visit(links.activation))
 }
 
-When("un client consulte son lien d'activation de compte dans les temps", function () {
-  // this step must be faked because we don't call the underlying graphql query 
-  // in the end-to-end mode (see gherkin comment)
-  let isGraphqlFaked = true
-  injectResponseFixtureIfFaked('Authentication/RegisterCustomer/Responses/SuccessfulAccountConfirmation', isGraphqlFaked)
-  visitActivationLink()
-});
-
-When("un client qui a consulté son lien d'activation de compte dans les temps", function () {
+When(/^un client (?:qui)?\s?(?:consulte|a consulté) son lien d'activation de compte dans les temps$/, function () {
   // this step must be faked because we don't call the underlying graphql query 
   // in the end-to-end mode (see gherkin comment)
   let isGraphqlFaked = true

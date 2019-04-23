@@ -29,3 +29,8 @@ generateDoc.txt
 
 # generated spec
 /specification/
+
+# unit tests
+/test/jest/coverage
+*_jest.spec.js
+
