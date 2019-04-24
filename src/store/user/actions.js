@@ -4,6 +4,7 @@ import types from '../../../common/src/types'
 
 import LogIn from '../../../graphql/login.graphql'
 import SignUp from '../../../graphql/signup.graphql'
+import ActivateConsumer from '../../../graphql/activateConsumer.graphql'
 
 function saveUser ({ email, userId, token }) {
   cookie.set({ cookieId: types.cookies.EMAIL, cookieValue: email, cookieDuration: 30 })
@@ -88,6 +89,7 @@ export function login ({ commit }, { email, password, stayLoggedIn }) {
   })
 }
 
+// future function to automatically login
 export function getPermissions ({ commit }) {
   // request
   //   .getAuthorizations({
@@ -128,5 +130,20 @@ export function logout ({ commit }) {
       removeToken()
       resolve()
     }, 500)
+  })
+}
+
+export function activate ({ commit }, { encodedId, oneTimeToken }) {
+  return new Promise((resolve, reject) => {
+    apolloClient
+      .mutate({
+        mutation: ActivateConsumer,
+        variables: {
+          encodedId,
+          input: { token: oneTimeToken }
+        }
+      })
+      .then(() => resolve())
+      .catch(error => reject(error))
   })
 }
