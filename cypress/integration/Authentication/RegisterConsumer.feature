@@ -80,7 +80,7 @@ Fonctionnalité: Enregistrer un nouveau consommateur
     Et fait la demande d'enregistrement
     Alors le champ du mot de passe est marqué comme erroné
 
-  @not-e2e @current
+  @not-e2e
   Scénario: Le consommateur active son compte à temps
 
     # Tester ce scénario "end-to-end" pourrait être techniquement possible. Il faudrait 
