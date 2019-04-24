@@ -91,7 +91,7 @@ Fonctionnalité: Enregistrer un nouveau consommateur
     Alors il obtient un message stipulant que l'activation du compte a été effectuée avec succès
     Mais il n'est pas identifié
 
-  @not-e2e
+  @not-e2e @current
   Scénario: Le consommateur active son compte une deuxième fois
   
     # Tester ce scénario "end-to-end" pourrait être techniquement possible. Il faudrait 
@@ -100,9 +100,10 @@ Fonctionnalité: Enregistrer un nouveau consommateur
 
     Etant donné un consommateur qui a consulté son lien d'activation de compte dans les temps
     Lorsqu'il le consulte une deuxième fois
+    # Etant donné il le consulte une deuxième fois
     Alors il obtient un message stipulant que le lien a expiré
 
-  @not-e2e
+  @not-e2e @current
   Scénario: Le consommateur active son compte trop tard
 
     # Tester ce scénario "end-to-end" n'est pas raisonnable car il faudrait en principe 
