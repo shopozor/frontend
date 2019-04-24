@@ -1,9 +1,9 @@
 # language: fr
 
 @initial-release @login
-Fonctionnalité: Identifier un client
+Fonctionnalité: Identifier un consommateur
 
-  *En tant que client enregistré dans le Shopozor
+  *En tant que consommateur enregistré dans le Shopozor
   je veux pouvoir m'identifier avec un e-mail et un mot de passe,
   afin de pouvoir faire mes achats.*
 
@@ -12,15 +12,15 @@ Fonctionnalité: Identifier un client
   Comme le compte de l'utilisateur n'est pas créé si celui-ci n'accepte pas notre politique des cookies,
   les scénarios ci-dessous ne traitent que le cas où le token d'identification est stocké dans un cookie.
 
-  Contexte: Le client n'est pas identifié
-    Etant donné un client non identifié
+  Contexte: Le consommateur n'est pas identifié
+    Etant donné un consommateur non identifié
 
-  Scénario: Le client n'est pas encore enregistré
-    Lorsqu'un client s'identifie avec un e-mail et un mot de passe invalides
+  Scénario: Le consommateur n'est pas encore enregistré
+    Lorsqu'un consommateur s'identifie avec un e-mail et un mot de passe invalides
     Alors il obtient un message d'erreur stipulant que ses identifiants sont incorrects
 
-  Scénario: Le client est enregistré mais entre un mot de passe erroné
-    Lorsqu'un client s'identifie avec un e-mail valide et un mot de passe invalide
+  Scénario: Le consommateur est enregistré mais entre un mot de passe erroné
+    Lorsqu'un consommateur s'identifie avec un e-mail valide et un mot de passe invalide
     Alors il obtient un message d'erreur stipulant que ses identifiants sont incorrects
 
   Plan du Scénario: Tout utilisateur enregistré peut s'identifier

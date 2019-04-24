@@ -41,13 +41,13 @@
   #   Alors la création de compte n'est plus possible
 
   # @unit-test
-  # Scénario: Le client accède à l'interface de définition du mot de passe
+  # Scénario: Le consommateur accède à l'interface de définition du mot de passe
   
   #   Que le lien d'activation de compte soit valide ou pas, l'utilisateur peut 
   #   accéder au formulaire de définition de mot de passe. C'est au moment où il 
   #   confirme son mot de passe que la validité de son lien est vérifiée. 
 
-  #   Lorsqu'un client consulte son lien d'activation de compte
+  #   Lorsqu'un consommateur consulte son lien d'activation de compte
   #   Alors il est redirigé vers une interface où il peut définir son mot de passe
   #   Mais le bouton d'activation du compte est désactivé
 
@@ -56,17 +56,17 @@
 
   #   Le mot de passe doit satisfaire à la politique relative aux mots de passe. 
 
-  #   Etant donné un client qui consulte son lien d'activation de compte
+  #   Etant donné un consommateur qui consulte son lien d'activation de compte
   #   Lorsqu'il tape un mot de passe conforme dans le champ correspondant
   #   Alors le bouton d'activation du compte est activé 
 
   # @unit-test
-  # Scénario: Le client passe d'un mot de passe conforme à non conforme
+  # Scénario: Le consommateur passe d'un mot de passe conforme à non conforme
 
-  #   Le client ne doit pas pouvoir définir un mot de passe non conforme à 
+  #   Le consommateur ne doit pas pouvoir définir un mot de passe non conforme à 
   #   la politique relative aux mots de passe.
 
-  #   Etant donné un client qui consulte son lien d'activation de compte
+  #   Etant donné un consommateur qui consulte son lien d'activation de compte
   #   Et qui a tapé un mot de passe conforme dans le champ correspondant
   #   Lorsqu'il rend son mot de passe non conforme 
   #   Alors le bouton d'activation du compte est désactivé 

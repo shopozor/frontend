@@ -34,7 +34,7 @@ export const accessRules = {
     [types.links.SHOP]: true,
     [types.links.MAP]: true
   },
-  [types.permissions.CUSTOMER]: {
+  [types.permissions.CONSUMER]: {
     [types.links.LOGIN]: false,
     [types.links.SIGNUP]: false,
     [types.links.LOGOUT]: true,

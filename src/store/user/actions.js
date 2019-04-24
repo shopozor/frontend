@@ -26,7 +26,7 @@ function removeToken () {
 function adaptPermissions (received) {
   const permissions = received.map(permissionPack => permissionPack.code)
   if (permissions.every(permission => permission !== types.permissions.NOT_CONNECTED)) {
-    return [types.permissions.CUSTOMER]
+    return [types.permissions.CONSUMER]
   } else return [types.permissions.NOT_CONNECTED]
 }
 

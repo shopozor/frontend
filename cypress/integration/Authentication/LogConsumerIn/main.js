@@ -11,7 +11,7 @@ import TokenHandler from '../../../../common/cypress/integration/Authentication/
 import { injectResponseFixtureIfFaked } from '../../../../common/cypress/integration/common/fakeServer'
 
 
-Given('un client non identifié', function () {
+Given('un consommateur non identifié', function () {
   getTokenCookie().should('not.exist')
 });
 
@@ -19,22 +19,22 @@ function accessLoginInterface() {
   cy.visit('/login')
 }
 
-When('un client s\'identifie avec un e-mail et un mot de passe invalides', function () {
-  injectResponseFixtureIfFaked('Authentication/LogCustomerIn/Responses/WrongCredentials')
+When('un consommateur s\'identifie avec un e-mail et un mot de passe invalides', function () {
+  injectResponseFixtureIfFaked('Authentication/LogConsumerIn/Responses/WrongCredentials')
   accessLoginInterface()
-  cy.fixture('Authentication/Credentials/NewCustomer')
+  cy.fixture('Authentication/Credentials/NewConsumer')
     .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
 });
 
-When('un client s\'identifie avec un e-mail valide et un mot de passe invalide', function () {
-  injectResponseFixtureIfFaked('Authentication/LogCustomerIn/Responses/WrongCredentials')
+When('un consommateur s\'identifie avec un e-mail valide et un mot de passe invalide', function () {
+  injectResponseFixtureIfFaked('Authentication/LogConsumerIn/Responses/WrongCredentials')
   accessLoginInterface()
   cy.fixture(`Authentication/Credentials/Consommateur`)
     .then(user => connectWithUserCredentialsViaGui(user.email, user.password + 'a'))
 });
 
 When('un {PersonaType} s\'identifie avec un e-mail et un mot de passe valides', function (persona) {
-  injectResponseFixtureIfFaked(`Authentication/LogCustomerIn/Responses/${persona}`)
+  injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
   accessLoginInterface()
   cy.fixture(`Authentication/Credentials/${persona}`)
     .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
