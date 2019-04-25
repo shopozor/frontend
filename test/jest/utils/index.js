@@ -1,5 +1,5 @@
 // this is mapped in jest.config.js to resolve @vue/test-utils
-import { createLocalVue, shallowMount } from 'test-utils'
+import { createLocalVue, mount, shallowMount } from 'test-utils'
 
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
@@ -27,6 +27,13 @@ export const mountQuasar = (component, options = {}) => {
   const store = new Vuex.Store({})
   const router = new VueRouter()
 
+  // mock vue-i18n
+  const $t = () => {}
+  const $tc = () => {}
+  const $n = () => {}
+  const $d = () => {}
+  let mocks = { $t, $tc, $n, $d }
+
   if (options) {
     const ssrContext = options.ssr ? mockSsrContext() : null
 
@@ -43,19 +50,18 @@ export const mountQuasar = (component, options = {}) => {
         plugin({ app, store, router, Vue: localVue, ssrContext })
       })
     }
+
+    if (options.mocks) {
+      mocks = {...mocks, ...options.mocks}
+    }
   }
 
-  // mock vue-i18n
-  const $t = () => {}
-  const $tc = () => {}
-  const $n = () => {}
-  const $d = () => {}
-
-  return shallowMount(component, {
+  const mountOptions = {
     localVue: localVue,
     store,
     router,
-    mocks: { $t, $tc, $n, $d },
+    mocks,
+
     // Injections for Components with a QPage root Element
     provide: {
       pageContainer: true,
@@ -66,5 +72,11 @@ export const mountQuasar = (component, options = {}) => {
         left: {}
       }
     }
-  })
+  }
+
+  if (options.shallow) {
+    return shallowMount(component, mountOptions)
+  } else {
+    return mount(component, mountOptions)
+  }
 }
