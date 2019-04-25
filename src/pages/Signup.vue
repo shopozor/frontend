@@ -108,7 +108,8 @@
             id="createAccount"
             class="q-ma-md"
             :class="{'animated shake': shakeButton}"
-            color="primary"
+            :color="disableCreateAccount ? 'ghost' : 'primary'"
+            :unelevated="disableCreateAccount"
             :label="$t('signup.createAccount')"
             @click="submit"
             />
