@@ -16,6 +16,35 @@ const mockSsrContext = () => {
   }
 }
 
+function createStore (options) {
+  let storeOptions = {}
+  if (options.store) {
+    if (options.store.actions) {
+      storeOptions = {
+        ...storeOptions,
+        actions: Object.entries(options.store.actions).reduce((actions, action) => {
+          actions = {
+            ...actions,
+            [action[0]]: () => {
+              const response = action[1]
+              return new Promise((resolve, reject) => {
+                if (response.resolve) {
+                  console.log('resolving', response.resolve)
+                  resolve(response.resolve)
+                } else if (response.reject) {
+                  console.log('rejecting', response.reject)
+                  reject(response.reject)
+                } else console.error('[CreateStore]: the response must be an object of form {resolve: {...}} or {reject: {...}}')
+              })
+            }}
+          return actions
+        }, {})
+      }
+    }
+  }
+  return new Vuex.Store(storeOptions)
+}
+
 // https://eddyerburgh.me/mock-vuex-in-vue-unit-tests
 export const mountQuasar = (component, options = {}) => {
   const localVue = createLocalVue()
@@ -24,7 +53,7 @@ export const mountQuasar = (component, options = {}) => {
   localVue.use(Vuex)
   localVue.use(VueRouter)
   localVue.use(Quasar)
-  const store = new Vuex.Store({})
+  const store = createStore(options)
   const router = new VueRouter()
 
   // mock vue-i18n

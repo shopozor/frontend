@@ -46,3 +46,39 @@ export default {
   }
 }
 </script>
+
+<test lang="jest">
+import Activate from '../Activate'
+import { mountQuasar } from '../../../test/jest/utils'
+
+describe('Activation page', () => {
+  const success = {resolve: {}}
+  const error = {reject: {error: 'ACCOUNT_CONFIRMATION_LINK_EXPIRED'}}
+  const store = {actions: {activate: success}}
+  const wrapper = mountQuasar(Activate, {store})
+
+  it ('sets state to "successfulActivation" when activation is successful', () => {
+    expect(wrapper.vm.$data.state).toBe('successfulActivation')
+  })
+
+  it ('displays a spinner while waiting for activation', () => {
+    wrapper.setData({ state: 'pending' })
+    expect(wrapper.contains('.q-spinner')).toBe(true)
+  })
+
+  it ('displays a success message when activation is completed', () => {
+    wrapper.setData({ state: 'successfulActivation' })
+    expect(wrapper.contains('#successfulActivation')).toBe(true)
+  })
+
+  it ('displays an error message when activation link has expired', () => {
+    wrapper.setData({ state: 'errorActivationLinkExpired' })
+    expect(wrapper.contains('#errorActivationLinkExpired')).toBe(true)
+  })
+
+  it ('displays an unknown error message when any other error happens', () => {
+    wrapper.setData({ state: 'unknownError' })
+    expect(wrapper.contains('#unknownError')).toBe(true)
+  })
+})
+</test>
