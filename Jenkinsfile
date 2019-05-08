@@ -13,11 +13,18 @@ pipeline {
         sh "CYPRESS_CACHE_FOLDER=$WORKSPACE/.cache yarn"
       }
     }
+    stage('Building application') {
+      environment {
+        GRAPHQL_API = 'http://localhost:8000/graphql/'
+      }
+      steps {
+        sh "yarn build"
+      }
+    }
     stage('Performing acceptance tests') {
       steps {
         deleteFolder(REPORTS_FOLDER)
-        // TODO: replace GRAPHQL_API in quasar.conf.js with the same value as that of dev
-        sh "CYPRESS_CACHE_FOLDER=$WORKSPACE/.cache yarn run start:ci"
+        sh "CYPRESS_CACHE_FOLDER=$WORKSPACE/.cache yarn start:ci"
       }
     }
   }
