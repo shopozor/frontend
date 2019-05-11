@@ -1,0 +1,1 @@
+# Shopozor consumer frontend PR template
