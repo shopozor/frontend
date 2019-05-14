@@ -1,5 +1,10 @@
 <template>
-  <q-page padding class="q-pa-md flex flex-center">
+  <q-page padding class="q-pa-md flex flex-center bg-secondary">
+
+    <q-page-sticky position="bottom-right">
+      <q-icon name="mail" size="50px" color="accent" />
+    </q-page-sticky>
+
     <div style="width: 500px; max-width: 90vw;">
       <q-list>
 
@@ -108,7 +113,8 @@
             id="createAccount"
             class="q-ma-md"
             :class="{'animated shake': shakeButton}"
-            color="primary"
+            :color="disableCreateAccount ? 'ghost' : 'primary'"
+            :unelevated="disableCreateAccount"
             :label="$t('signup.createAccount')"
             @click="submit"
             />

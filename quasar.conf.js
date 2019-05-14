@@ -1,6 +1,7 @@
 const helpers = require('./common/quasar.helpers')
 
 // Configuration for your app
+const path = require('path')
 
 module.exports = function (ctx) {
   return {
@@ -107,6 +108,17 @@ module.exports = function (ctx) {
           loader: 'graphql-tag/loader',
           exclude: /(node_modules)/
         })
+
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias, // This adds the existing alias
+
+          // Add your own alias like this
+          // TODO: move types out of common/src
+          // types: path.resolve(__dirname, './common/types'),
+          '@common': path.resolve(__dirname, './common'),
+          '@gql': path.resolve(__dirname, './graphql'),
+          '@test': path.resolve(__dirname, './test')
+        }
       }
     },
 

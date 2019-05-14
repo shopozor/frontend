@@ -1,8 +1,8 @@
 <template>
   <transition mode="out-in" leave-active-class="animated flipOutY" enter-active-class="animated flipInY">
-    <q-icon key="error" v-if="showError" name="error" color="negative" />
-    <q-icon key="valid" v-else-if="!knowError" name="check_circle" color="positive" />
-    <q-icon key="mandatory" v-else-if="mandatory" name="fiber_manual_record" color="ghost" />
+    <q-icon id="valid" key="valid" v-if="!knowError" name="check_circle" color="positive" />
+    <q-icon id="error" key="error" v-else-if="showError" name="error" color="negative" />
+    <q-icon id="mandatory" key="mandatory" v-else-if="mandatory" name="fiber_manual_record" color="ghost" />
   </transition>
 </template>
 
@@ -25,15 +25,3 @@ export default {
   }
 }
 </script>
-
-<test lang="jest">
-import ValidityIcon from '../ValidityIcon'
-import { mountQuasar } from '../../../test/jest/utils'
-
-describe('Validity Icon', ()  => {
-  it('passes a test', () => {
-    const wrapper = mountQuasar(ValidityIcon)
-    expect(1).toBe(1)
-  })
-})
-</test>

@@ -2,7 +2,16 @@ import { When, Then } from 'cypress-cucumber-preprocessor/steps'
 
 import { injectResponseFixtureIfFaked } from '../../../../common/cypress/integration/common/fakeServer'
 
-import { fillUserRegistrationGui, isFieldValid, acceptCookies, acceptTermsOfService, submitBtnIsEnabled, submitRegistration, submitBtnIsDisabled } from './helpers'
+import {
+  fillUserRegistrationGui,
+  isFieldValid,
+  acceptCookies,
+  acceptTermsOfService,
+  submitBtnIsEnabled,
+  submitRegistration
+} from './helpers'
+
+import { getTokenCookie } from '../../../../common/cypress/integration/Authentication/common/Helpers'
 import types from '../../../../common/src/types'
 
 // TODO: transfer that to fixtures ?
@@ -97,6 +106,9 @@ When("il le consulte une deuxième fois", function () {
   // in the end-to-end mode (see gherkin comment)
   let isGraphqlFaked = true
   injectResponseFixtureIfFaked('Authentication/RegisterConsumer/Responses/ExpiredAccountConfirmationLink', isGraphqlFaked)
+  cy.wait(1000)
+  cy.visit('/')
+  cy.wait(1000)
   visitActivationLink()
 })
 
@@ -111,22 +123,17 @@ Then("le champ du mot de passe est marqué comme erroné", function () {
 Then("il obtient un message stipulant que l'activation du compte a été effectuée avec succès", function () {
   // the graphql query returns the SuccessfulAccountConfirmation response, i.e. 
   // an answer with no data and no errors
-  // TODO: upon clicking the activation button, you need to check that the corresponding message is displayed
-  return 'pending'
+  cy.get('[id="successfulActivation"]').should('exist')
 });
 
-// Then("le bouton d'enregistrement est désactivé", function () {
-//   submitBtnIsDisabled()
-// })
-
 Then("il n'est pas identifié", function () {
-  // TODO: double-check that the session cookie doesn't contain any token
-  return 'pending'
+  getTokenCookie().then(cookie => {
+    expect(cookie).not.exist
+  })
 });
 
 Then("il obtient un message stipulant que le lien a expiré", function () {
   // the graphql query returns the ExpiredAccountConfirmationLink response, i.e. 
   // an answer with the error "ACCOUNT_CONFIRMATION_LINK_EXPIRED"
-  // you need to check that the corresponding error message is displayed
-  return 'pending'
+  cy.get('[id="errorActivationLinkExpired"]').should('exist')
 })
