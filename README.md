@@ -1,4 +1,4 @@
-# Quasar App
+# Shopozor consumer frontend
 
 > WIP
 
