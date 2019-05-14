@@ -24,16 +24,6 @@ When("un consommateur inconnu entre son e-mail et un mot de passe conforme dans 
     })
 });
 
-When("un consommateur inconnu entre son e-mail et un mot de passe non conforme dans le formulaire d'enregistrement", function () {
-  injectResponseFixtureIfFaked('Authentication/RegisterConsumer/Responses/NonCompliantPassword')
-  accessRegistrationInterface()
-  cy.fixture('Authentication/Credentials/NewConsumer')
-    .then(user => {
-      fillUserRegistrationGui(user.email, invalidPassword)
-      isFieldValid('password', false)
-    })
-});
-
 When("accepte la politique relative aux cookies", function () {
   acceptCookies()
 });
@@ -61,14 +51,6 @@ When("un utilisateur entre l'e-mail d'un compte inactif et un mot de passe confo
   cy.fixture('Authentication/Credentials/InactiveConsumer')
     .then(user => fillUserRegistrationGui(user.email, user.password))
   isFieldValid('password', true)
-});
-
-When("un utilisateur entre l'e-mail d'un compte inactif et un mot de passe non conforme dans le formulaire d'enregistrement", function () {
-  injectResponseFixtureIfFaked('Authentication/RegisterConsumer/Responses/NonCompliantPassword')
-  accessRegistrationInterface()
-  cy.fixture('Authentication/Credentials/InactiveConsumer')
-    .then(user => fillUserRegistrationGui(user.email, invalidPassword))
-  isFieldValid('password', false)
 });
 
 function visitActivationLink() {

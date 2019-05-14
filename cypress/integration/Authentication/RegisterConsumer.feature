@@ -25,22 +25,6 @@ Fonctionnalité: Enregistrer un nouveau consommateur
     Et fait la demande d'enregistrement
     Alors il obtient un message stipulant qu'un e-mail lui a été transmis
 
-  # TODO: supprimer ce scénario ? le but de scénario étant de bypasser les checks du frontend
-  # les checks sont déjà faits côté backend, c'est essentiellement un retest du backend ....
-  @HackerAbuse
-  Scénario: Le nouveau consommateur s'enregistre avec un mot de passe non conforme
-
-    Comme il n'est pas possible de protéger le code d'une application consommateur, puisqu'il est visible et 
-    modifiable par n'importe qui, il faut compter avec des utilisateurs qui vont tenter de passer 
-    outre la vérification de la conformité du mot de passe. Lorsque l'utilisateur désactive cette vérification, 
-    c'est l'application serveur qui va le mettre dans l'impasse.
-
-    Lorsqu'un consommateur inconnu entre son e-mail et un mot de passe non conforme dans le formulaire d'enregistrement
-    Et accepte la politique relative aux cookies
-    Et les conditions générales d'utilisation 
-    Et fait la demande d'enregistrement
-    Alors le champ du mot de passe est marqué comme erroné
-
   @HackerAbuse
   Scénario: Un utilisateur s'enregistre avec l'e-mail d'un compte actif
 
@@ -67,20 +51,6 @@ Fonctionnalité: Enregistrer un nouveau consommateur
     Et les conditions générales d'utilisation 
     Et fait la demande d'enregistrement
     Alors il obtient un message stipulant qu'un e-mail lui a été transmis
-
-  @HackerAbuse
-  Scénario: Un utilisateur inactif s'enregistre avec un mot de passe non conforme
-
-    Si l'utilisateur inactif s'enregistre avec un mot de passe non conforme, alors 
-    son compte reste inactif. Il peut refaire une demande d'enregistrement. Ce scénario 
-    existe pour les mêmes raisons que dans le cas du nouveau consommateur qui s'enregistre 
-    avec un mot de passe non conforme. 
-
-    Lorsqu'un utilisateur entre l'e-mail d'un compte inactif et un mot de passe non conforme dans le formulaire d'enregistrement
-    Et accepte la politique relative aux cookies
-    Et les conditions générales d'utilisation 
-    Et fait la demande d'enregistrement
-    Alors le champ du mot de passe est marqué comme erroné
 
   @not-e2e
   Scénario: Le consommateur active son compte à temps
