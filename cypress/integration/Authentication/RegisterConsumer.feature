@@ -25,6 +25,8 @@ Fonctionnalité: Enregistrer un nouveau consommateur
     Et fait la demande d'enregistrement
     Alors il obtient un message stipulant qu'un e-mail lui a été transmis
 
+  # TODO: supprimer ce scénario ? le but de scénario étant de bypasser les checks du frontend
+  # les checks sont déjà faits côté backend, c'est essentiellement un retest du backend ....
   @HackerAbuse
   Scénario: Le nouveau consommateur s'enregistre avec un mot de passe non conforme
 

@@ -1,9 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'cypress/base:11.13.0'
-    }
-  }
+  agent any
   environment {
     REPORTS_FOLDER = 'junit-reports'    
   }
@@ -21,17 +17,17 @@ pipeline {
         sh "yarn build"
       }
     }
-    stage('Performing acceptance tests') {
+    stage('Performing unit tests') {
       steps {
         deleteFolder(REPORTS_FOLDER)
-        sh "CYPRESS_CACHE_FOLDER=$WORKSPACE/.cache yarn start:ci"
+        echo "Need to trigger unit tests!"
+        sh "exit 1"
       }
     }
   }
   post {
     always {
       junit "**/$REPORTS_FOLDER/*.xml"
-      archiveArtifacts artifacts: 'cypress/videos/**/*.mp4, cypress/screenshots/**/*.png'
     }
   }
 }

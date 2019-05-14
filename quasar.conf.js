@@ -1,3 +1,5 @@
+const helpers = require('./common/quasar.helpers')
+
 // Configuration for your app
 const path = require('path')
 
@@ -74,18 +76,16 @@ module.exports = function (ctx) {
     supportIE: false,
 
     build: {
-      env: ctx.dev ? {
-        API: process.env.GRAPHQL_API ? JSON.stringify(process.env.GRAPHQL_API) : JSON.stringify('http://localhost:8000/graphql/')
-      } : {
-        API: JSON.stringify(process.env.GRAPHQL_API)
+      env: {
+        API: helpers.getAPI(ctx.dev)
       },
       scopeHoisting: true,
       // vueRouterMode: 'history',
       // vueCompiler: true,
       // gzip: true,
-      // analyze: true,
+      analyze: false,
       // extractCSS: false,
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -183,7 +183,7 @@ module.exports = function (ctx) {
     electron: {
       // bundler: 'builder', // or 'packager'
 
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         // do something with Electron process Webpack cfg
       },
 
