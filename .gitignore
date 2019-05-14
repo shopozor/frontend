@@ -32,5 +32,4 @@ generateDoc.txt
 
 # unit tests
 /test/jest/coverage
-*_jest.spec.js
 

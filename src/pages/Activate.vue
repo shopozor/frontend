@@ -9,7 +9,7 @@
         <q-icon name="check_circle" size="50px" color="positive" />
         <div>Votre compte a été correctement activé.</div>
       </div>
-      <div key="errorActivationLinkExpired" v-else-if="state === 'errorActivationLinkExpired'" id="errorActivationLinkExpired" class="column items-center">
+      <div :key="error.expiredToken" v-else-if="state === error.expiredToken" :id="error.expiredToken" class="column items-center">
         <q-icon name="cancel" size="50px" color="negative" />
         <div>Votre compte n'a pas pu être activé. Le lien a expiré.</div>
       </div>
@@ -22,63 +22,33 @@
 </template>
 
 <script>
+import expiredToken from '../../cypress/fixtures/Authentication/RegisterConsumer/Responses/ExpiredAccountConfirmationLink'
+
 export default {
   name: 'Activate',
   data () {
     return {
-      state: 'pending'
+      state: 'pending',
+      error: {
+        expiredToken: expiredToken.data.consumerActivate.errors[0].message
+      }
     }
   },
   created () {
-    this.$store.dispatch('activate', {
-      encodedId: this.$route.params.id,
-      oneTimeToken: this.$route.params.token
+    const vm = this
+    vm.$store.dispatch('activate', {
+      encodedId: vm.$route.params.id,
+      oneTimeToken: vm.$route.params.token
     })
       .then(response => {
-        this.state = 'successfulActivation'
+        vm.state = 'successfulActivation'
       })
       .catch(error => {
         switch (error[0].message) {
-          case 'ACCOUNT_CONFIRMATION_LINK_EXPIRED': this.state = 'errorActivationLinkExpired'; break
-          default: this.state = 'unknownError'; break
+          case vm.error.expiredToken: vm.state = vm.error.expiredToken; break
+          default: vm.state = 'unknownError'; break
         }
       })
   }
 }
 </script>
-
-<test lang="jest">
-import Activate from '../Activate'
-import { mountQuasar } from '../../../test/jest/utils'
-
-describe('Activation page', () => {
-  const success = {resolve: {}}
-  const error = {reject: {error: 'ACCOUNT_CONFIRMATION_LINK_EXPIRED'}}
-  const store = {actions: {activate: success}}
-  const wrapper = mountQuasar(Activate, {store})
-
-  it ('sets state to "successfulActivation" when activation is successful', () => {
-    expect(wrapper.vm.$data.state).toBe('successfulActivation')
-  })
-
-  it ('displays a spinner while waiting for activation', () => {
-    wrapper.setData({ state: 'pending' })
-    expect(wrapper.contains('.q-spinner')).toBe(true)
-  })
-
-  it ('displays a success message when activation is completed', () => {
-    wrapper.setData({ state: 'successfulActivation' })
-    expect(wrapper.contains('#successfulActivation')).toBe(true)
-  })
-
-  it ('displays an error message when activation link has expired', () => {
-    wrapper.setData({ state: 'errorActivationLinkExpired' })
-    expect(wrapper.contains('#errorActivationLinkExpired')).toBe(true)
-  })
-
-  it ('displays an unknown error message when any other error happens', () => {
-    wrapper.setData({ state: 'unknownError' })
-    expect(wrapper.contains('#unknownError')).toBe(true)
-  })
-})
-</test>
