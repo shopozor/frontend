@@ -12,6 +12,7 @@ import types from '../../../../common/src/types'
 // import '../common/PersonaType'
 
 Given("un {PersonaType} connecté", function (persona) {
+  injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
   login(persona)
 })
 
