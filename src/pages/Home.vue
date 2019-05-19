@@ -1,14 +1,28 @@
 <template>
   <q-page>
-    {{ $t('welcome') }}
-    <validity-icon :mandatory="true" :knowError="true" :showError="false" />
+    <input-with-validation
+    v-model="value"
+    type="email"
+    iconName="mail"
+    floatLabel="float"
+    label="label"
+    hint="hint"
+    errorMessage="error"
+    :showError="true"
+    :knowError="true" />
+    {{ value }}
   </q-page>
 </template>
 
 <script>
-import ValidityIcon from '../components/ValidityIcon'
+import InputWithValidation from '../../common/src/components/form/InputWithValidation'
 export default {
   name: 'PageHome',
-  components: { ValidityIcon }
+  data () {
+    return {
+      value: ''
+    }
+  },
+  components: { InputWithValidation }
 }
 </script>

@@ -171,7 +171,7 @@
 
 <script>
 import {required, email, minLength, sameAs} from 'vuelidate/lib/validators'
-import ValidityIcon from '../components/ValidityIcon'
+import ValidityIcon from '../../common/src/components/form/ValidityIcon'
 
 export default {
   name: 'PageSignup',
