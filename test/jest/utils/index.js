@@ -45,8 +45,8 @@ export const mountQuasar = (component, options = {}) => {
       })
     }
 
-    if (options.plugins) {
-      options.plugins.forEach(plugin => {
+    if (options.boot) {
+      options.boot.forEach(plugin => {
         plugin({ app, store, router, Vue: localVue, ssrContext })
       })
     }

@@ -1,6 +1,5 @@
 <template>
   <q-page padding class="q-pa-md flex flex-center bg-secondary">
-
     <q-page-sticky position="bottom-right">
       <q-icon name="mail" size="50px" color="accent" />
     </q-page-sticky>
@@ -219,6 +218,7 @@ export default {
     }
   },
   methods: {
+    logEvent (e) { console.log(e) },
     submit () {
       this.$v.$touch()
       this.acceptCookiesTouched = true
