@@ -1,21 +1,16 @@
 <template>
   <q-page>
-    <input-with-validation
-    v-model="value"
-    type="email"
-    iconName="mail"
-    floatLabel="float"
-    label="label"
-    hint="hint"
-    errorMessage="error"
-    :showError="true"
-    :knowError="true" />
+    <email-with-validation
+      v-model="value" />
+    <password-with-validation
+      v-model="value" />
     {{ value }}
   </q-page>
 </template>
 
 <script>
-import InputWithValidation from '../../common/src/components/form/InputWithValidation'
+import EmailWithValidation from '../../common/src/components/form/EmailWithValidation'
+import PasswordWithValidation from '../../common/src/components/form/PasswordWithValidation'
 export default {
   name: 'PageHome',
   data () {
@@ -23,6 +18,6 @@ export default {
       value: ''
     }
   },
-  components: { InputWithValidation }
+  components: { EmailWithValidation, PasswordWithValidation }
 }
 </script>
