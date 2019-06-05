@@ -62,6 +62,7 @@ export const mountQuasar = (component, options = {}) => {
     router,
     mocks,
     propsData: options.propsData,
+    slots: options.slots,
 
     // Injections for Components with a QPage root Element
     provide: {

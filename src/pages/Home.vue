@@ -1,23 +1,38 @@
 <template>
   <q-page>
-    <email-with-validation
-      v-model="value" />
-    <password-with-validation
-      v-model="value" />
-    {{ value }}
+    <q-list>
+      <email-with-validation
+        v-model="email" />
+      <password-with-validation
+        v-model="password" />
+      <checkbox-with-validation
+        v-model="checked"
+        label="ceci est mon label"
+        :mandatory="true">
+        Contenu de la carte
+      </checkbox-with-validation>
+    </q-list>
+
+    {{ email }} ////
+    {{ password }} ////
+    {{ checked }}
   </q-page>
 </template>
 
 <script>
 import EmailWithValidation from '../../common/src/components/form/EmailWithValidation'
 import PasswordWithValidation from '../../common/src/components/form/PasswordWithValidation'
+import CheckboxWithValidation from '../../common/src/components/form/CheckboxWithValidation'
+
 export default {
   name: 'PageHome',
   data () {
     return {
-      value: ''
+      email: '',
+      password: '',
+      checked: false
     }
   },
-  components: { EmailWithValidation, PasswordWithValidation }
+  components: { EmailWithValidation, PasswordWithValidation, CheckboxWithValidation }
 }
 </script>
