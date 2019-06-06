@@ -4,6 +4,7 @@
       <q-list>
 
         <email-with-validation
+          id="email"
           v-model="email.value"
           @validity-check="email.isValid = $event"
           mandatory
@@ -11,6 +12,7 @@
           :errorMessage="$t('signup.email.error')" />
 
         <password-with-validation
+          id="password"
           v-model="password.value"
           @validity-check="password.isValid = $event"
           mandatory
@@ -18,6 +20,7 @@
           :errorMessage="$t('signup.password.error')" />
 
         <password-with-validation
+          id="confirmPassword"
           v-model="confirmPassword.value"
           @validity-check="confirmPassword.isValid = $event"
           mandatory
@@ -26,6 +29,7 @@
           :repeatPassword="password.value" />
 
         <checkbox-with-validation
+          id="acceptCookies"
           v-model="acceptCookies"
           :label="$t('signup.cookiesPolicy.accept')"
           mandatory>
@@ -33,6 +37,7 @@
         </checkbox-with-validation>
 
         <checkbox-with-validation
+          id="acceptTermsOfService"
           v-model="acceptTermsOfService"
           :label="$t('signup.termsOfService.accept')"
           mandatory>

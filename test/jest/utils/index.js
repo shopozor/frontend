@@ -28,10 +28,10 @@ export const mountQuasar = (component, options = {}) => {
   const router = initRouter(localVue, options)
 
   // mock vue-i18n
-  const $t = () => {}
-  const $tc = () => {}
-  const $n = () => {}
-  const $d = () => {}
+  const $t = t => t
+  const $tc = tc => tc
+  const $n = n => n
+  const $d = d => d
   let mocks = { $t, $tc, $n, $d }
 
   if (options) {

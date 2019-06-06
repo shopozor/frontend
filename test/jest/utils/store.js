@@ -1,6 +1,44 @@
 import Vuex from 'vuex'
 import sinon from 'sinon'
 
+/**
+ * if the action <actionName> is dispatched
+ * with argument <arg1Name> = <arg1Value1>
+ * and argument <arg2Name> = <arg2Value1>
+ * it resolves with response <responseValue1>
+ *
+ * if the action <actionName> is dispatched
+ * with argument <arg1Name> = <arg1Value2>
+ * it rejects with error <errorMessage>
+ *
+ * if the action <actionName> is dispatched
+ * without argument
+ * it resolves with response <responseValue2>
+ *
+ * store: {
+      actions: {
+        actionName: [
+          {
+            args: {
+              arg1Name: arg1Value1,
+              arg2Name: arg2Value1
+            },
+            resolve: responseValue1
+          },
+          {
+            args: {
+              arg1Name: arg1Value2
+            },
+            reject: errorMessage
+          },
+          {
+            resolve: responseValue2
+          }
+        ]
+      }
+    }
+ */
+
 function createState (state) {
   return state
 }
