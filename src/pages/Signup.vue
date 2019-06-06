@@ -1,124 +1,55 @@
 <template>
   <q-page padding class="q-pa-md flex flex-center bg-secondary">
-    <q-page-sticky position="bottom-right">
-      <q-icon name="mail" size="50px" color="accent" />
-    </q-page-sticky>
-
     <div style="width: 500px; max-width: 90vw;">
       <q-list>
 
-        <q-item>
-          <q-item-section>
-            <q-input
-              id="email"
-              v-model="email"
-              type="email"
-              :float-label="$t('profile.email')"
-              @blur="$v.email.$touch"
-              :error="$v.email.$error"
-              :label="$t('signup.email.label')"
-              :hint="$t('signup.email.hint')"
-              :error-message="$t('signup.email.error')"
-              no-error-icon>
-              <template v-slot:before>
-                <q-icon name="mail" />
-              </template>
-              <template v-slot:append>
-                <validity-icon :knowError="$v.email.$invalid" :showError="$v.email.$error" mandatory />
-              </template>
-            </q-input>
-          </q-item-section>
-        </q-item>
+        <email-with-validation
+          v-model="email.value"
+          @validity-check="email.isValid = $event"
+          mandatory
+          :hint="$t('signup.email.hint')"
+          :errorMessage="$t('signup.email.error')" />
 
-        <q-item>
-            <q-item-section>
-              <q-input
-                id="password"
-                v-model="password"
-                type="password"
-                :float-label="$t('profile.password')"
-                @blur="$v.password.$touch"
-                :error="$v.password.$error"
-                :label="$t('signup.password.label')"
-                :hint="$t('signup.password.hint')"
-                :error-message="passwordError"
-                no-error-icon>
-                <template v-slot:before>
-                  <q-icon name="vpn_lock" />
-                </template>
-              <template v-slot:append>
-                <validity-icon :knowError="$v.password.$invalid" :showError="$v.password.$error" mandatory />
-              </template>
-              </q-input>
-            </q-item-section>
-        </q-item>
+        <password-with-validation
+          v-model="password.value"
+          @validity-check="password.isValid = $event"
+          mandatory
+          :hint="$t('signup.password.hint')"
+          :errorMessage="$t('signup.password.error')" />
 
-        <q-item>
-          <q-item-section>
-            <q-input
-              id="confirmPassword"
-              v-model="confirmPassword"
-              type="password"
-              @blur="$v.confirmPassword.$touch"
-              :error="$v.confirmPassword.$error"
-              :label="$t('signup.confirmPassword.label')"
-              :hint="$t('signup.confirmPassword.hint')"
-              :error-message="$t('signup.confirmPassword.error')"
-              no-error-icon>
-              <template v-slot:before>
-                <q-icon name="vpn_lock" />
-              </template>
-              <template v-slot:append>
-                <validity-icon :knowError="$v.confirmPassword.$invalid" :showError="$v.confirmPassword.$error" mandatory />
-              </template>
-            </q-input>
-          </q-item-section>
-        </q-item>
+        <password-with-validation
+          v-model="confirmPassword.value"
+          @validity-check="confirmPassword.isValid = $event"
+          mandatory
+          :hint="$t('signup.confirmPassword.hint')"
+          :errorMessage="$t('signup.confirmPassword.error')"
+          :repeatPassword="password.value" />
 
-        <q-item>
-          <q-item-section side>
-            <q-btn round flat size="1em" icon="help" color="primary" @click="() => explainCookies = true" />
-          </q-item-section>
-          <q-item-section>
-            <q-checkbox
-              id="acceptCookies"
-              v-model="acceptCookies"
-              @input="() => acceptCookiesTouched = true"
-              :label="$t('signup.cookiesPolicy.accept')" />
-          </q-item-section>
-          <q-item-section side>
-            <validity-icon :knowError="!acceptCookies" :showError="!acceptCookies && acceptCookiesTouched" mandatory />
-          </q-item-section>
-        </q-item>
+        <checkbox-with-validation
+          v-model="acceptCookies"
+          :label="$t('signup.cookiesPolicy.accept')"
+          mandatory>
+          {{ $t('signup.cookiesPolicy.explain') }}
+        </checkbox-with-validation>
 
-        <q-item>
-          <q-item-section side>
-            <q-btn round flat size="1em" icon="help" color="primary" @click="() => explainTermsOfService = true" />
-          </q-item-section>
-          <q-item-section>
-            <q-checkbox
-              id="acceptTermsOfService"
-              v-model="acceptTermsOfService"
-              @input="() => acceptTermsOfServiceTouched = true"
-              :label="$t('signup.termsOfService.accept')" />
-          </q-item-section>
-          <q-item-section side>
-            <validity-icon :knowError="!acceptTermsOfService" :showError="!acceptTermsOfService && acceptTermsOfServiceTouched" mandatory />
-          </q-item-section>
-        </q-item>
+        <checkbox-with-validation
+          v-model="acceptTermsOfService"
+          :label="$t('signup.termsOfService.accept')"
+          mandatory>
+          {{ $t('signup.termsOfService.explain') }}
+        </checkbox-with-validation>
 
         <q-item class="row justify-center">
           <q-btn
             id="createAccount"
             class="q-ma-md"
-            :class="{'animated shake': shakeButton}"
+            :class="{'animated shake': shakingButton}"
             :color="disableCreateAccount ? 'ghost' : 'primary'"
             :unelevated="disableCreateAccount"
             :label="$t('signup.createAccount')"
-            @click="submit"
-            />
+            @click="submit"/>
         </q-item>
-
+        
       </q-list>
     </div>
 
@@ -144,73 +75,34 @@
       </q-card>
     </q-dialog>
 
-    <q-dialog v-model="explainCookies">
-      <q-card>
-        <q-card-section>
-          {{ $t('signup.cookiesPolicy.explain') }}
-        </q-card-section>
-        <q-card-actions align="right">
-          <q-btn color="primary" @click="() => explainCookies = false">{{ $t('actions.close') }}</q-btn>
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-
-    <q-dialog v-model="explainTermsOfService">
-      <q-card>
-        <q-card-section>
-          {{ $t('signup.termsOfService.explain') }}
-        </q-card-section>
-        <q-card-actions align="right">
-          <q-btn color="primary" @click="() => explainTermsOfService = false">{{ $t('actions.close') }}</q-btn>
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-
   </q-page>
 </template>
 
 <script>
-import {required, email, minLength, sameAs} from 'vuelidate/lib/validators'
-import ValidityIcon from '../../common/src/components/form/ValidityIcon'
+import emailWithValidation from '../../common/src/components/form/EmailWithValidation'
+import passwordWithValidation from '../../common/src/components/form/PasswordWithValidation'
+import checkboxWithValidation from '../../common/src/components/form/CheckboxWithValidation'
 
 export default {
   name: 'PageSignup',
   data () {
     return {
-      email: '',
-      password: '',
-      confirmPassword: '',
+      email: { value: '', isValid: false },
+      password: { value: '', isValid: false },
+      confirmPassword: { value: '', isValid: false },
       acceptCookies: false,
-      acceptCookiesTouched: false,
       acceptTermsOfService: false,
-      acceptTermsOfServiceTouched: false,
-      shakeButton: false,
+      shakingButton: false,
       creatingAccount: false,
-      emailSent: false,
-      explainCookies: false,
-      explainTermsOfService: false
-    }
-  },
-  validations: {
-    email: {
-      required, email
-    },
-    password: {
-      required, minLength: minLength(6)
-    },
-    confirmPassword: {
-      required, sameAs: sameAs('password')
+      emailSent: false
     }
   },
   computed: {
-    passwordError () {
-      return this.$tc('signup.password.error', 6 - this.password.length, {count: 6 - this.password.length})
-    },
     disableCreateAccount () {
       const disable =
-        this.$v.email.$invalid ||
-        this.$v.password.$invalid ||
-        this.password !== this.confirmPassword ||
+        !this.email.isValid ||
+        !this.password.isValid ||
+        !this.confirmPassword.isValid ||
         !this.acceptCookies ||
         !this.acceptTermsOfService
 
@@ -220,14 +112,10 @@ export default {
   methods: {
     logEvent (e) { console.log(e) },
     submit () {
-      this.$v.$touch()
-      this.acceptCookiesTouched = true
-      this.acceptTermsOfServiceTouched = true
-
-      if (this.$v.$error || !this.acceptCookies || !this.acceptTermsOfService) {
-        this.shakeButton = true
+      if (this.disableCreateAccount) {
+        this.shakingButton = true
         const vm = this
-        setTimeout(() => { vm.shakeButton = false }, 500)
+        setTimeout(() => { vm.shakingButton = false }, 500)
         // this.$q.notify(this.$t('signup.correctErrors'))
       } else {
         this.creatingAccount = true
@@ -244,6 +132,10 @@ export default {
       }
     }
   },
-  components: {ValidityIcon}
+  components: {
+    emailWithValidation,
+    passwordWithValidation,
+    checkboxWithValidation
+  }
 }
 </script>
