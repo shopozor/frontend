@@ -49,7 +49,7 @@
             :label="$t('signup.createAccount')"
             @click="submit"/>
         </q-item>
-        
+
       </q-list>
     </div>
 
@@ -110,7 +110,6 @@ export default {
     }
   },
   methods: {
-    logEvent (e) { console.log(e) },
     submit () {
       if (this.disableCreateAccount) {
         this.shakingButton = true
