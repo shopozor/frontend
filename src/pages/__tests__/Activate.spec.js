@@ -1,5 +1,5 @@
 import Activate from '../Activate'
-import { mountQuasar } from '../../../test/jest/utils'
+import { mountQuasar } from '../../../common/unit-tests/utils'
 import expiredToken from '../../../cypress/fixtures/Authentication/RegisterConsumer/Responses/ExpiredAccountConfirmationLink'
 
 describe('Activation page', () => {
