@@ -12,7 +12,7 @@ import {
 } from './helpers'
 
 import { getTokenCookie } from '../../../../common/cypress/integration/Authentication/common/Helpers'
-import types from '../../../../common/src/types'
+import types from '../../../../common/types'
 
 // TODO: transfer that to fixtures ?
 const invalidPassword = "a"
