@@ -135,24 +135,21 @@ export function logout ({ commit }) {
 
 export function activate ({ commit }, { encodedId, oneTimeToken }) {
   return new Promise((resolve, reject) => {
-    setTimeout(
-      () => {
-        apolloClient
-          .mutate({
-            mutation: ActivateConsumer,
-            variables: {
-              encodedId,
-              input: { token: oneTimeToken }
-            }
-          })
-          .then(response => {
-            const errors = response.data.consumerActivate.errors
-            console.log(errors)
-            if (errors.length === 0) resolve(response)
-            else reject(errors)
-          })
-          .catch(error => reject(error))
-      }, 0)
+    apolloClient
+      .mutate({
+        mutation: ActivateConsumer,
+        variables: {
+          encodedId,
+          input: { token: oneTimeToken }
+        }
+      })
+      .then(response => {
+        const errors = response.data.consumerActivate.errors
+        console.log('actions/activate', errors[0])
+        if (errors.length === 0) resolve(response)
+        else reject(errors)
+      })
+      .catch(error => reject(error))
   })
   // return new Promise((resolve, reject) => {
   //   setTimeout(() => resolve(ActivateConsumer), 1000)

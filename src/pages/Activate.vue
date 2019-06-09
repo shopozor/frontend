@@ -9,7 +9,7 @@
         <q-icon name="check_circle" size="50px" color="positive" />
         <div>Votre compte a été correctement activé.</div>
       </div>
-      <div :key="error.expiredToken" v-else-if="state === error.expiredToken" :id="error.expiredToken" class="column items-center">
+      <div key="errorActivationLinkExpired" v-else-if="state === 'errorActivationLinkExpired'" id="errorActivationLinkExpired" class="column items-center">
         <q-icon name="cancel" size="50px" color="negative" />
         <div>Votre compte n'a pas pu être activé. Le lien a expiré.</div>
       </div>
@@ -22,16 +22,11 @@
 </template>
 
 <script>
-import expiredToken from '../../cypress/fixtures/Authentication/RegisterConsumer/Responses/ExpiredAccountConfirmationLink'
-
 export default {
   name: 'Activate',
   data () {
     return {
-      state: 'pending',
-      error: {
-        expiredToken: expiredToken.data.consumerActivate.errors[0].message
-      }
+      state: 'pending'
     }
   },
   created () {
@@ -45,7 +40,7 @@ export default {
       })
       .catch(error => {
         switch (error[0].message) {
-          case vm.error.expiredToken: vm.state = vm.error.expiredToken; break
+          case 'ACCOUNT_CONFIRMATION_LINK_EXPIRED': vm.state = 'errorActivationLinkExpired'; break
           default: vm.state = 'unknownError'; break
         }
       })
