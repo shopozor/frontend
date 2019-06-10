@@ -32,7 +32,7 @@ describe('Activation page', () => {
     })
   })
 
-  it(`sets state to ${expiredToken.data.consumerActivate.errors[0].message} if activation link has expired`, done => {
+  it('sets state to "errorActivationLinkExpired" if activation link has expired', done => {
     const store = {
       actions: {
         activate: [
@@ -56,7 +56,7 @@ describe('Activation page', () => {
     }
     const wrapper = mountQuasar(Activate, { store, mocks })
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.$data.state).toBe(expiredToken.data.consumerActivate.errors[0].message)
+      expect(wrapper.vm.$data.state).toBe('errorActivationLinkExpired')
       done()
     })
   })
@@ -82,8 +82,8 @@ describe('Activation page', () => {
   })
 
   it('displays an error message when activation link has expired', () => {
-    wrapper.setData({ state: expiredToken.data.consumerActivate.errors[0].message })
-    expect(wrapper.contains(`#${expiredToken.data.consumerActivate.errors[0].message}`)).toBe(true)
+    wrapper.setData({ state: 'errorActivationLinkExpired' })
+    expect(wrapper.contains('#errorActivationLinkExpired')).toBe(true)
   })
 
   it('displays an unknown error message when any other error happens', () => {
