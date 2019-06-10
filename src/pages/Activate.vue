@@ -3,19 +3,19 @@
     <transition mode="out-in" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
       <div key="pending" v-if="state === 'pending'" id="pending" class="column items-center">
         <q-spinner size="50px" />
-        <div>Votre compte est en train d'être activé</div>
+        <div>{{ $t('activate.pending') }}</div>
       </div>
       <div key="successfulActivation"  v-else-if="state === 'successfulActivation'" id="successfulActivation" class="column items-center">
         <q-icon name="check_circle" size="50px" color="positive" />
-        <div>Votre compte a été correctement activé.</div>
+        <div>{{ $t('activate.success') }}</div>
       </div>
       <div key="errorActivationLinkExpired" v-else-if="state === 'errorActivationLinkExpired'" id="errorActivationLinkExpired" class="column items-center">
         <q-icon name="cancel" size="50px" color="negative" />
-        <div>Votre compte n'a pas pu être activé. Le lien a expiré.</div>
+        <div>{{ $t('activate.error.expiredLink') }}</div>
       </div>
       <div key="unknownError" v-else id="unknownError" class="column items-center">
         <q-icon name="cancel" size="50px" color="negative" />
-        <div>Votre compte n'a pas pu être activé à cause d'une erreur inconnue.</div>
+        <div>{{ $t('activate.error.unknown') }}</div>
       </div>
     </transition>
   </q-page>
