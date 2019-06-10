@@ -8,9 +8,13 @@
   "private": true,
   "scripts": {
     "build": "quasar build",
-    "cypress:ci": "wait-on http://localhost:4000 && cross-env CYPRESS_TAGS=\"not @wip\" && cypress run --env configFile=acceptance",
-    "cypress:e2e": "wait-on http://localhost:4000 && cross-env CYPRESS_TAGS=\"not @wip and not @not-e2e\" && cypress run --env configFile=e2e",
+    "cypress:open:dev": "cross-env CYPRESS_baseUrl=http://localhost:4000/# cypress open",
+    "cypress:open": "cross-env CYPRESS_baseUrl=http://localhost:4000/# cypress open",
+    "cypress:ci": "wait-on http://localhost:4000 && cross-env CYPRESS_baseUrl=http://localhost:4000/# cypress run --env configFile=acceptance",
+    "cypress:ci:dev": "yarn cypress:ci",
+    "cypress:e2e": "wait-on http://localhost:4000 && cross-env CYPRESS_baseUrl=http://localhost:4000/# cypress run --env configFile=e2e",
     "start:ci": "concurrently \"yarn cypress:ci\" --kill-others \"yarn start\" --success first",
+    "start:ci:dev": "concurrently \"yarn cypress:ci:dev\" --kill-others \"yarn start:dev\" --success first",
     "start:e2e": "concurrently \"yarn cypress:e2e\" --kill-others \"yarn start\" --success first",
     "lint": "eslint --ext .js,.vue src",
     "start": "quasar serve dist/spa -H '0.0.0.0' -p 4000",
@@ -75,6 +79,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
+    "husky": "^2.3.0",
     "jest-junit": "^6.4.0",
     "jwt-decode": "^2.2.0",
     "majestic": "^1.4.1",
@@ -93,5 +98,11 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 10"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint --fix && yarn test:unit",
+      "pre-push": "yarn lint --fix && yarn test:unit"
+    }
+  }
 }
