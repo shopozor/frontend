@@ -1,6 +1,6 @@
 import Signup from '../Signup'
 import vuelidate from '../../boot/vuelidate'
-import { mountQuasar } from '../../../test/jest/utils'
+import { mountQuasar } from '../../../common/unit-tests/utils'
 import consumerCreation from '../../../cypress/fixtures/Authentication/RegisterConsumer/Responses/SuccessfulConsumerCreation.json'
 
 describe('Signup', () => {
