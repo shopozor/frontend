@@ -9,9 +9,10 @@ import {
 import '../../../../common/cypress/integration/Authentication/common/PersonaType'
 import types from '../../../../common/types'
 
-// import '../common/PersonaType'
+import { injectResponseFixtureIfFaked } from '../../../../common/cypress/integration/common/fakeServer'
 
 Given("un {PersonaType} connecté", function (persona) {
+  injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
   login(persona)
 })
 
