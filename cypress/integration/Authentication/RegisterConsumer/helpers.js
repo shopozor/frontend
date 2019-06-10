@@ -5,11 +5,11 @@ export function fillUserRegistrationGui(email, password) {
 }
 
 export function acceptCookies() {
-  cy.get('[id="acceptCookies"]').click()
+  cy.get('[id="acceptCookies"]').then(checkbox => checkbox.click())
 }
 
 export function acceptTermsOfService() {
-  cy.get('[id="acceptTermsOfService"]').click()
+  cy.get('[id="acceptTermsOfService"]').then(checkbox => checkbox.click())
 }
 
 function getSubmitButton() {

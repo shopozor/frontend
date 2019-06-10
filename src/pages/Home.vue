@@ -1,14 +1,38 @@
 <template>
   <q-page>
-    {{ $t('welcome') }}
-    <validity-icon :mandatory="true" :knowError="true" :showError="false" />
+    <q-list>
+      <email-with-validation
+        v-model="email" />
+      <password-with-validation
+        v-model="password" />
+      <checkbox-with-validation
+        v-model="checked"
+        label="ceci est mon label"
+        :mandatory="true">
+        Contenu de la carte
+      </checkbox-with-validation>
+    </q-list>
+
+    {{ email }} ////
+    {{ password }} ////
+    {{ checked }}
   </q-page>
 </template>
 
 <script>
-import ValidityIcon from '../components/ValidityIcon'
+import EmailWithValidation from '../../common/src/components/form/EmailWithValidation'
+import PasswordWithValidation from '../../common/src/components/form/PasswordWithValidation'
+import CheckboxWithValidation from '../../common/src/components/form/CheckboxWithValidation'
+
 export default {
   name: 'PageHome',
-  components: { ValidityIcon }
+  data () {
+    return {
+      email: '',
+      password: '',
+      checked: false
+    }
+  },
+  components: { EmailWithValidation, PasswordWithValidation, CheckboxWithValidation }
 }
 </script>

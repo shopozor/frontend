@@ -7,7 +7,7 @@ import {
   checkIfLinkIsActive
 } from '../../../../common/cypress/integration/Authentication/common/Helpers'
 import '../../../../common/cypress/integration/Authentication/common/PersonaType'
-import types from '../../../../common/src/types'
+import types from '../../../../common/types'
 
 import { injectResponseFixtureIfFaked } from '../../../../common/cypress/integration/common/fakeServer'
 
