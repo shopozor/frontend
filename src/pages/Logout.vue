@@ -3,10 +3,10 @@
     <div class="fixed-center text-center">
       <div v-if="isAuthorized">
         <q-spinner size="50px" />
-        <div class="text-faded">Déconnection...</div>
+        <div class="text-faded">{{ $t('logout.pending') }}</div>
       </div>
       <div v-else>
-        <div>Vous avez été correctement déconnecté</div>
+        <div>{{ $t('logout.success') }}</div>
         <q-btn color="primary" @click.native="goHome">ok</q-btn>
       </div>
     </div>
