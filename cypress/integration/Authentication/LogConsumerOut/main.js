@@ -29,7 +29,12 @@ Then('sa session se ferme', function () {
   // 
   // cy.server()
   // cy.route('**/logout').as(logout)
-  // cy.wait('@logout).then(...)
+  // cy.wait('@logout).then(() => {
+  //   getTokenCookie().should('not.exist')
+  // })
+  //
+  // les 100ms d'attentes sont déterminées empiriquement !
+  // elles peuvent être insuffisantes selon la machine qui fait passer les tests
   
   cy.wait(100).then(() => {
     getTokenCookie().should('not.exist')
