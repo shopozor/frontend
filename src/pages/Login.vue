@@ -51,7 +51,7 @@
             @click="login" />
         </q-item>
         <q-item class="row justify-center">
-          <router-link 
+          <router-link
             id="forgotPassword"
             to="/pathNeedsToBeSet">
             {{ $t('login.forgotPassword') }}
