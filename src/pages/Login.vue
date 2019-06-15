@@ -10,6 +10,7 @@
         <q-item>
           <q-item-section>
             <q-input
+              id="email"
               v-model="email"
               type="email"
               :float-label="$t('profile.email')">
@@ -22,7 +23,7 @@
         <q-item>
             <q-item-section>
               <q-input
-                ref="password"
+                id="password"
                 v-model="password"
                 type="password"
                 :float-label="$t('profile.password')"
@@ -34,13 +35,27 @@
             </q-item-section>
         </q-item>
         <q-item class="row justify-center">
-          <q-toggle class="q-ma-md" :class="{'text-faded': !stayLoggedIn}" v-model="stayLoggedIn" :label="$t('login.stayLoggedIn')"></q-toggle>
+          <q-toggle
+            id="toggleStayLoggedIn"
+            class="q-ma-md"
+            :class="{'text-faded': !stayLoggedIn}"
+            v-model="stayLoggedIn"
+            :label="$t('login.stayLoggedIn')" />
         </q-item>
         <q-item class="row justify-center">
-          <q-btn id="loginButton" class="q-ma-md" color="primary" :label="$t('login.connect')" @click="login" ></q-btn>
+          <q-btn
+            id="loginButton"
+            class="q-ma-md"
+            color="primary"
+            :label="$t('login.connect')"
+            @click="login" />
         </q-item>
         <q-item class="row justify-center">
-          <router-link to="/confirmationEmailSent">{{ $t('login.forgotPassword') }}</router-link>
+          <router-link 
+            id="forgotPassword"
+            to="/pathNeedsToBeSet">
+            {{ $t('login.forgotPassword') }}
+          </router-link>
         </q-item>
       </q-list>
     </div>
@@ -72,9 +87,6 @@ export default {
     },
     handleError (errors) {
       this.invalidCredentials = errors.some(error => error.message === 'WRONG_CREDENTIALS')
-    },
-    focusPassword () {
-      this.$refs.password.focus()
     }
   }
 }
