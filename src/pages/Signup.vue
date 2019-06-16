@@ -45,14 +45,11 @@
         </checkbox-with-validation>
 
         <q-item class="row justify-center">
-          <q-btn
+          <shaking-btn
             id="createAccount"
-            class="q-ma-md"
-            :class="{'animated shake': shakingButton}"
-            :color="disableCreateAccount ? 'ghost' : 'primary'"
-            :unelevated="disableCreateAccount"
             :label="$t('signup.createAccount')"
-            @click="submit"/>
+            :action="submit"
+            :disable="disableCreateAccount" />
         </q-item>
 
       </q-list>
@@ -87,6 +84,7 @@
 import emailWithValidation from '../../common/src/components/form/EmailWithValidation'
 import passwordWithValidation from '../../common/src/components/form/PasswordWithValidation'
 import checkboxWithValidation from '../../common/src/components/form/CheckboxWithValidation'
+import shakingBtn from '../../common/src/components/form/ShakingBtn'
 
 export default {
   name: 'PageSignup',
@@ -116,30 +114,25 @@ export default {
   },
   methods: {
     submit () {
-      if (this.disableCreateAccount) {
-        this.shakingButton = true
-        const vm = this
-        setTimeout(() => { vm.shakingButton = false }, 500)
-        // this.$q.notify(this.$t('signup.correctErrors'))
-      } else {
-        this.creatingAccount = true
-        const vm = this
-        this.$store.dispatch('signup', {email: this.email, password: this.password})
-          .then(() => {
-            vm.creatingAccount = false
-            vm.emailSent = true
-          })
-          .catch(() => {
-            vm.creatingAccount = false
-            // vm.error = true
-          })
-      }
+      console.log('called')
+      this.creatingAccount = true
+      const vm = this
+      this.$store.dispatch('signup', {email: this.email, password: this.password})
+        .then(() => {
+          vm.creatingAccount = false
+          vm.emailSent = true
+        })
+        .catch(() => {
+          vm.creatingAccount = false
+          // vm.error = true
+        })
     }
   },
   components: {
     emailWithValidation,
     passwordWithValidation,
-    checkboxWithValidation
+    checkboxWithValidation,
+    shakingBtn
   }
 }
 </script>
