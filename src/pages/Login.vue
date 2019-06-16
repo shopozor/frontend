@@ -43,20 +43,22 @@
             :label="$t('login.stayLoggedIn')" />
         </q-item>
         <q-item class="row justify-center">
-          <q-btn
+          <shaking-btn
             id="loginButton"
-            class="q-ma-md"
-            color="primary"
             :label="$t('login.connect')"
-            @click="login" />
+            :action="login"
+            :disable="disableLogin" />
         </q-item>
         <q-item class="row justify-center">
-          <router-link
+          <q-btn
             id="forgotPassword"
-            :to="resetPasswordPath">
-            {{ $t('login.forgotPassword') }}
-            {{ resetPasswordPath }}
-          </router-link>
+            @click="goToResetPassword"
+            flat
+            rounded
+            no-caps
+            color="info">
+            {{ $t('login.forgotPassword') }}...
+          </q-btn>
         </q-item>
       </q-list>
     </div>
@@ -66,6 +68,7 @@
 <script>
 import types from '../../common/types'
 import { generatePath } from '../../common/src/router/Helpers'
+import shakingBtn from '../../common/src/components/form/ShakingBtn'
 
 export default {
   name: 'PageLogin',
@@ -78,8 +81,12 @@ export default {
     }
   },
   computed: {
-    resetPasswordPath () {
-      return generatePath({ link: types.links.RESET_PASSWORD })
+    disableLogin () {
+      const disable =
+        this.email === '' ||
+        this.password === ''
+
+      return disable
     }
   },
   methods: {
@@ -95,7 +102,13 @@ export default {
     },
     handleError (errors) {
       this.invalidCredentials = errors.some(error => error.message === 'WRONG_CREDENTIALS')
+    },
+    goToResetPassword () {
+      this.$router.push(
+        generatePath({ link: types.links.RESET_PASSWORD })
+      )
     }
-  }
+  },
+  components: { shakingBtn }
 }
 </script>
