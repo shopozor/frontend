@@ -105,7 +105,7 @@ export default {
     },
     goToResetPassword () {
       this.$router.push(
-        generatePath({ link: types.links.RESET_PASSWORD })
+        generatePath({ link: types.links.FORGOT_PASSWORD })
       )
     }
   },

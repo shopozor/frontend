@@ -1,7 +1,5 @@
 <template>
-  <q-page padding class="q-pa-md flex flex-center bg-secondary">
-    <forgot-password />
-  </q-page>
+  <forgot-password />
 </template>
 
 <script>
