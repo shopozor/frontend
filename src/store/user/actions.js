@@ -158,3 +158,9 @@ export function resetPassword (__, { email }) {
     resolve()
   })
 }
+
+export function changePassword (__, { password, encodedId, oneTimeToken }) {
+  return new Promise((resolve, reject) => {
+    resolve()
+  })
+}
