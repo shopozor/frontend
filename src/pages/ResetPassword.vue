@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import resetPassword from '../../common/src/components/form/ResetPassword'
+import resetPassword from '../../common/src/pages/ResetPassword'
 
 export default {
   name: 'ResetPasswordPage',

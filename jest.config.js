@@ -25,6 +25,8 @@ module.exports = {
     '<rootDir>/common/src/components/**/*.js',
     '<rootDir>/common/src/mixins/**/*.vue',
     '<rootDir>/common/src/mixins/**/*.js',
+    '<rootDir>/common/src/pages/**/*.vue',
+    '<rootDir>/common/src/pages/**/*.js',
     '<rootDir>/common/src/router/**/*.vue',
     '<rootDir>/common/src/router/**/*.js',
     '<rootDir>/common/src/store/**/*.vue',
