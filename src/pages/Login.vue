@@ -53,8 +53,9 @@
         <q-item class="row justify-center">
           <router-link
             id="forgotPassword"
-            to="/pathNeedsToBeSet">
+            :to="resetPasswordPath">
             {{ $t('login.forgotPassword') }}
+            {{ resetPasswordPath }}
           </router-link>
         </q-item>
       </q-list>
@@ -63,6 +64,8 @@
 </template>
 
 <script>
+import types from '../../common/types'
+import { generatePath } from '../../common/src/router/Helpers'
 
 export default {
   name: 'PageLogin',
@@ -72,6 +75,11 @@ export default {
       password: '',
       stayLoggedIn: true,
       invalidCredentials: false
+    }
+  },
+  computed: {
+    resetPasswordPath () {
+      return generatePath({ link: types.links.RESET_PASSWORD })
     }
   },
   methods: {

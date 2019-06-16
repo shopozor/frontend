@@ -152,3 +152,9 @@ export function activate (__, { encodedId, oneTimeToken }) {
   //   setTimeout(() => resolve(ActivateConsumer), 1000)
   // })
 }
+
+export function resetPassword (__, { email }) {
+  return new Promise((resolve, reject) => {
+    resolve()
+  })
+}
