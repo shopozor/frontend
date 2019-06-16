@@ -49,7 +49,6 @@ export function signup ({ commit }, { email, password }) {
         commit('error', error)
         reject(error)
       })
-    // setTimeout(() => resolve(), 1000)
   })
 }
 
@@ -131,7 +130,7 @@ export function logout ({ commit }) {
   })
 }
 
-export function activate ({ commit }, { encodedId, oneTimeToken }) {
+export function activate (__, { encodedId, oneTimeToken }) {
   return new Promise((resolve, reject) => {
     apolloClient
       .mutate({
