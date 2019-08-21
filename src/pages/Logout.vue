@@ -1,13 +1,13 @@
 <template>
   <q-page>
     <div class="fixed-center text-center">
-      <div v-if="isAuthorized">
+      <div id="logoutPending" v-if="isAuthorized">
         <q-spinner size="50px" />
-        <div class="text-faded">Déconnection...</div>
+        <div class="text-faded">{{ $t('logout.pending') }}</div>
       </div>
-      <div v-else>
-        <div>Vous avez été correctement déconnecté</div>
-        <q-btn color="primary" @click.native="goHome">ok</q-btn>
+      <div v-else id="successfulLogout">
+        <div>{{ $t('logout.success') }}</div>
+        <q-btn id="goHome" color="primary" @click="goHome">ok</q-btn>
       </div>
     </div>
   </q-page>
@@ -19,7 +19,9 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'PageLogout',
   created () {
-    this.logout().then(this.goHome)
+    this.logout().then(() => {
+      setTimeout(this.goHome, 2000)
+    })
   },
   computed: {
     ...mapGetters(['isAuthorized'])

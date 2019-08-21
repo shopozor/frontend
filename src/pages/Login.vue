@@ -10,6 +10,7 @@
         <q-item>
           <q-item-section>
             <q-input
+              id="email"
               v-model="email"
               type="email"
               :float-label="$t('profile.email')">
@@ -22,7 +23,7 @@
         <q-item>
             <q-item-section>
               <q-input
-                ref="password"
+                id="password"
                 v-model="password"
                 type="password"
                 :float-label="$t('profile.password')"
@@ -34,13 +35,30 @@
             </q-item-section>
         </q-item>
         <q-item class="row justify-center">
-          <q-toggle class="q-ma-md" :class="{'text-faded': !stayLoggedIn}" v-model="stayLoggedIn" :label="$t('login.stayLoggedIn')"></q-toggle>
+          <q-toggle
+            id="toggleStayLoggedIn"
+            class="q-ma-md"
+            :class="{'text-faded': !stayLoggedIn}"
+            v-model="stayLoggedIn"
+            :label="$t('login.stayLoggedIn')" />
         </q-item>
         <q-item class="row justify-center">
-          <q-btn id="loginButton" class="q-ma-md" color="primary" :label="$t('login.connect')" @click="login" ></q-btn>
+          <shaking-btn
+            id="loginButton"
+            :label="$t('login.connect')"
+            :action="login"
+            :disable="disableLogin" />
         </q-item>
         <q-item class="row justify-center">
-          <router-link to="/confirmationEmailSent">{{ $t('login.forgotPassword') }}</router-link>
+          <q-btn
+            id="forgotPassword"
+            @click="goToResetPassword"
+            flat
+            rounded
+            no-caps
+            color="info">
+            {{ $t('login.forgotPassword') }}...
+          </q-btn>
         </q-item>
       </q-list>
     </div>
@@ -48,6 +66,9 @@
 </template>
 
 <script>
+import types from '../../common/types'
+import { generatePath } from '../../common/src/router/Helpers'
+import shakingBtn from '../../common/src/components/form/ShakingBtn'
 
 export default {
   name: 'PageLogin',
@@ -57,6 +78,15 @@ export default {
       password: '',
       stayLoggedIn: true,
       invalidCredentials: false
+    }
+  },
+  computed: {
+    disableLogin () {
+      const disable =
+        this.email === '' ||
+        this.password === ''
+
+      return disable
     }
   },
   methods: {
@@ -73,9 +103,12 @@ export default {
     handleError (errors) {
       this.invalidCredentials = errors.some(error => error.message === 'WRONG_CREDENTIALS')
     },
-    focusPassword () {
-      this.$refs.password.focus()
+    goToResetPassword () {
+      this.$router.push(
+        generatePath({ link: types.links.FORGOT_PASSWORD })
+      )
     }
-  }
+  },
+  components: { shakingBtn }
 }
 </script>

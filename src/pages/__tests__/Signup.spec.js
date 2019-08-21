@@ -63,26 +63,44 @@ describe('Signup', () => {
     wrapper.vm.acceptTermsOfService = value
   }
 
-  it('activates the create account button only if all fields are valid and all mandatory checkboxes are checked', () => {
-    setValidity(true)
-    expect(wrapper.vm.disableCreateAccount).toBeFalsy()
+  describe('activates the create account button only if all fields are valid and all mandatory checkboxes are checked', () => {
+    test('all valid', done => {
+      setValidity(true)
+      wrapper.vm.$nextTick(() => {
+        expect(wrapper.vm.disableCreateAccount).toBeFalsy()
+        done()
+      })
+    })
 
-    email.vm.$emit('validity-check', false)
-    expect(wrapper.vm.disableCreateAccount).toBeTruthy()
+    test('invalid email', done => {
+      setValidity(true)
+      email.vm.$emit('validity-check', false)
+      wrapper.vm.$nextTick(() => {
+        expect(wrapper.vm.disableCreateAccount).toBeTruthy()
+        done()
+      })
+    })
 
-    email.vm.$emit('validity-check', true)
-    wrapper.vm.acceptCookies = false
-    expect(wrapper.vm.disableCreateAccount).toBeTruthy()
+    test('acceptCookies unchecked', done => {
+      setValidity(true)
+      wrapper.vm.acceptCookies = false
+      wrapper.vm.$nextTick(() => {
+        expect(wrapper.vm.disableCreateAccount).toBeTruthy()
+        done()
+      })
+    })
   })
 
   it('dispatches the signup action when the create account button is clicked while enabled', done => {
     setValidity(true)
-    createAccount.trigger('click')
-    expect(wrapper.vm.creatingAccount).toBeTruthy()
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.emailSent).toBeTruthy()
-      expect(wrapper.vm.creatingAccount).toBeFalsy()
-      done()
+      createAccount.trigger('click')
+      expect(wrapper.vm.creatingAccount).toBeTruthy()
+      wrapper.vm.$nextTick(() => {
+        expect(wrapper.vm.emailSent).toBeTruthy()
+        expect(wrapper.vm.creatingAccount).toBeFalsy()
+        done()
+      })
     })
   })
 })

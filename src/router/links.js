@@ -8,7 +8,9 @@ export const links = [
   types.links.HOME,
   types.links.MAP,
   types.links.SHOP,
-  types.links.ACTIVATE
+  types.links.ACTIVATE,
+  types.links.FORGOT_PASSWORD,
+  types.links.RESET_PASSWORD
 ]
 
 export const orderedLinks = {
@@ -34,7 +36,9 @@ export const accessRules = {
     [types.links.HOME]: true,
     [types.links.SHOP]: true,
     [types.links.MAP]: true,
-    [types.links.ACTIVATE]: true
+    [types.links.ACTIVATE]: true,
+    [types.links.FORGOT_PASSWORD]: true,
+    [types.links.RESET_PASSWORD]: true
   },
   [types.permissions.CONSUMER]: {
     [types.links.LOGIN]: false,
@@ -44,6 +48,8 @@ export const accessRules = {
     [types.links.HOME]: true,
     [types.links.SHOP]: true,
     [types.links.MAP]: true,
-    [types.links.ACTIVATE]: true
+    [types.links.ACTIVATE]: false,
+    [types.links.FORGOT_PASSWORD]: false,
+    [types.links.RESET_PASSWORD]: false
   }
 }

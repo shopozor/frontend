@@ -49,7 +49,6 @@ export function signup ({ commit }, { email, password }) {
         commit('error', error)
         reject(error)
       })
-    // setTimeout(() => resolve(), 1000)
   })
 }
 
@@ -125,15 +124,13 @@ export function getPermissions ({ commit }) {
 
 export function logout ({ commit }) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      commit('logout')
-      removeToken()
-      resolve()
-    }, 500)
+    commit('logout')
+    removeToken()
+    resolve()
   })
 }
 
-export function activate ({ commit }, { encodedId, oneTimeToken }) {
+export function activate (__, { encodedId, oneTimeToken }) {
   return new Promise((resolve, reject) => {
     apolloClient
       .mutate({
@@ -154,4 +151,16 @@ export function activate ({ commit }, { encodedId, oneTimeToken }) {
   // return new Promise((resolve, reject) => {
   //   setTimeout(() => resolve(ActivateConsumer), 1000)
   // })
+}
+
+export function resetPassword (__, { email }) {
+  return new Promise((resolve, reject) => {
+    resolve()
+  })
+}
+
+export function changePassword (__, { password, encodedId, oneTimeToken }) {
+  return new Promise((resolve, reject) => {
+    resolve()
+  })
 }

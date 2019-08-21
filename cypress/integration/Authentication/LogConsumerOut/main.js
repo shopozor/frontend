@@ -17,14 +17,31 @@ Given("un {PersonaType} connecté", function (persona) {
 })
 
 When('il se déconnecte', function () {
+  const now = Date.now()
+  cy.clock(now)
   navigateTo(types.links.LOGOUT)
 })
 
 Then('sa session se ferme', function () {
-  cy.wait(1000)
-  getTokenCookie().should('not.exist')
+  // TODO: remplacer cy.wait(100) par cy.wait("alias")
+  // il faudrait attendre d'être sur la page logout
+  // mais je n'arrive pas à le faire fonctionner
+  // 
+  // cy.server()
+  // cy.route('**/logout').as(logout)
+  // cy.wait('@logout).then(() => {
+  //   getTokenCookie().should('not.exist')
+  // })
+  //
+  // les 100ms d'attentes sont déterminées empiriquement !
+  // elles peuvent être insuffisantes selon la machine qui fait passer les tests
+  
+  cy.wait(100).then(() => {
+    getTokenCookie().should('not.exist')
+  })
 })
 
 Then("il est redirigé vers la page d'accueil", function () {
+  cy.tick(5000)
   checkIfLinkIsActive(types.links.HOME)
 })
