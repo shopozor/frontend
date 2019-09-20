@@ -5,9 +5,9 @@ import {
   getTokenDuration,
   getTokenCookie
 } from '../../../../common/cypress/integration/Authentication/common/Helpers'
-import '../../../../common/cypress/integration/Authentication/common/PersonaType'
-import '../../../../common/cypress/integration/Authentication/common/SessionDurationType'
-import TokenHandler from '../../../../common/cypress/integration/Authentication/common/TokenHandler'
+import '../../../../common/cypress/integration/Authentication/PersonaType'
+import '../../../../common/cypress/integration/Authentication/SessionDurationType'
+import TokenHandler from '../../../../common/cypress/integration/Authentication/TokenHandler'
 import { injectResponseFixtureIfFaked } from '../../../../common/cypress/integration/common/fakeServer'
 
 

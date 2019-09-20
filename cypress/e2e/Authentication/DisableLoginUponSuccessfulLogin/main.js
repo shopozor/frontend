@@ -2,7 +2,7 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
 
 import { injectResponseFixtureIfFaked } from '../../../../common/cypress/integration/common/fakeServer'
 import { login } from '../../../../common/cypress/integration/Authentication/common/Helpers'
-import '../../../../common/cypress/integration/Authentication/common/PersonaType'
+import '../../../../common/cypress/integration/Authentication/PersonaType'
 
 
 Given("un {PersonaType} identifié", function (persona) {
