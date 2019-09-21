@@ -9,7 +9,7 @@ import TokenHandler from '../../common/cypress/integration/Authentication/TokenH
 describe('Log Consumer out', function(){
   context('Logout functionality', function() {
     
-    it('closes the session upon logout', function () {
+    it('closes the session with the server', function () {
       // Given
       injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
       login(persona)
@@ -38,7 +38,7 @@ describe('Log Consumer out', function(){
       })
     })
 
-    it('redirects to the home page upon logout', function () {
+    it('redirects to the home page', function () {
       // Given
       injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
       login(persona)

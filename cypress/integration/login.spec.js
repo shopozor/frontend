@@ -12,6 +12,8 @@ describe('Log Consumer in', function(){
       cy.visit('/login')
     }
 
+    // TODO: the same test needs to be run on the management-frontend side; maybe we could just 
+    // TODO: put this test into the common repo and import it somehow
     // TODO: do that for all personas (Consommateur, Producteur, Responsable, Rex, Softozor)! 
     // TODO:  --> try to use jest-each for that purpose
     it('redirects to home page if identified Consumer browses /login', function () {
