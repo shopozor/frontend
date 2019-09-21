@@ -35,10 +35,10 @@ describe('Log Consumer in', function(){
     it('pops up an error message if a Consumer logs in with invalid e-mail and password', function() {
       // Given
       // TODO: call this before each test!
+      injectResponseFixtureIfFaked('Authentication/LogConsumerIn/Responses/WrongCredentials')
       getTokenCookie().should('not.exist')
 
       // When
-      injectResponseFixtureIfFaked('Authentication/LogConsumerIn/Responses/WrongCredentials')
       accessLoginInterface()
       cy.fixture('Authentication/Credentials/NewConsumer')
         .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
@@ -54,10 +54,10 @@ describe('Log Consumer in', function(){
     it('pops up an error message if a registered Consumer logs in with an invalid password', function() {
       // Given
       // TODO: call this before each test!
+      injectResponseFixtureIfFaked('Authentication/LogConsumerIn/Responses/WrongCredentials')
       getTokenCookie().should('not.exist')
 
       // When
-      injectResponseFixtureIfFaked('Authentication/LogConsumerIn/Responses/WrongCredentials')
       accessLoginInterface()
       cy.fixture(`Authentication/Credentials/Consommateur`)
         .then(user => connectWithUserCredentialsViaGui(user.email, user.password + 'a'))
@@ -73,10 +73,10 @@ describe('Log Consumer in', function(){
     it('opens a session if the Consumer provides the correct credentials', function() {
       // Given
       // TODO: call this before each test!
+      injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
       getTokenCookie().should('not.exist')
 
       // When
-      injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
       accessLoginInterface()
       cy.fixture(`Authentication/Credentials/${persona}`)
         .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
