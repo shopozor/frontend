@@ -4,14 +4,18 @@ import {
   getTokenCookie,
   checkIfLinkIsActive
 } from '../../common/cypress/Authentication/Helpers'
+import types from '../../common/types'
 
 describe('Log Consumer out', function(){
   context('Logout functionality', function() {
     
+    const email = 'test@example.com'
+    const password = 'password'
+
     it('closes the session with the server', function () {
       // Given
-      cy.stubServer(`Authentication/LogConsumerIn/Responses/${persona}`)
-      login(persona)
+      cy.stubServer(`Authentication/LogConsumerIn/Consommateur`)
+      login(email, password)
 
       // When
       const now = Date.now()
@@ -39,8 +43,8 @@ describe('Log Consumer out', function(){
 
     it('redirects to the home page', function () {
       // Given
-      cy.stubServer(`Authentication/LogConsumerIn/Responses/${persona}`)
-      login(persona)
+      cy.stubServer(`Authentication/LogConsumerIn/Consommateur`)
+      login(email, password)
 
       // When
       const now = Date.now()

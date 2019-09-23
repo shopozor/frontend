@@ -1,7 +1,15 @@
+import {
+  getTokenCookie
+} from '../../common/cypress/Authentication/Helpers'
+import types from '../../common/types'
+
 describe('Sign Consumer up', function(){
 
   context('Consumer registration', function() {
     
+    const email = 'test@example.com'
+    const password = 'password'
+
     function accessRegistrationInterface() {
       cy.visit(`/${types.links.SIGNUP}`)
     }
@@ -29,25 +37,17 @@ describe('Sign Consumer up', function(){
         btn.click()
       })
     }
-    
-    function isFieldValid(fieldId, validity) {
-      cy.get(`div[id="${fieldId}"]`).then(field => {
-        if(validity) expect(field).not.to.have.class('q-field--error')
-        else expect(field).to.have.class('q-field--error')
-      })
-    }
 
     it('enables submit button when registration is filled up and cookies and terms of service are checked', function () {
       // Given
-      cy.stubServer('Authentication/RegisterConsumer/Responses/SuccessfulConsumerCreation')
+      cy.stubServer('Authentication/RegisterConsumer/SuccessfulConsumerCreation')
       
       // When
       accessRegistrationInterface()
-      cy.fixture('Authentication/Credentials/NewConsumer')
-        .then(user => {
-          fillUserRegistrationGui(user.email, user.password)
-          isFieldValid('password', true)
-        })
+      fillUserRegistrationGui(email, password)
+      cy.get("div[id='password']").then(field => {
+        expect(field).not.to.have.class('q-field--error')
+      })
       acceptCookies()
       acceptTermsOfService()
       
@@ -59,15 +59,14 @@ describe('Sign Consumer up', function(){
 
     it('registers new Consumer with compliant password', function () {
       // Given
-      cy.stubServer('Authentication/RegisterConsumer/Responses/SuccessfulConsumerCreation')
+      cy.stubServer('Authentication/RegisterConsumer/SuccessfulConsumerCreation')
       
       // When
       accessRegistrationInterface()
-      cy.fixture('Authentication/Credentials/NewConsumer')
-        .then(user => {
-          fillUserRegistrationGui(user.email, user.password)
-          isFieldValid('password', true)
-        })
+      fillUserRegistrationGui(email, password)
+      cy.get("div[id='password']").then(field => {
+        expect(field).not.to.have.class('q-field--error')
+      })
       acceptCookies()
       acceptTermsOfService()
       submitRegistration()
@@ -96,7 +95,7 @@ describe('Sign Consumer up', function(){
 
     it('displays a success message when the activation link is visited soon enough', function () {
       // Given
-      cy.stubServer('Authentication/RegisterConsumer/Responses/SuccessfulAccountConfirmation', isGraphqlFaked)
+      cy.stubServer('Authentication/RegisterConsumer/SuccessfulAccountConfirmation')
 
       // When
       visitActivationLink()
@@ -110,7 +109,7 @@ describe('Sign Consumer up', function(){
 
     it('displays an error message when something is wrong with the link', function () {
       // Given
-      cy.stubServer('Authentication/RegisterConsumer/Responses/ExpiredAccountConfirmationLink', isGraphqlFaked)
+      cy.stubServer('Authentication/ExpiredLink')
 
       // When
       visitActivationLink()
@@ -118,7 +117,5 @@ describe('Sign Consumer up', function(){
       // Then
       cy.get('[id="errorActivationLinkExpired"]').should('exist')
     })
-
   })
-
 })

@@ -1,6 +1,6 @@
 import Activate from '../Activate'
 import { mountQuasar } from '../../../common/unit-tests/utils'
-import expiredToken from '../../../cypress/fixtures/Authentication/RegisterConsumer/Responses/ExpiredAccountConfirmationLink'
+import expiredToken from '../../../graphql/responses/Authentication/ExpiredLink'
 
 describe('Activation page', () => {
   it('sets state to "successfulActivation" when activation is successful', done => {
@@ -41,7 +41,7 @@ describe('Activation page', () => {
               encodedId: 'validId',
               oneTimeToken: 'expiredToken'
             },
-            reject: expiredToken.data.consumerActivate.errors
+            reject: expiredToken.errors
           }
         ]
       }

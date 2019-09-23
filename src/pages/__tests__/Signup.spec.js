@@ -1,7 +1,7 @@
 import Signup from '../Signup'
 import vuelidate from '../../boot/vuelidate'
 import { mountQuasar } from '../../../common/unit-tests/utils'
-import consumerCreation from '../../../cypress/fixtures/Authentication/RegisterConsumer/Responses/SuccessfulConsumerCreation.json'
+import consumerCreation from '../../../graphql/responses/Authentication/RegisterConsumer/SuccessfulConsumerCreation.json'
 
 describe('Signup', () => {
   const wrapper = mountQuasar(Signup, {

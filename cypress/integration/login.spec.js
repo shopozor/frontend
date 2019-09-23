@@ -1,7 +1,8 @@
 import {
   connectWithUserCredentialsViaGui,
   getTokenDuration,
-  getTokenCookie
+  getTokenCookie,
+  login
 } from '../../common/cypress/Authentication/Helpers'
 import TokenHandler from '../../common/cypress/Authentication/TokenHandler'
 
@@ -11,6 +12,9 @@ describe('Log Consumer in', function(){
     function accessLoginInterface() {
       cy.visit('/login')
     }
+
+    const email = 'test@example.com'
+    const password = 'password'
 
     // TODO: the same test needs to be run on the management-frontend side; maybe we could just 
     // TODO: put this test into the common repo and import it somehow
@@ -24,8 +28,8 @@ describe('Log Consumer in', function(){
       * C'est pourquoi il faut empêcher à un utilisateur identifié d'accéder à l'interface d'identification. 
       */
       // Given
-      cy.stubServer(`Authentication/LogConsumerIn/Responses/${persona}`)
-      login(persona)
+      cy.stubServer(`Authentication/LogConsumerIn/Consommateur`)
+      login(email, password)
 
       // When
       cy.visit('/login')
@@ -35,15 +39,15 @@ describe('Log Consumer in', function(){
     })
 
     it('pops up an error message if a Consumer logs in with invalid e-mail and password', function() {
-      // Given
       // TODO: call this before each test!
-      cy.stubServer('Authentication/LogConsumerIn/Responses/WrongCredentials')
       getTokenCookie().should('not.exist')
+
+      // Given
+      cy.stubServer('Authentication/LogConsumerIn/WrongCredentials')
 
       // When
       accessLoginInterface()
-      cy.fixture('Authentication/Credentials/NewConsumer')
-        .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
+      connectWithUserCredentialsViaGui(email, password)
 
       // Then
       // TODO: put this in a separate method that can be called in the other tests too!
@@ -54,15 +58,15 @@ describe('Log Consumer in', function(){
     })
 
     it('pops up an error message if a registered Consumer logs in with an invalid password', function() {
-      // Given
       // TODO: call this before each test!
-      cy.stubServer('Authentication/LogConsumerIn/Responses/WrongCredentials')
       getTokenCookie().should('not.exist')
+
+      // Given
+      cy.stubServer('Authentication/LogConsumerIn/WrongCredentials')
 
       // When
       accessLoginInterface()
-      cy.fixture(`Authentication/Credentials/Consommateur`)
-        .then(user => connectWithUserCredentialsViaGui(user.email, user.password + 'a'))
+      connectWithUserCredentialsViaGui(email, password)
 
       // Then
       // TODO: put this in a separate method that can be called in the other tests too!
@@ -73,15 +77,15 @@ describe('Log Consumer in', function(){
     })
 
     it('opens a session if the Consumer provides the correct credentials', function() {
-      // Given
       // TODO: call this before each test!
-      cy.stubServer(`Authentication/LogConsumerIn/Responses/${persona}`)
       getTokenCookie().should('not.exist')
+
+      // Given
+      cy.stubServer(`Authentication/LogConsumerIn/Consommateur`)
 
       // When
       accessLoginInterface()
-      cy.fixture(`Authentication/Credentials/${persona}`)
-        .then(user => connectWithUserCredentialsViaGui(user.email, user.password))
+      connectWithUserCredentialsViaGui(email, password)
 
       // Then
       cy.get('@graphql').then(() => {
