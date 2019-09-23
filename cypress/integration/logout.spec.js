@@ -3,15 +3,14 @@ import {
   navigateTo,
   getTokenCookie,
   checkIfLinkIsActive
-} from '../../common/cypress/integration/Authentication/Helpers'
-import TokenHandler from '../../common/cypress/integration/Authentication/TokenHandler'
+} from '../../common/cypress/Authentication/Helpers'
 
 describe('Log Consumer out', function(){
   context('Logout functionality', function() {
     
     it('closes the session with the server', function () {
       // Given
-      injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
+      cy.stubServer(`Authentication/LogConsumerIn/Responses/${persona}`)
       login(persona)
 
       // When
@@ -40,7 +39,7 @@ describe('Log Consumer out', function(){
 
     it('redirects to the home page', function () {
       // Given
-      injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
+      cy.stubServer(`Authentication/LogConsumerIn/Responses/${persona}`)
       login(persona)
 
       // When

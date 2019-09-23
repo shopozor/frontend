@@ -39,7 +39,7 @@ describe('Sign Consumer up', function(){
 
     it('enables submit button when registration is filled up and cookies and terms of service are checked', function () {
       // Given
-      injectResponseFixtureIfFaked('Authentication/RegisterConsumer/Responses/SuccessfulConsumerCreation')
+      cy.stubServer('Authentication/RegisterConsumer/Responses/SuccessfulConsumerCreation')
       
       // When
       accessRegistrationInterface()
@@ -59,7 +59,7 @@ describe('Sign Consumer up', function(){
 
     it('registers new Consumer with compliant password', function () {
       // Given
-      injectResponseFixtureIfFaked('Authentication/RegisterConsumer/Responses/SuccessfulConsumerCreation')
+      cy.stubServer('Authentication/RegisterConsumer/Responses/SuccessfulConsumerCreation')
       
       // When
       accessRegistrationInterface()
@@ -96,7 +96,7 @@ describe('Sign Consumer up', function(){
 
     it('displays a success message when the activation link is visited soon enough', function () {
       // Given
-      injectResponseFixtureIfFaked('Authentication/RegisterConsumer/Responses/SuccessfulAccountConfirmation', isGraphqlFaked)
+      cy.stubServer('Authentication/RegisterConsumer/Responses/SuccessfulAccountConfirmation', isGraphqlFaked)
 
       // When
       visitActivationLink()
@@ -110,9 +110,9 @@ describe('Sign Consumer up', function(){
 
     it('displays an error message when something is wrong with the link', function () {
       // Given
+      cy.stubServer('Authentication/RegisterConsumer/Responses/ExpiredAccountConfirmationLink', isGraphqlFaked)
 
       // When
-      injectResponseFixtureIfFaked('Authentication/RegisterConsumer/Responses/ExpiredAccountConfirmationLink', isGraphqlFaked)
       visitActivationLink()
 
       // Then

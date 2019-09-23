@@ -2,8 +2,8 @@ import {
   connectWithUserCredentialsViaGui,
   getTokenDuration,
   getTokenCookie
-} from '../../common/cypress/integration/Authentication/Helpers'
-import TokenHandler from '../../common/cypress/integration/Authentication/TokenHandler'
+} from '../../common/cypress/Authentication/Helpers'
+import TokenHandler from '../../common/cypress/Authentication/TokenHandler'
 
 describe('Log Consumer in', function(){
   context('Login functionality', function() {
@@ -24,7 +24,7 @@ describe('Log Consumer in', function(){
       * C'est pourquoi il faut empêcher à un utilisateur identifié d'accéder à l'interface d'identification. 
       */
       // Given
-      injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
+      cy.stubServer(`Authentication/LogConsumerIn/Responses/${persona}`)
       login(persona)
 
       // When
@@ -37,7 +37,7 @@ describe('Log Consumer in', function(){
     it('pops up an error message if a Consumer logs in with invalid e-mail and password', function() {
       // Given
       // TODO: call this before each test!
-      injectResponseFixtureIfFaked('Authentication/LogConsumerIn/Responses/WrongCredentials')
+      cy.stubServer('Authentication/LogConsumerIn/Responses/WrongCredentials')
       getTokenCookie().should('not.exist')
 
       // When
@@ -56,7 +56,7 @@ describe('Log Consumer in', function(){
     it('pops up an error message if a registered Consumer logs in with an invalid password', function() {
       // Given
       // TODO: call this before each test!
-      injectResponseFixtureIfFaked('Authentication/LogConsumerIn/Responses/WrongCredentials')
+      cy.stubServer('Authentication/LogConsumerIn/Responses/WrongCredentials')
       getTokenCookie().should('not.exist')
 
       // When
@@ -75,7 +75,7 @@ describe('Log Consumer in', function(){
     it('opens a session if the Consumer provides the correct credentials', function() {
       // Given
       // TODO: call this before each test!
-      injectResponseFixtureIfFaked(`Authentication/LogConsumerIn/Responses/${persona}`)
+      cy.stubServer(`Authentication/LogConsumerIn/Responses/${persona}`)
       getTokenCookie().should('not.exist')
 
       // When
