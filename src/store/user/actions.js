@@ -2,9 +2,9 @@ import { apolloClient } from '../../boot/apollo'
 import * as cookie from '../../../common/src/store/cookie'
 import types from '../../../common/types'
 
-import LogIn from '../../../graphql/login.graphql'
-import SignUp from '../../../graphql/signup.graphql'
-import ActivateConsumer from '../../../graphql/activateConsumer.graphql'
+import LogIn from '../../../graphql/calls/login.graphql'
+import SignUp from '../../../graphql/calls/signup.graphql'
+import ActivateConsumer from '../../../graphql/calls/activateConsumer.graphql'
 
 function saveUser ({ email, userId, token }) {
   cookie.set({ cookieId: types.cookies.EMAIL, cookieValue: email, cookieDuration: 30 })
