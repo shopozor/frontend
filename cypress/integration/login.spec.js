@@ -16,6 +16,8 @@ describe('Log Consumer in', function(){
     const email = 'test@example.com'
     const password = 'password'
 
+    beforeEach(() => getTokenCookie().should('not.exist'))
+
     // TODO: the same test needs to be run on the management-frontend side; maybe we could just 
     // TODO: put this test into the common repo and import it somehow
     // TODO: do that for all personas (Consommateur, Producteur, Responsable, Rex, Softozor)! 
@@ -39,9 +41,6 @@ describe('Log Consumer in', function(){
     })
 
     it('pops up an error message if a Consumer logs in with invalid e-mail and password', function() {
-      // TODO: call this before each test!
-      getTokenCookie().should('not.exist')
-
       // Given
       cy.stubServer('Authentication/LogConsumerIn/WrongCredentials')
 
@@ -58,9 +57,6 @@ describe('Log Consumer in', function(){
     })
 
     it('pops up an error message if a registered Consumer logs in with an invalid password', function() {
-      // TODO: call this before each test!
-      getTokenCookie().should('not.exist')
-
       // Given
       cy.stubServer('Authentication/LogConsumerIn/WrongCredentials')
 
@@ -77,9 +73,6 @@ describe('Log Consumer in', function(){
     })
 
     it('opens a session if the Consumer provides the correct credentials', function() {
-      // TODO: call this before each test!
-      getTokenCookie().should('not.exist')
-
       // Given
       cy.stubServer(`Authentication/LogConsumerIn/Consommateur`)
 

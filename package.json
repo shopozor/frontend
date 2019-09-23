@@ -1,8 +1,8 @@
 {
   "name": "shopozor-consumer-frontend",
   "version": "1.0.0",
-  "description": "Le magasin local suisse en ligne",
-  "productName": "La Budzonnerie",
+  "description": "Consumer interface to the Shopozor",
+  "productName": "Shopozor",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Softozor",
   "private": true,
