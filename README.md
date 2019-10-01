@@ -1,5 +1,14 @@
 # Shopozor consumer frontend
 
+## Docker images
+
+### Development
+
+As a backend developer, you might need to connect your application to the Shopozor's consumer frontend. The development docker image is produced manually upon every PR merging into the `dev` branch. You can start the consumer frontend like this:
+```
+docker run -p 4000:4000 -it softozor/shopozor-consumer-frontend:production-dev
+```
+
 ## Pull requests
 
 ### Workflow
