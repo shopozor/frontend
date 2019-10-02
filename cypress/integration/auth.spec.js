@@ -21,7 +21,7 @@ describe('Consumer authentication', function(){
     // TODO: put this test into the common repo and import it somehow
     it('redirects to home page if identified Consumer browses /login', function () {
       // Given
-      cy.stubServer(`Authentication/LogConsumerIn/Consommateur`)
+      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
       login(email, password)
 
       // When
@@ -63,7 +63,7 @@ describe('Consumer authentication', function(){
 
     it('opens a session if the Consumer provides the correct credentials', function() {
       // Given
-      cy.stubServer(`Authentication/LogConsumerIn/Consommateur`)
+      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
 
       // When
       cy.visit('/login')
@@ -83,7 +83,7 @@ describe('Consumer authentication', function(){
 
     it('forgets about the token and redirects to /', function () {
       // Given
-      cy.stubServer(`Authentication/LogConsumerIn/Consommateur`)
+      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
       login(email, password)
 
       // When
