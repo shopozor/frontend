@@ -39,8 +39,8 @@ export default {
         vm.state = 'successfulActivation'
       })
       .catch(error => {
-        switch (error[0].message) {
-          case 'LINK_EXPIRED': vm.state = 'errorActivationLinkExpired'; break
+        switch (error.message) {
+          case 'GraphQL error: LINK_EXPIRED': vm.state = 'errorActivationLinkExpired'; break
           default: vm.state = 'unknownError'; break
         }
       })
