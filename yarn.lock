@@ -6657,6 +6657,12 @@ handlebars@4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
   integrity sha512-nvfrjqvt9xQ8Z/w0ijewdD/vvWDTOweBUm96NTr66Wfvo1mJenBLwcYmPs3TIBP5ruzYGD7Hx/DaM9RmhroGPw==
+  dependencies:
+    neo-async "^2.6.0"
+    optimist "^0.6.1"
+    source-map "^0.6.1"
+  optionalDependencies:
+    uglify-js "^3.1.4"
 
 handlebars@^4.1.2:
   version "4.3.1"
@@ -10823,10 +10829,10 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-quasar@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.1.4.tgz#7323c713a2f3f7b2085632cbce50b1246fe37551"
-  integrity sha512-A6SI9vQNFBQ10DjAeSAVtvARbdyZ5uHE5ecGTreMCuKULehWnsJEsRmohM3GU4SttINesONCN99D3Lek10nwRA==
+quasar@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.1.6.tgz#91d5b7b2b763732cea9a19134df4dbfc26923210"
+  integrity sha512-QzWtgpdT30RGvmgZ1SpmuxrQRicIDTxhrjHB+2wVdtNH2K7DZVmKAgvoCOTytsBIDEe+vqf236p5zXvQK4DFpA==
 
 query-string@^4.1.0:
   version "4.3.4"
