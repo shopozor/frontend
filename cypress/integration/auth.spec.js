@@ -150,7 +150,7 @@ describe('Consumer authentication', function(){
       
       // Then
       getSubmitButton().then(btn => {
-        expect(btn).to.have.attr('disabled')
+        expect(btn).to.have.class('enabled')
       })
     })
 
