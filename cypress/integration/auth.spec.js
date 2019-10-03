@@ -80,6 +80,8 @@ describe('Consumer authentication', function(){
     
     const email = 'test@example.com'
     const password = 'password'
+  
+    beforeEach(() => getTokenCookie().should('not.exist'))
 
     it('forgets about the token and redirects to /', function () {
       // Given
@@ -131,6 +133,8 @@ describe('Consumer authentication', function(){
         btn.click()
       })
     }
+
+    beforeEach(() => getTokenCookie().should('not.exist'))
 
     it('enables submit button when registration is filled up and cookies and terms of service are checked', function () {
       // Given
@@ -187,6 +191,8 @@ describe('Consumer authentication', function(){
         .then(links => cy.visit(links.activation))
     }
 
+    beforeEach(() => getTokenCookie().should('not.exist'))
+        
     it('displays a success message when the activation link is visited soon enough', function () {
       // Given
       cy.stubServer('Authentication/RegisterConsumer/SuccessfulAccountConfirmation')
