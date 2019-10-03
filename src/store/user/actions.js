@@ -141,9 +141,10 @@ export function activate (__, { encodedId, oneTimeToken }) {
         }
       })
       .then(response => {
+        console.log(JSON.stringify(response))
         const errors = response.data.consumerActivate.errors
         if (errors.length === 0) resolve(response)
-        else reject(errors.graphQLErrors)
+        else reject(errors)
       })
       .catch(error => reject(error))
   })
