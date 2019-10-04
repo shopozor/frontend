@@ -183,6 +183,7 @@ describe('Consumer authentication', function(){
       // When
 
       // Then
+      expect(true).to.be(false)
     })
 
   })
@@ -212,7 +213,7 @@ describe('Consumer authentication', function(){
 
     it('displays an error message when something is wrong with the link', function () {
       // Given
-      cy.stubServer('Authentication/ExpiredLink')
+      cy.stubServer('Authentication/SignupExpiredLink')
 
       // When
       visitActivationLink()
