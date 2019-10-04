@@ -96,6 +96,9 @@ describe('Consumer authentication', function(){
       tokenHandler.getNullToken().then(() => {
         getTokenCookie().should('not.exist')
       })
+      cy.get('[id=goHome]').then(goHome => {
+        goHome.click()
+      })
       cy.location('pathname').should('eq', '/')
       checkIfLinkIsActive(types.links.HOME)
     })
@@ -151,7 +154,7 @@ describe('Consumer authentication', function(){
       
       // Then
       getSubmitButton().then(btn => {
-        expect(btn).to.have.attr('disabled')
+        expect(btn).to.have.class('enabled')
       })
     })
 
