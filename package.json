@@ -10,7 +10,7 @@
     "build": "quasar build",
     "cypress:open:dev": "cross-env CYPRESS_baseUrl=http://localhost:4000/# NODE_ENV=development cypress open",
     "cypress:open": "cross-env CYPRESS_baseUrl=http://localhost:4000/# cypress open",
-    "cypress:integration": "wait-on http://localhost:4000 && cross-env CYPRESS_baseUrl=http://localhost:4000/# cypress run --env configFile=integration",
+    "cypress:integration": "wait-on http://localhost:4000 && cross-env CYPRESS_baseUrl=http://localhost:4000/# cypress run --env configFile=integration --browser chrome",
     "cypress:integration:dev": "yarn cypress:integration",
     "cypress:e2e": "wait-on http://localhost:4000 && cross-env CYPRESS_baseUrl=http://localhost:4000/# cypress run --env configFile=e2e",
     "start:integration": "concurrently \"yarn cypress:integration\" --kill-others \"yarn start\" --success first",
