@@ -132,7 +132,7 @@ describe('Consumer authentication', function(){
     }
     
     function submitRegistration() {
-      cy.wrap(getSubmitButton()).click()
+      getSubmitButton().click()
     }
 
     beforeEach(() => getTokenCookie().should('not.exist'))
@@ -155,7 +155,7 @@ describe('Consumer authentication', function(){
     it('registers new Consumer with compliant password', function () {
       // Given
       cy.stubServer('Authentication/RegisterConsumer/SuccessfulConsumerCreation')
-      
+
       // When
       accessRegistrationInterface()
       fillUserRegistrationGui(email, password)
