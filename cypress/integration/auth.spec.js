@@ -132,9 +132,7 @@ describe('Consumer authentication', function(){
     }
     
     function submitRegistration() {
-      getSubmitButton().then(btn => {
-        btn.click()
-      })
+      cy.wrap(getSubmitButton()).click()
     }
 
     beforeEach(() => getTokenCookie().should('not.exist'))
@@ -146,9 +144,7 @@ describe('Consumer authentication', function(){
       // When
       accessRegistrationInterface()
       fillUserRegistrationGui(email, password)
-      cy.get("div[id='password']").then(field => {
-        expect(field).not.to.have.class('q-field--error')
-      })
+      cy.get("div[id='password']").should('not.have.class', 'q-field--error')
       acceptCookies()
       acceptTermsOfService()
       
@@ -163,9 +159,7 @@ describe('Consumer authentication', function(){
       // When
       accessRegistrationInterface()
       fillUserRegistrationGui(email, password)
-      cy.get("div[id='password']").then(field => {
-        expect(field).not.to.have.class('q-field--error')
-      })
+      cy.get("div[id='password']").should('not.have.class', 'q-field--error')
       acceptCookies()
       acceptTermsOfService()
       submitRegistration()
@@ -182,9 +176,7 @@ describe('Consumer authentication', function(){
       // When
       accessRegistrationInterface()
       fillUserRegistrationGui(email, password)
-      cy.get("div[id='password']").then(field => {
-        expect(field).not.to.have.class('q-field--error')
-      })
+      cy.get("div[id='password']").should('not.have.class', 'q-field--error')
       acceptCookies()
       acceptTermsOfService()
       submitRegistration()
@@ -197,6 +189,7 @@ describe('Consumer authentication', function(){
 
   })
 
+  
   context('Consumer account activation', function () {
 
     function visitActivationLink() {
