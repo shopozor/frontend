@@ -153,9 +153,7 @@ describe('Consumer authentication', function(){
       acceptTermsOfService()
       
       // Then
-      getSubmitButton().then(btn => {
-        expect(btn).to.have.class('enabled')
-      })
+      getSubmitButton().should('have.class', 'enabled')
     })
 
     it('registers new Consumer with compliant password', function () {
