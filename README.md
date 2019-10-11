@@ -36,3 +36,14 @@ Pre-commit (and pre-push) hooks are configured with `husky` (see `husky` section
 ```
 ./common/scripts/activate-hooks.sh
 ```
+
+## Troubleshooting
+
+Upon running the unit tests, you might get an error of the kind (especially on Windows machines):
+```
+Cannot find module '[..]/consumer-frontend/node_modules/@quasar/babel-preset-app/node_modules/@babel/runtime/helpers/interopRequireDefault' from 'jest.setup.js'
+```
+Following [this advice](https://forum.quasar-framework.org/topic/3760/fix-babel-error-after-update-from-v1-0-0-beta22-to-v1-0-0-rc4), you can fix it this way:
+```
+cd node_modules/@quasar/babel-preset-app && yarn
+```
