@@ -76,7 +76,7 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    
+
     <q-dialog id="error" v-model="error" persistent>
       <q-card>
         <q-card-section>
