@@ -107,7 +107,7 @@ describe('Consumer authentication', function(){
   context('Consumer registration', function() {
     
     const email = 'test@example.com'
-    const password = 'password'
+    const password = 'Passw0rd!'
 
     function accessRegistrationInterface() {
       cy.visit(`/${types.links.SIGNUP}`)
