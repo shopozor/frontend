@@ -40,7 +40,7 @@ export default {
       })
       .catch(error => {
         switch (error[0].message) {
-          case 'ACCOUNT_CONFIRMATION_LINK_EXPIRED': vm.state = 'errorActivationLinkExpired'; break
+          case 'LINK_EXPIRED': vm.state = 'errorActivationLinkExpired'; break
           default: vm.state = 'unknownError'; break
         }
       })

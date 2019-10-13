@@ -29,26 +29,26 @@ describe('login page', () => {
     }
   }
 
-  const emptyWrapper = mountQuasar(login)
+  const emptyWrapper = mountQuasar(login, { shallow: true })
 
   it('has an email input field', () => {
-    expect(emptyWrapper.find('#email').vm).toBeTruthy()
+    expect(emptyWrapper.find('#email').exists()).toBeTruthy()
   })
 
   it('has a password input field', () => {
-    expect(emptyWrapper.find('#password').vm).toBeTruthy()
+    expect(emptyWrapper.find('#password').exists()).toBeTruthy()
   })
 
   it('has a toggleStayLoggedIn input field', () => {
-    expect(emptyWrapper.find('#toggleStayLoggedIn').vm).toBeTruthy()
+    expect(emptyWrapper.find('#toggleStayLoggedIn').exists()).toBeTruthy()
   })
 
   it('has a loginButton input field', () => {
-    expect(emptyWrapper.find('#loginButton').vm).toBeTruthy()
+    expect(emptyWrapper.find('#loginButton').exists()).toBeTruthy()
   })
 
   it('has a forgotPassword input field', () => {
-    expect(emptyWrapper.find('#forgotPassword').vm).toBeTruthy()
+    expect(emptyWrapper.find('#forgotPassword').exists()).toBeTruthy()
   })
 
   it('routes to home page if login is successful', done => {

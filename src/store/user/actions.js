@@ -2,9 +2,9 @@ import { apolloClient } from '../../boot/apollo'
 import * as cookie from '../../../common/src/store/cookie'
 import types from '../../../common/types'
 
-import LogIn from '../../../graphql/login.graphql'
-import SignUp from '../../../graphql/signup.graphql'
-import ActivateConsumer from '../../../graphql/activateConsumer.graphql'
+import LogIn from '@gql/calls/login.graphql'
+import SignUp from '@gql/calls/signup.graphql'
+import ActivateConsumer from '@gql/calls/activateConsumer.graphql'
 
 function saveUser ({ email, userId, token }) {
   cookie.set({ cookieId: types.cookies.EMAIL, cookieValue: email, cookieDuration: 30 })
@@ -141,8 +141,8 @@ export function activate (__, { encodedId, oneTimeToken }) {
         }
       })
       .then(response => {
+        console.log(JSON.stringify(response))
         const errors = response.data.consumerActivate.errors
-        console.log('actions/activate', errors[0])
         if (errors.length === 0) resolve(response)
         else reject(errors)
       })
