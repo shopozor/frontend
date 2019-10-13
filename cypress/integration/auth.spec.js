@@ -137,21 +137,6 @@ describe('Consumer authentication', function(){
 
     beforeEach(() => getTokenCookie().should('not.exist'))
 
-    it('enables submit button when registration is filled up and cookies and terms of service are checked', function () {
-      // Given
-      cy.stubServer('Authentication/RegisterConsumer/SuccessfulConsumerCreation')
-      
-      // When
-      accessRegistrationInterface()
-      fillUserRegistrationGui(email, password)
-      cy.get("div[id='password']").should('not.have.class', 'q-field--error')
-      acceptCookies()
-      acceptTermsOfService()
-      
-      // Then
-      getSubmitButton().should('have.class', 'enabled')
-    })
-
     it('registers new Consumer with compliant password', function () {
       // Given
       cy.stubServer('Authentication/RegisterConsumer/SuccessfulConsumerCreation')
