@@ -76,6 +76,17 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    
+    <q-dialog id="error" v-model="error" persistent>
+      <q-card>
+        <q-card-section>
+          <div>{{ $t('signup.error') }}</div>
+        </q-card-section>
+        <q-card-actions align="center">
+          <q-btn label="ok" color="primary" @click="$router.go()" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
 
   </q-page>
 </template>
@@ -97,7 +108,8 @@ export default {
       acceptTermsOfService: false,
       shakingButton: false,
       creatingAccount: false,
-      emailSent: false
+      emailSent: false,
+      error: false
     }
   },
   computed: {
@@ -114,17 +126,16 @@ export default {
   },
   methods: {
     submit () {
-      console.log('called')
       this.creatingAccount = true
       const vm = this
-      this.$store.dispatch('signup', {email: this.email, password: this.password})
+      this.$store.dispatch('signup', {email: this.email.value, password: this.password.value})
         .then(() => {
           vm.creatingAccount = false
           vm.emailSent = true
         })
         .catch(() => {
           vm.creatingAccount = false
-          // vm.error = true
+          vm.error = true
         })
     }
   },
