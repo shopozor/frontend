@@ -152,28 +152,7 @@ describe('Consumer authentication', function(){
       // Then
       cy.get('[id="emailSentDialog"]').should('be.visible')
     })
-
-    // TODO: this is new!
-    it('asks to fix non-compliant password', function () {
-      // Given
-      cy.stubServer('Authentication/SignupPasswordNotCompliant')
-
-      // When
-      accessRegistrationInterface()
-      fillUserRegistrationGui(email, password)
-      cy.get("div[id='password']").should('not.have.class', 'q-field--error')
-      acceptCookies()
-      acceptTermsOfService()
-      submitRegistration()
-
-      // Then
-      // TODO: what should be tested here? 
-      // TODO: there should be an error message telling that the password is not compliant
-      expect(true).to.be(false)
-    })
-
   })
-
   
   context('Consumer account activation', function () {
 
