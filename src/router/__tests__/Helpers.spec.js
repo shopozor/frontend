@@ -1,5 +1,5 @@
 import { generatePath, filterAccessibleLinks, generateRoutes, checkIfUserCanAccess } from '../Helpers'
-import types from '../../../types'
+import types from '../../types'
 
 describe('router helpers', () => {
   test('function "generatePath" returns expected pathes', () => {

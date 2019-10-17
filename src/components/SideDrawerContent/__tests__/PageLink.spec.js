@@ -1,5 +1,5 @@
 import PageLink from '../PageLink'
-import { mountQuasar } from '../../../../unit-tests/utils'
+import { mountQuasar } from '../../../../test/utils'
 import sinon from 'sinon'
 
 describe('PageLink', () => {

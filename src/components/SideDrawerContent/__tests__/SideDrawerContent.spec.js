@@ -1,7 +1,7 @@
 import sideDrawerContent from '../SideDrawerContent'
-import { mountQuasar } from '../../../../unit-tests/utils'
+import { mountQuasar } from '../../../../test/utils'
 import { generatePath } from '../../../router/Helpers'
-import types from '../../../../types'
+import types from '../../../types'
 
 describe('SideDrawerContent', () => {
   const wrapper = mountQuasar(sideDrawerContent, {

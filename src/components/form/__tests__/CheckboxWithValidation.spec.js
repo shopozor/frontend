@@ -1,5 +1,5 @@
 import CheckboxWithValidation from '../CheckboxWithValidation'
-import { mountQuasar } from '../../../../unit-tests/utils'
+import { mountQuasar } from '../../../../test/utils'
 
 describe('CheckboxWithValidation', () => {
   const dummyContent = 'dummy card content'

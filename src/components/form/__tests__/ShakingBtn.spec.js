@@ -1,5 +1,5 @@
 import shakingBtn from '../ShakingBtn'
-import { mountQuasar } from '../../../../unit-tests/utils'
+import { mountQuasar } from '../../../../test/utils'
 
 describe('Shaking button', () => {
   const wrapper = mountQuasar(shakingBtn)
