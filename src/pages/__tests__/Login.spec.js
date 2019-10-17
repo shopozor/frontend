@@ -1,5 +1,5 @@
 import login from '../Login.vue'
-import { mountQuasar } from '../../../common/unit-tests/utils'
+import { mountQuasar } from '../../../test/utils'
 
 describe('login page', () => {
   const validCredentials = {

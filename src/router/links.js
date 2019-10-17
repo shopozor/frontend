@@ -1,4 +1,4 @@
-import types from '../../common/types'
+import types from '../types'
 
 export const links = [
   types.links.SIGNUP,

@@ -6,7 +6,7 @@ import {
   navigateTo
 } from './Authentication/Helpers'
 import TokenHandler from './Authentication/TokenHandler'
-import types from '../../common/types'
+import types from '../../src/types'
 
 describe('Consumer authentication', function(){
 
@@ -17,8 +17,6 @@ describe('Consumer authentication', function(){
 
     beforeEach(() => getTokenCookie().should('not.exist'))
 
-    // TODO: the same test needs to be run on the management-frontend side; maybe we could just 
-    // TODO: put this test into the common repo and import it somehow
     it('redirects to home page if identified Consumer browses /login', function () {
       // Given
       cy.stubServer('Authentication/LogConsumerIn/Consommateur')

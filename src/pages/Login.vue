@@ -66,9 +66,9 @@
 </template>
 
 <script>
-import types from '../../common/types'
-import { generatePath } from '../../common/src/router/Helpers'
-import shakingBtn from '../../common/src/components/form/ShakingBtn'
+import types from '../types'
+import { generatePath } from '../router/Helpers'
+import shakingBtn from '../components/form/ShakingBtn'
 
 export default {
   name: 'PageLogin',

@@ -1,4 +1,4 @@
-import types from '../../../common/types'
+import types from '../../types'
 
 export function storePermissions (state, payload) {
   state.email = payload.email

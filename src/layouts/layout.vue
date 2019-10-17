@@ -10,7 +10,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import parametricLayout from '../../common/src/layouts/parametricLayout'
+import parametricLayout from './parametricLayout'
 import { orderedLinks, accessRules } from '../router/links'
 
 export default {

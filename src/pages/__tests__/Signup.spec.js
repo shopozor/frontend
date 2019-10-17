@@ -1,6 +1,6 @@
 import Signup from '../Signup'
 import vuelidate from '../../boot/vuelidate'
-import { mountQuasar } from '../../../common/unit-tests/utils'
+import { mountQuasar } from '../../../test/utils'
 import consumerCreation from '../../../graphql/responses/Authentication/RegisterConsumer/SuccessfulConsumerCreation'
 
 describe('Signup', () => {

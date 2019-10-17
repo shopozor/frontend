@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import FillHeight from '../../common/src/mixins/FillHeight'
-import BudzonneryMarker from '../../common/src/components/map/markers/BudzonneryMarker'
+import FillHeight from '../mixins/FillHeight'
+import BudzonneryMarker from '../components/map/markers/BudzonneryMarker'
 
 export default {
   data () {

@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import EmailWithValidation from '../../common/src/components/form/EmailWithValidation'
-import PasswordWithValidation from '../../common/src/components/form/PasswordWithValidation'
-import CheckboxWithValidation from '../../common/src/components/form/CheckboxWithValidation'
+import EmailWithValidation from '../components/form/EmailWithValidation'
+import PasswordWithValidation from '../components/form/PasswordWithValidation'
+import CheckboxWithValidation from '../components/form/CheckboxWithValidation'
 
 export default {
   name: 'PageHome',

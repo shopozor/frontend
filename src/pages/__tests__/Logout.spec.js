@@ -1,5 +1,5 @@
 import logout from '../Logout.vue'
-import { mountQuasar } from '../../../common/unit-tests/utils'
+import { mountQuasar } from '../../../test/utils'
 
 describe('lougout page', () => {
   it('displays a spinner while getter "isAuthorized" is true', () => {

@@ -92,10 +92,10 @@
 </template>
 
 <script>
-import emailWithValidation from '../../common/src/components/form/EmailWithValidation'
-import passwordWithValidation from '../../common/src/components/form/PasswordWithValidation'
-import checkboxWithValidation from '../../common/src/components/form/CheckboxWithValidation'
-import shakingBtn from '../../common/src/components/form/ShakingBtn'
+import emailWithValidation from '../components/form/EmailWithValidation'
+import passwordWithValidation from '../components/form/PasswordWithValidation'
+import checkboxWithValidation from '../components/form/CheckboxWithValidation'
+import shakingBtn from '../components/form/ShakingBtn'
 
 export default {
   name: 'PageSignup',

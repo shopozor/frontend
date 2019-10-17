@@ -1,6 +1,6 @@
 import { apolloClient } from '../../boot/apollo'
-import * as cookie from '../../../common/src/store/cookie'
-import types from '../../../common/types'
+import * as cookie from '../../store/cookie'
+import types from '../../types'
 
 import LogIn from '@gql/calls/login.graphql'
 import SignUp from '@gql/calls/signup.graphql'

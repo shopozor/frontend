@@ -63,7 +63,7 @@ describe('SideDrawerContent', () => {
     expect(pageLinksWithPermission12And3.length).toBe(6)
   })
 
-  it('generates a path for each pageLink following the rules set in common/src/router/helpers[generatePath]', () => {
+  it('generates a path for each pageLink following the rules set in src/router/helpers[generatePath]', () => {
     wrapper.setProps({ permissions: ['permission1'] })
     const pageLinksWithPermission1 = wrapper.findAll({ name: 'PageLink' })
     expect(pageLinksWithPermission1.wrappers[0].vm.path).toBe(generatePath({ link: 'link1' }))

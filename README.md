@@ -43,7 +43,7 @@ You can use the following commands in your comments:
 Pre-commit (and pre-push) hooks are configured with `husky` (see `husky` section of [package.json](package.json)). You also need to activate the hooks for the `graphql` and `fixtures` submodules. To do that, you run 
 
 ```
-./common/scripts/activate-hooks.sh
+./scripts/activate-hooks.sh
 ```
 
 ## Troubleshooting

@@ -114,9 +114,6 @@ module.exports = function (ctx) {
           ...cfg.resolve.alias, // This adds the existing alias
 
           // Add your own alias like this
-          // TODO: move types out of common/src
-          // types: path.resolve(__dirname, './common/types'),
-          '@common': path.resolve(__dirname, './common'),
           '@gql': path.resolve(__dirname, './graphql'),
           '@test': path.resolve(__dirname, './test')
         }

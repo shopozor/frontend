@@ -1,5 +1,5 @@
 import Activate from '../Activate'
-import { mountQuasar } from '../../../common/unit-tests/utils'
+import { mountQuasar } from '../../../test/utils'
 import expiredToken from '../../../graphql/responses/Authentication/SignupExpiredLink'
 
 describe('Activation page', () => {
