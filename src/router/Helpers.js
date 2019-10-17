@@ -1,4 +1,4 @@
-import types from '../../types'
+import types from '../types'
 import { atLeastOneMatch } from '../Helpers.js'
 
 /**

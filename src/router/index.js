@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import { generateRoutes, checkIfUserCanAccess } from '../router/Helpers'
+import { generateRoutes, checkIfUserCanAccess } from './Helpers'
 import { links, accessRules } from './links'
 import store from '../store'
 
