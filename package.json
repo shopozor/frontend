@@ -1,7 +1,7 @@
 {
-  "name": "shopozor-consumer-frontend",
+  "name": "shopozor-frontend",
   "version": "1.0.0",
-  "description": "Consumer interface to the Shopozor",
+  "description": "User interface to the Shopozor",
   "productName": "Shopozor",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Softozor",
