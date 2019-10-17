@@ -3,7 +3,7 @@ def helpers = new ch.softozor.pipeline.Helpers()
 pipeline {
   agent any
   environment {
-    APP_NAME = "shopozor-$REPO"
+    APP_NAME = "shopozor-frontend"
     ENABLE_DEV_TOOLS = true
     IMAGE_TYPE = "production"
     JELASTIC_APP_CREDENTIALS = credentials('jelastic-app-credentials')
@@ -22,7 +22,7 @@ pipeline {
     stage('Deploy staging environment') {
       steps {
         script {
-          jps = "common/manifest.jps"
+          jps = "manifest.jps"
           helpers.deploy(jps, APP_NAME, STAGING_ENV_NAME, STAGING_BRANCH, IMAGE_TYPE)
         }
       }
@@ -62,7 +62,7 @@ pipeline {
     stage('Deploy production environment') {
       steps {
         script {
-          jps = "common/manifest.jps"
+          jps = "manifest.jps"
           helpers.deploy(jps, APP_NAME, PRODUCTION_ENV_NAME, TAG, IMAGE_TYPE)
         }
       }
