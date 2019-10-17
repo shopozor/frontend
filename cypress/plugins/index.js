@@ -12,7 +12,7 @@
 // the project's config changing)
 
 const cucumber = require('cypress-cucumber-preprocessor').default
-const helpers = require('../../common/cypress/plugins/helpers')
+const helpers = require('./helpers')
 
 module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, args) => {

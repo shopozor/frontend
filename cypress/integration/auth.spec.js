@@ -4,8 +4,8 @@ import {
   getTokenCookie,
   login,
   navigateTo
-} from '../../common/cypress/Authentication/Helpers'
-import TokenHandler from '../../common/cypress/Authentication/TokenHandler'
+} from './Authentication/Helpers'
+import TokenHandler from './Authentication/TokenHandler'
 import types from '../../common/types'
 
 describe('Consumer authentication', function(){

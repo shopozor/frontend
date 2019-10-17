@@ -1,4 +1,4 @@
-const helpers = require('./common/quasar.helpers')
+const helpers = require('./quasar.helpers')
 
 // Configuration for your app
 const path = require('path')
@@ -11,6 +11,7 @@ module.exports = function (ctx) {
       'apollo',
       'i18n',
       'leaflet',
+      'vue-i18n',
       'vuelidate'
     ],
 
