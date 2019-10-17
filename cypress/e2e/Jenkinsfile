@@ -4,10 +4,10 @@ pipeline {
   environment {  
     BACKEND_APP_NAME = 'shopozor-backend'
     BACKEND_BRANCH = 'dev'
-    BACKEND_NAME = credentials("${params.frontendType}-backend-name-credentials") // contains envName + base jps url
+    BACKEND_NAME = credentials('backend-name-credentials') // contains envName + base jps url
     DOCKER_CREDENTIALS = credentials('docker-credentials')
-    FRONTEND_APP_NAME = "shopozor-${params.frontendType}-frontend"
-    FRONTEND_NAME = credentials("${params.frontendType}-frontend-name-credentials") // contains envName
+    FRONTEND_APP_NAME = 'shopozor-frontend'
+    FRONTEND_NAME = credentials('frontend-name-credentials') // contains envName
     IMAGE_TYPE = 'e2e'
     JELASTIC_APP_CREDENTIALS = credentials('jelastic-app-credentials')
     JELASTIC_CREDENTIALS = credentials('jelastic-credentials')
@@ -57,13 +57,13 @@ pipeline {
       }
       steps {
         script {
-          FRONTEND_JPS = './common/manifest.jps'
+          FRONTEND_JPS = './manifest.jps'
           helpers.deploy(FRONTEND_JPS, FRONTEND_APP_NAME, FRONTEND_NAME, GIT_COMMIT, IMAGE_TYPE)
           
           helpers.mountRemoteFolder(FRONTEND_NAME, 'cp', '/home/node/emails', BACKEND_NAME_USR, 'cp', '/app/emails')
           helpers.mountRemoteFolder(FRONTEND_NAME, 'cp', '/home/node/cypress/fixtures', BACKEND_NAME_USR, 'cp', '/app/features/fixtures/large')
 
-          E2E_JPS = './common/e2e/e2e.jps'
+          E2E_JPS = './e2e/e2e.jps'
           helpers.runE2eTests(E2E_JPS, FRONTEND_NAME, FRONTEND_APP_NAME, IMAGE_TYPE)
         }
       }
@@ -87,8 +87,7 @@ pipeline {
         script {
           if(GIT_BRANCH == 'origin/dev' || GIT_BRANCH == 'origin/master') {
             build job: 'frontend-spec', parameters: [
-              string(name: 'BRANCH', value: GIT_BRANCH.split('/')[1]),
-              string(name: 'REPO', value: "${params.frontendType}-frontend")
+              string(name: 'BRANCH', value: GIT_BRANCH.split('/')[1])
             ]
           }
         }
