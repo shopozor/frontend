@@ -8,7 +8,7 @@ pipeline {
     stage('Node Modules Installation') {
       steps {
         script {
-          def printHelloScript = libraryResource 'src/ch/softozor/jelastic/hello-world.sh'
+          def printHelloScript = libraryResource 'ch/softozor/jelastic/hello-world.sh'
           sh(printHelloScript)
           sh "yarn"
         }
