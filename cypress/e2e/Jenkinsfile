@@ -52,7 +52,6 @@ pipeline {
     stage('Starting up frontend and performing end-to-end tests') {
       environment {
         DOCKER_CREDENTIALS = credentials('docker-credentials')
-        DOCKER_REPO = "softozor/${FRONTEND_APP_NAME}"
       }
       steps {
         script {
