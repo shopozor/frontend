@@ -9,7 +9,7 @@ pipeline {
     stage('Build and publish docker image') {
       steps {
         script {
-          appName = "shopozor-$REPO"
+          appName = 'frontend'
           helpers.publishFrontendDockerImage(appName, BRANCH, GRAPHQL_API, ENABLE_DEV_TOOLS, IMAGE_TYPE)
         }
       }

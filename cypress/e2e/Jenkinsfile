@@ -2,11 +2,11 @@ def helpers = new ch.softozor.pipeline.Helpers()
 pipeline {
   agent any
   environment {  
-    BACKEND_APP_NAME = 'shopozor-backend'
+    BACKEND_APP_NAME = 'backend'
     BACKEND_BRANCH = 'dev'
     BACKEND_NAME = credentials('backend-name-credentials') // contains envName + base jps url
     DOCKER_CREDENTIALS = credentials('docker-credentials')
-    FRONTEND_APP_NAME = 'shopozor-frontend'
+    FRONTEND_APP_NAME = 'frontend'
     FRONTEND_NAME = credentials('frontend-name-credentials') // contains envName
     IMAGE_TYPE = 'e2e'
     JELASTIC_APP_CREDENTIALS = credentials('jelastic-app-credentials')
@@ -29,7 +29,6 @@ pipeline {
     stage('Publishing frontend docker image') {
       steps {
         script {
-          REPO = "${params.frontendType}-frontend"
           GRAPHQL_API = "http://${BACKEND_NAME_USR}.hidora.com/graphql/"
           ENABLE_DEV_TOOLS = 'true'
           helpers.publishFrontendDockerImage(FRONTEND_APP_NAME, GIT_COMMIT, GRAPHQL_API, ENABLE_DEV_TOOLS, IMAGE_TYPE)

@@ -3,7 +3,7 @@ def helpers = new ch.softozor.pipeline.Helpers()
 pipeline {
   agent any
   environment {
-    APP_NAME = "shopozor-frontend"
+    APP_NAME = "frontend"
     ENABLE_DEV_TOOLS = true
     IMAGE_TYPE = "production"
     JELASTIC_APP_CREDENTIALS = credentials('jelastic-app-credentials')
