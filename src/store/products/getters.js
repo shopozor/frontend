@@ -1,5 +1,5 @@
-import types from '../../../../common/types'
-import NO_IMAGE from '../../../assets/images/no_image.png'
+import types from '../../types'
+import NO_IMAGE from '../../assets/images/no_image.png'
 
 export const products = state => state.products
 
