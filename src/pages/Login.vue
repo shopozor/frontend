@@ -2,11 +2,13 @@
   <q-page padding class="q-pa-md flex flex-center">
     <div style="width: 500px; max-width: 90vw;">
       <q-list id="LoginForm">
+
         <q-item class="incorrectIdentifiers bg-warning" v-if="invalidCredentials">
           <q-item-section>
             {{ $t('login.invalidCredentials') }}
           </q-item-section>
         </q-item>
+
         <q-item>
           <q-item-section>
             <q-input
@@ -20,6 +22,7 @@
             </q-input>
           </q-item-section>
         </q-item>
+
         <q-item>
             <q-item-section>
               <q-input
@@ -34,6 +37,7 @@
               </q-input>
             </q-item-section>
         </q-item>
+
         <q-item class="row justify-center">
           <q-toggle
             id="toggleStayLoggedIn"
@@ -42,6 +46,7 @@
             v-model="stayLoggedIn"
             :label="$t('login.stayLoggedIn')" />
         </q-item>
+
         <q-item class="row justify-center">
           <shaking-btn
             id="loginButton"
@@ -49,6 +54,7 @@
             :action="login"
             :disable="disableLogin" />
         </q-item>
+
         <q-item class="row justify-center">
           <q-btn
             id="forgotPassword"
@@ -59,6 +65,29 @@
             color="info">
             {{ $t('login.forgotPassword') }}...
           </q-btn>
+        </q-item>
+
+        <q-item>
+          <q-card>
+            <q-card-actions>
+              <q-btn color="primary" @click="forceLogin">Forcer un login pour tester l'interface</q-btn>
+            </q-card-actions>
+            <q-card-section>
+              <q-input
+                v-model="email"
+                type="email"
+                float-label="nom d'utilisateur forcé">
+                <template v-slot:prepend>
+                  <q-icon name="mail" />
+                </template>
+              </q-input>
+            </q-card-section>
+            <q-card-section>
+              <q-select
+              v-model="authorization"
+              :options="authorizations" />
+            </q-card-section>
+          </q-card>
         </q-item>
       </q-list>
     </div>
@@ -77,7 +106,12 @@ export default {
       email: '',
       password: '',
       stayLoggedIn: true,
-      invalidCredentials: false
+      invalidCredentials: false,
+      authorization: 'Producteur',
+      authorizations: [
+        'Consommateur',
+        'Producteur'
+      ]
     }
   },
   computed: {
@@ -107,6 +141,21 @@ export default {
       this.$router.push(
         generatePath({ link: types.links.FORGOT_PASSWORD })
       )
+    },
+    forceLogin () {
+      let permissions = [types.permissions.NOT_CONNECTED]
+      switch (this.authorization) {
+        case 'Consommateur': permissions = [types.permissions.CONSUMER]; break
+        case 'Producteur': permissions = [types.permissions.MANAGE_PRODUCTS]; break
+        default: break
+      }
+      this.$store.commit('storePermissions', {
+        email: this.email,
+        userId: this.email,
+        token: this.email,
+        permissions
+      })
+      this.$router.push('/')
     }
   },
   components: { shakingBtn }
