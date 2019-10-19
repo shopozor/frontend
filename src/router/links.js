@@ -10,7 +10,11 @@ export const links = [
   types.links.SHOP,
   types.links.ACTIVATE,
   types.links.FORGOT_PASSWORD,
-  types.links.RESET_PASSWORD
+  types.links.RESET_PASSWORD,
+  types.links.MANAGE_SHOPS,
+  types.links.MANAGE_SITE,
+  types.links.MY_SHOP,
+  types.links.ORDERS
 ]
 
 export const orderedLinks = {
@@ -23,7 +27,11 @@ export const orderedLinks = {
   navigation: [
     types.links.HOME,
     types.links.SHOP,
-    types.links.MAP
+    types.links.MAP,
+    types.links.ORDERS,
+    types.links.MY_SHOP,
+    types.links.MANAGE_SHOPS,
+    types.links.MANAGE_SITE
   ]
 }
 
@@ -35,10 +43,15 @@ export const accessRules = {
     [types.links.PROFILE]: false,
     [types.links.HOME]: true,
     [types.links.SHOP]: true,
+    [types.links.CALENDAR]: true,
     [types.links.MAP]: true,
     [types.links.ACTIVATE]: true,
     [types.links.FORGOT_PASSWORD]: true,
-    [types.links.RESET_PASSWORD]: true
+    [types.links.RESET_PASSWORD]: true,
+    [types.links.MANAGE_SHOPS]: false,
+    [types.links.MANAGE_SITE]: false,
+    [types.links.MY_SHOP]: false,
+    [types.links.ORDERS]: false
   },
   [types.permissions.CONSUMER]: {
     [types.links.LOGIN]: false,
@@ -47,9 +60,116 @@ export const accessRules = {
     [types.links.PROFILE]: true,
     [types.links.HOME]: true,
     [types.links.SHOP]: true,
+    [types.links.CALENDAR]: true,
     [types.links.MAP]: true,
     [types.links.ACTIVATE]: false,
     [types.links.FORGOT_PASSWORD]: false,
-    [types.links.RESET_PASSWORD]: false
+    [types.links.RESET_PASSWORD]: false,
+    [types.links.MANAGE_SHOPS]: false,
+    [types.links.MANAGE_SITE]: false,
+    [types.links.MY_SHOP]: false,
+    [types.links.ORDERS]: false
+  },
+  [types.permissions.MANAGE_PRODUCTS]: {
+    [types.links.LOGIN]: false,
+    [types.links.SIGNUP]: false,
+    [types.links.LOGOUT]: true,
+    [types.links.PROFILE]: true,
+    [types.links.HOME]: true,
+    [types.links.SHOP]: true,
+    [types.links.CALENDAR]: true,
+    [types.links.MAP]: true,
+    [types.links.ACTIVATE]: false,
+    [types.links.FORGOT_PASSWORD]: false,
+    [types.links.RESET_PASSWORD]: false,
+    [types.links.MANAGE_SHOPS]: false,
+    [types.links.MANAGE_SITE]: false,
+    [types.links.MY_SHOP]: false,
+    [types.links.ORDERS]: false
+  },
+  [types.permissions.MANAGE_PRODUCERS]: {
+    [types.links.LOGIN]: false,
+    [types.links.SIGNUP]: false,
+    [types.links.LOGOUT]: true,
+    [types.links.PROFILE]: true,
+    [types.links.HOME]: true,
+    [types.links.SHOP]: true,
+    [types.links.CALENDAR]: true,
+    [types.links.MAP]: true,
+    [types.links.ACTIVATE]: false,
+    [types.links.FORGOT_PASSWORD]: false,
+    [types.links.RESET_PASSWORD]: false,
+    [types.links.MANAGE_SHOPS]: false,
+    [types.links.MANAGE_SITE]: false,
+    [types.links.MY_SHOP]: true,
+    [types.links.ORDERS]: false
+  },
+  [types.permissions.MANAGE_MANAGERS]: {
+    [types.links.LOGIN]: false,
+    [types.links.SIGNUP]: false,
+    [types.links.LOGOUT]: true,
+    [types.links.PROFILE]: true,
+    [types.links.HOME]: true,
+    [types.links.SHOP]: true,
+    [types.links.CALENDAR]: true,
+    [types.links.MAP]: true,
+    [types.links.ACTIVATE]: false,
+    [types.links.FORGOT_PASSWORD]: false,
+    [types.links.RESET_PASSWORD]: false,
+    [types.links.MANAGE_SHOPS]: true,
+    [types.links.MANAGE_SITE]: false,
+    [types.links.MY_SHOP]: false,
+    [types.links.ORDERS]: false
+  },
+  [types.permissions.MANAGE_STAFF]: {
+    [types.links.LOGIN]: false,
+    [types.links.SIGNUP]: false,
+    [types.links.LOGOUT]: true,
+    [types.links.PROFILE]: true,
+    [types.links.HOME]: true,
+    [types.links.SHOP]: true,
+    [types.links.CALENDAR]: true,
+    [types.links.MAP]: true,
+    [types.links.ACTIVATE]: false,
+    [types.links.FORGOT_PASSWORD]: false,
+    [types.links.RESET_PASSWORD]: false,
+    [types.links.MANAGE_SHOPS]: true,
+    [types.links.MANAGE_SITE]: false,
+    [types.links.MY_SHOP]: false,
+    [types.links.ORDERS]: false
+  },
+  [types.permissions.MANAGE_USERS]: {
+    [types.links.LOGIN]: false,
+    [types.links.SIGNUP]: false,
+    [types.links.LOGOUT]: true,
+    [types.links.PROFILE]: true,
+    [types.links.HOME]: true,
+    [types.links.SHOP]: true,
+    [types.links.CALENDAR]: true,
+    [types.links.MAP]: true,
+    [types.links.ACTIVATE]: false,
+    [types.links.FORGOT_PASSWORD]: false,
+    [types.links.RESET_PASSWORD]: false,
+    [types.links.MANAGE_SHOPS]: true,
+    [types.links.MANAGE_SITE]: false,
+    [types.links.MY_SHOP]: false,
+    [types.links.ORDERS]: false
+  },
+  [types.permissions.MANAGE_REX]: {
+    [types.links.LOGIN]: false,
+    [types.links.SIGNUP]: false,
+    [types.links.LOGOUT]: true,
+    [types.links.PROFILE]: true,
+    [types.links.HOME]: true,
+    [types.links.SHOP]: true,
+    [types.links.CALENDAR]: true,
+    [types.links.MAP]: true,
+    [types.links.ACTIVATE]: false,
+    [types.links.FORGOT_PASSWORD]: false,
+    [types.links.RESET_PASSWORD]: false,
+    [types.links.MANAGE_SHOPS]: true,
+    [types.links.MANAGE_SITE]: true,
+    [types.links.MY_SHOP]: false,
+    [types.links.ORDERS]: false
   }
 }
