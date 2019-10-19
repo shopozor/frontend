@@ -2,14 +2,6 @@ import forgotPassword from '../ForgotPassword.vue'
 import { mountQuasar } from '../../../test/utils'
 import vuelidate from '../../boot/vuelidate'
 
-describe('Reset password page', () => {
-  const wrapper = mountQuasar(forgotPassword, { shallow: true })
-
-  it('has a forgotPassword component', () => {
-    expect(wrapper.find({ name: 'ForgotPassword' }).exists()).toBeTruthy()
-  })
-})
-
 describe('Forgot password', () => {
   const wrapper = mountQuasar(forgotPassword, {
     boot: [vuelidate],
