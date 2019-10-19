@@ -4,14 +4,6 @@ import vuelidate from '../../boot/vuelidate'
 import types from '../../types'
 import { generatePath } from '../../router/Helpers'
 
-describe('Reset password page', () => {
-  const wrapper = mountQuasar(resetPassword, { shallow: true })
-
-  it('has a resetPassword component', () => {
-    expect(wrapper.find({ name: 'ResetPassword' }).exists()).toBeTruthy()
-  })
-})
-
 describe('Reset password', () => {
   const valid = {
     password: 'Val!dPa55word',
