@@ -46,7 +46,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['pendingOrdersOfProductSummary', 'myProducts']),
+    ...mapGetters(['pendingOrdersOfProduct', 'myProducts']),
     product () {
       return this.myProducts[this.productId]
     },
@@ -54,7 +54,7 @@ export default {
       return this.product.image
     },
     summary () {
-      const paid = this.pendingOrdersOfProductSummary({
+      const paid = this.pendingOrdersOfProduct({
         productId: this.productId
       }).paid
       return this.$tc('products.ordersSummary', paid.amount, {
@@ -72,7 +72,6 @@ export default {
   methods: {
     ...mapActions([
       'updateProduct',
-      'getFormatsOfProduct',
       'setEditedProduct',
       'setEditedFormats'
     ]),
@@ -86,10 +85,7 @@ export default {
     ProductDeleteManager
     // ProductVisibilityManager
   },
-  mixins: [ShowImageMixin],
-  created () {
-    this.getFormatsOfProduct({ productId: this.productId })
-  }
+  mixins: [ShowImageMixin]
 }
 </script>
 

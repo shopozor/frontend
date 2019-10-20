@@ -1,5 +1,13 @@
 export const myOrdersToReceive = state => state.myOrdersToReceive
 export const myOrdersToDeliver = state => state.myOrdersToDeliver
+export const pendingOrdersOfProduct = state => ({ productId }) => {
+  return {
+    paid: {
+      amount: 0,
+      customerPrice: 0
+    }
+  }
+}
 
 export const ordersPropsOfFilterPropValue = state => ({arrayOfPropsKeys, filterKey, filterValue}) => {
   return Object.entries(state.myOrdersToDeliver).reduce((filteredOrders, entry) => {
