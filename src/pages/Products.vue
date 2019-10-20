@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
 import ProductsInventoryView from '../components/Products/Inventory/ProductsInventoryView'
 import ProductsTrashView from '../components/Products/Trash/ProductsTrashView'
 import ProductsEditView from '../components/Products/Edit/ProductsEditView'
@@ -37,14 +36,9 @@ export default {
   },
   components: {ProductsInventoryView, ProductsTrashView, ProductsEditView},
   methods: {
-    ...mapActions(['getMyProducts', 'getMyOrdersToDeliver']),
     jumpTo (view) {
       this.view = view
     }
-  },
-  created: function () {
-    this.getMyProducts()
-    this.getMyOrdersToDeliver()
   }
 }
 </script>

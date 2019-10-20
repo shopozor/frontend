@@ -51,6 +51,7 @@
     "quasar": "^1.1.6",
     "sinon": "^7.5.0",
     "vue-apollo": "^3.0.0-rc.6",
+    "vue-async-computed": "^3.7.0",
     "vue-i18n": "^8.14.1",
     "vue-simple-calendar": "^4.2.2",
     "vue2-google-maps": "^0.10.7",

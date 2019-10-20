@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import user from './user'
-import products from './products'
+import producer from './producer'
 import orders from './orders'
 
 Vue.use(Vuex)
@@ -15,7 +15,7 @@ Vue.use(Vuex)
 const Store = new Vuex.Store({
   modules: {
     user,
-    products,
+    producer,
     orders
   }
 })

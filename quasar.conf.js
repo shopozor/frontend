@@ -12,7 +12,8 @@ module.exports = function (ctx) {
       'i18n',
       'leaflet',
       'vue-i18n',
-      'vuelidate'
+      'vuelidate',
+      'asyncComputed'
     ],
 
     css: [

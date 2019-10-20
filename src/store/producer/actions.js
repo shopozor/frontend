@@ -1,21 +1,12 @@
-// import * as request from '../simulateServer/products/requestProducts'
+import { loadAndFilterProducts } from './productsLoader'
 
-export const getProducts = ({ commit, getters }) => {
-  // request.getProducts({
-  //   userId: getters.userId,
-  //   token: getters.token
-  // })
-  //   .then(response => { commit('storeProducts', response.products) })
-  //   .catch(error => { console.log(error) })
-}
-
-export const getMyProducts = ({ commit, getters }) => {
-  // request.getMyProducts({
-  //   userId: getters.userId,
-  //   token: getters.token
-  // })
-  //   .then(response => { commit('storeMyProducts', response.myProducts) })
-  //   .catch(error => { console.log(error) })
+export const getMyProducts = ({ commit, getters }, { budzonnerySize, producerId }) => {
+  loadAndFilterProducts({ budzonnerySize, filterAccess: 'producer.id', filterValue: producerId })
+    .then(response => {
+      console.log(response)
+      commit('storeMyProducts', response)
+    })
+    .catch(error => { console.log(error) })
 }
 
 export const createProduct = ({ commit, getters }, { newProduct }) => {
