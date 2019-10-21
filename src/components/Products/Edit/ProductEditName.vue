@@ -1,26 +1,21 @@
 <template>
   <q-card class="width-md height-md">
     <q-card-section>
-      <q-field>
-        <q-input
-          :float-label="$t('products.title')"
-          :placeholder="productTitle"
-          :value="productTitle"
-          @input="updateEditedProduct({ newProps: {title: $event} })"
-        ></q-input>
-      </q-field>
-      <br >
-      <q-field>
-        <q-input
+      <q-input
+        :float-label="$t('products.title')"
+        :placeholder="productTitle"
+        :value="productTitle"
+        @input="updateEditedProduct({ newProps: {title: $event} })" />
+    </q-card-section>
+    <q-card-section>
+      <q-input
         :float-label="$t('products.productDescription')"
         :placeholder="productDescription"
         type="textarea"
         :max-height="190"
         rows="8"
         :value="productDescription"
-        @input="updateEditedProduct({ newProps: {description: $event} })"
-      ></q-input>
-      </q-field>
+        @input="updateEditedProduct({ newProps: {description: $event} })" />
     </q-card-section>
   </q-card>
 </template>
