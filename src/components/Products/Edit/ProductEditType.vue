@@ -2,26 +2,26 @@
   <q-card class="width-md height-md">
     <q-card-section>
       <q-select
-        :stack-label="$t('products.conservationMethod')"
+        :hint="$t('products.conservationMethod')"
         separator
         :options="conservationOptions"
         :value="conservationMethod"
         @input="updateEditedProduct({ newProps: {conservationMethod: $event} })"
       />
-      <br>
-      <q-field>
-        <q-input
-          :float-label="$t('products.conservationTime')"
-          type="number"
-          :value="conservationDays"
-          @input="updateEditedProduct({ newProps: {conservationDays: $event} })"
-          orientation="horizontal"
-          :suffix="$tc('products.day', editedProduct.conservationDays)"
-        />
-      </q-field>
-      <br>
+    </q-card-section>
+    <q-card-section>
+      <q-input
+        :hint="$t('products.conservationTime')"
+        type="number"
+        :value="conservationDays"
+        @input="updateEditedProduct({ newProps: {conservationDays: $event} })"
+        orientation="horizontal"
+        :suffix="$tc('products.day', editedProduct.conservationDays)"
+      />
+    </q-card-section>
+    <q-card-section>
       <q-select
-        :stack-label="$t('products.categories')"
+        :hint="$t('products.categories')"
         multiple
         chips
         separator
