@@ -1,14 +1,12 @@
 <template>
-  <q-field
+  <q-select
     :style="`width: ${width}`"
-    :label="label">
-    <q-select
-      :float-label="$t('products.unit')"
-      :value="unit"
-      @input="setUnit"
-      :options="options"
-      :readonly="readonly" />
-  </q-field>
+    :label="label"
+    :hint="$t('products.unit')"
+    :value="unit"
+    @input="setUnit"
+    :options="options"
+    :readonly="readonly" />
 </template>
 
 <script>
