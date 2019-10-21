@@ -40,6 +40,7 @@ module.exports = function (ctx) {
         'QCheckbox',
         'QDialog',
         'QDrawer',
+        'QExpansionItem',
         'QHeader',
         'QIcon',
         'QImg',

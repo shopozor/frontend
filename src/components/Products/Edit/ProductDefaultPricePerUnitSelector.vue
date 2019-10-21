@@ -2,10 +2,10 @@
   <div>
     <div class="row justify-center items-center">
       <price-input
-        :customerPrice="defaultCustomerPrice"
-        :setCustomerPrice="setDefaultCustomerPrice"
+        :consumerPrice="defaultConsumerPrice"
+        :setConsumerPrice="setDefaultConsumerPrice"
         :producerRatio="0.85"
-        customer
+        consumer
         producer
         width="220px" />
       <div class="row no-wrap items-center">
@@ -31,13 +31,13 @@ export default {
   name: 'ProductDefaultPricePerUnitSelector',
   computed: {
     ...mapGetters(['editedProduct']),
-    defaultCustomerPrice () {
+    defaultConsumerPrice () {
       /**
        *  TODO: cet accès est buggué
-       * setDefaultCustomerPrice est lancé à chaque event tant que customerPrice n'est pas défini
+       * setDefaultConsumerPrice est lancé à chaque event tant que consumerPrice n'est pas défini
        */
-      if (!this.editedProduct.defaultCustomerPrice) this.setDefaultCustomerPrice(0)
-      return this.editedProduct.defaultCustomerPrice
+      if (!this.editedProduct.defaultConsumerPrice) this.setDefaultConsumerPrice(0)
+      return this.editedProduct.defaultConsumerPrice
     },
     defaultUnit () {
       if (!this.editedProduct.defaultUnit) this.setDefaultUnit(types.units.mass.KG)
@@ -46,8 +46,8 @@ export default {
   },
   methods: {
     ...mapActions(['updateEditedProduct']),
-    setDefaultCustomerPrice (value) {
-      this.updateEditedProduct({ newProps: { defaultCustomerPrice: value } })
+    setDefaultConsumerPrice (value) {
+      this.updateEditedProduct({ newProps: { defaultConsumerPrice: value } })
     },
     setDefaultUnit (value) {
       this.updateEditedProduct({ newProps: { defaultUnit: value } })
