@@ -1,4 +1,4 @@
-# Shopozor frontend
+# Shopozor frontend 
 
 ## Build statuses
 
