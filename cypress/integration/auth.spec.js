@@ -19,7 +19,7 @@ describe('Consumer authentication', function(){
 
     it('redirects to home page if identified Consumer browses /login', function () {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
+      cy.stubServer('Authentication/Login/Consommateur')
       login(email, password)
 
       // When
@@ -31,7 +31,7 @@ describe('Consumer authentication', function(){
 
     it('pops up an error message if a Consumer logs in with invalid e-mail and password', function() {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/WrongCredentials')
+      cy.stubServer('Authentication/Login/WrongCredentials')
 
       // When
       cy.visit('/login')
@@ -46,7 +46,7 @@ describe('Consumer authentication', function(){
 
     it('pops up an error message if a registered Consumer logs in with an invalid password', function() {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/WrongCredentials')
+      cy.stubServer('Authentication/Login/WrongCredentials')
 
       // When
       cy.visit('/login')
@@ -61,7 +61,7 @@ describe('Consumer authentication', function(){
 
     it('opens a session if the Consumer provides the correct credentials', function() {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
+      cy.stubServer('Authentication/Login/Consommateur')
 
       // When
       cy.visit('/login')
@@ -83,7 +83,7 @@ describe('Consumer authentication', function(){
 
     it('forgets about the token and redirects to /', function () {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
+      cy.stubServer('Authentication/Login/Consommateur')
       login(email, password)
 
       // When
