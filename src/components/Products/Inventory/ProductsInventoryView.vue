@@ -37,7 +37,7 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import ProductInventoryCard from './ProductInventoryCard'
-import { summarizeProducers } from '../../../store/products/productsLoader'
+import { summarizeProducers } from '../../../store/producer/productsLoader'
 
 export default {
   name: 'ProductsInventoryView',
