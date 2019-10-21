@@ -66,6 +66,9 @@ function productsLoader ({ budzonnerySize }) {
 
 function adapt (product) {
   product.state = types.productState.VISIBLE
+  product.ordersSummary = {
+    amount: 0
+  }
 }
 
 function access (path, obj) {
