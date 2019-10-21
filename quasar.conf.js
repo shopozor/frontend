@@ -135,7 +135,9 @@ module.exports = function (ctx) {
       'flipOutY',
       'flipInY',
       'bounceIn',
-      'bounceOut'
+      'bounceOut',
+      'bounceOutDown',
+      'bounceOutUp'
     ],
 
     ssr: {
