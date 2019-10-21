@@ -54,7 +54,7 @@ export default {
         title: this.$t('dialog.warning'),
         message: this.$t('products.warningHide', {
           amount: this.ordersSummary.amount,
-          price: this.ordersSummary.customerPrice
+          price: this.ordersSummary.consumerPrice
         }),
         ok: this.$t('products.hide'),
         cancel: this.$t('products.letVisible')

@@ -3,12 +3,12 @@
     <format-price-auto
       v-if="autoPrice"
       :formatId="formatId"
-      customer
+      consumer
       producer />
     <format-price-free
       v-else
       :formatId="formatId"
-      customer
+      consumer
       producer />
   </q-card>
 </template>

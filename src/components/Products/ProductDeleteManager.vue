@@ -45,7 +45,7 @@ export default {
           title: this.$t('dialog.warning'),
           message: this.$t('products.warningDeleteWithOrders', {
             amount: this.ordersSummary.amount,
-            price: this.ordersSummary.customerPrice
+            price: this.ordersSummary.consumerPrice
           }),
           ok: this.$t('products.throwAway'),
           cancel: this.$t('products.keep')

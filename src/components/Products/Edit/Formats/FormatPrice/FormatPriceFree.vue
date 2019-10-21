@@ -1,9 +1,9 @@
 <template>
   <price-input
-    :customerPrice="customerPrice"
-    :setCustomerPrice="setCustomerPrice"
+    :consumerPrice="consumerPrice"
+    :setConsumerPrice="setConsumerPrice"
     :producerRatio="0.85"
-    :customer="customer"
+    :consumer="consumer"
     :producer="producer"
     :shop="shop"
     :readonly="!isUpdatable" />
@@ -22,7 +22,7 @@ export default {
       type: String,
       required: true
     },
-    customer: {
+    consumer: {
       type: Boolean,
       default () {
         return false
@@ -43,14 +43,14 @@ export default {
   },
   computed: {
     ...mapGetters(['editedFormats']),
-    customerPrice () { return this.editedFormats[this.formatId].customerPrice }
+    consumerPrice () { return this.editedFormats[this.formatId].consumerPrice }
   },
   methods: {
     ...mapActions(['updateEditedFormat']),
-    setCustomerPrice (value) {
+    setConsumerPrice (value) {
       this.updateEditedFormat({
         formatId: this.formatId,
-        newProps: { customerPrice: value }
+        newProps: { consumerPrice: value }
       })
     }
   },

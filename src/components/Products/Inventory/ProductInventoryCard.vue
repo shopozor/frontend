@@ -61,7 +61,7 @@ export default {
       }).paid
       return this.$tc('products.ordersSummary', paid.amount, {
         amount: paid.amount,
-        price: (paid.customerPrice / 100).toFixed(2)
+        price: (paid.consumerPrice / 100).toFixed(2)
       })
     },
     isVisible () {

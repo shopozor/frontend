@@ -1,9 +1,9 @@
 <template>
   <price-input
-    :customerPrice="customerPrice"
-    :setCustomerPrice="() => {}"
+    :consumerPrice="consumerPrice"
+    :setConsumerPrice="() => {}"
     :producerRatio="0.85"
-    :customer="customer"
+    :consumer="consumer"
     :producer="producer"
     :shop="shop"
     :readonly="true" />
@@ -20,7 +20,7 @@ export default {
       type: String,
       required: true
     },
-    customer: {
+    consumer: {
       type: Boolean,
       default () {
         return false
@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     ...mapGetters(['editedFormats']),
-    customerPrice () { return this.editedFormats[this.formatId].customerPrice }
+    consumerPrice () { return this.editedFormats[this.formatId].consumerPrice }
   },
   components: {PriceInput}
 }

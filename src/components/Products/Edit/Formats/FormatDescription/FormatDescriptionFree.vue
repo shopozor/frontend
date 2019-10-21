@@ -24,7 +24,7 @@ export default {
   computed: {
     ...mapGetters(['editedFormats']),
     description () { return this.editedFormats[this.formatId].description },
-    customerPrice () { return this.editedFormats[this.formatId].customerPrice }
+    consumerPrice () { return this.editedFormats[this.formatId].consumerPrice }
   },
   methods: {
     ...mapActions(['updateEditedFormat']),
@@ -32,7 +32,7 @@ export default {
       this.updateEditedFormat({formatId: this.formatId, newProps: {[propName]: value}})
     },
     updateDescription (value) { this.update('description', value) },
-    updateCustomerPrice (value) { this.update('customerPrice', value) }
+    updateConsumerPrice (value) { this.update('consumerPrice', value) }
   }
 }
 </script>

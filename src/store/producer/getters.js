@@ -38,5 +38,5 @@ export const editedProductcategories = state => state.editedProduct.categories
 export const editedProductConservationMethod = state => state.editedProduct.conservationMathod
 export const editedProductConservationDays = state => state.editedProduct.conservationDays
 export const editedProductDefaultFormatUI = state => state.editedProduct.defaultFormatUI
-export const editedProductDefaultCustomerPrice = state => state.editedProduct.defaultCustomerPrice
-export const editedProductDefaultUnit = state => state.editedProduct.defaultCustomerUnit
+export const editedProductDefaultConsumerPrice = state => state.editedProduct.defaultConsumerPrice
+export const editedProductDefaultUnit = state => state.editedProduct.defaultConsumerUnit

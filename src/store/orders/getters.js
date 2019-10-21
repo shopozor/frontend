@@ -4,7 +4,7 @@ export const pendingOrdersOfProduct = state => ({ productId }) => {
   return {
     paid: {
       amount: 0,
-      customerPrice: 0
+      consumerPrice: 0
     }
   }
 }

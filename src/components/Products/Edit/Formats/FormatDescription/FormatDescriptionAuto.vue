@@ -49,7 +49,7 @@ export default {
     ...mapGetters(['editedFormats', 'editedProduct']),
     size () { return this.editedFormats[this.formatId].size },
     sizeUnit () { return this.editedFormats[this.formatId].sizeUnit },
-    defaultCustomerPrice () { return this.editedProduct.defaultCustomerPrice },
+    defaultConsumerPrice () { return this.editedProduct.defaultConsumerPrice },
     defaultUnit () { return this.editedProduct.defaultUnit },
     physicalSize () { return getPhysicalSize({ unit: this.defaultUnit }) }
   },
@@ -60,31 +60,31 @@ export default {
     },
     updateSizeUnit (newUnit) {
       this.update('sizeUnit', newUnit)
-      this.updateCustomerPrice()
+      this.updateConsumerPrice()
     },
     updateSize (value) {
       this.update('size', value)
-      this.updateCustomerPrice()
+      this.updateConsumerPrice()
     },
-    updateCustomerPrice () {
+    updateConsumerPrice () {
       const newPricePerUnit = 1 / convert({
-        startValue: 1 / this.defaultCustomerPrice,
+        startValue: 1 / this.defaultConsumerPrice,
         startUnit: this.defaultUnit,
         endUnit: this.sizeUnit
       })
-      this.update('customerPrice', newPricePerUnit * this.size)
+      this.update('consumerPrice', newPricePerUnit * this.size)
     }
   },
   watch: {
-    defaultUnit (newUnit, oldUnit) { this.updateCustomerPrice() },
-    defaultCustomerPrice (newPrice, oldPrice) { this.updateCustomerPrice() }
+    defaultUnit (newUnit, oldUnit) { this.updateConsumerPrice() },
+    defaultConsumerPrice (newPrice, oldPrice) { this.updateConsumerPrice() }
   },
   components: { UnitField, ProductDefaultPricePerUnitSelector },
   mounted () {
-    if (this.defaultCustomerPrice === 0 || this.defaultUnit === '') {
+    if (this.defaultConsumerPrice === 0 || this.defaultUnit === '') {
       this.defineDefaultValues = true
     } else if (unitsAreCompatible({unit1: this.sizeUnit, unit2: this.defaultUnit})) {
-      this.updateCustomerPrice()
+      this.updateConsumerPrice()
     } else {
       this.updateSizeUnit(mainUnit({ unit: this.defaultUnit }).short)
       this.updateSize(1)

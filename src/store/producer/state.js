@@ -9,7 +9,7 @@ export default {
     conservationMethod: '',
     conservationDaysAfterSale: 0,
     defaultFormatUI: '',
-    defaultCustomerPrice: 0,
+    defaultConsumerPrice: 0,
     defaultUnit: ''
   }
 }

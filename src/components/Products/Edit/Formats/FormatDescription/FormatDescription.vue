@@ -49,11 +49,11 @@ export default {
     sizeUnit () {
       return this.editedFormats[this.formatId].sizeUnit
     },
-    customerPrice () {
-      return this.editedFormats[this.formatId].customerPrice
+    consumerPrice () {
+      return this.editedFormats[this.formatId].consumerPrice
     },
-    customerPriceUnit () {
-      return this.editedFormats[this.formatId].customerPriceUnit
+    consumerPriceUnit () {
+      return this.editedFormats[this.formatId].consumerPriceUnit
     }
   },
   methods: {
@@ -73,11 +73,11 @@ export default {
     updateSizeUnit (newUnit) {
       this.update('sizeUnit', newUnit)
     },
-    updateCustomerPrice (value) {
-      this.update('customerPrice', value)
+    updateConsumerPrice (value) {
+      this.update('consumerPrice', value)
     },
-    updateCustomerPriceUnit (value) {
-      this.update('customerPriceUnit', value)
+    updateConsumerPriceUnit (value) {
+      this.update('consumerPriceUnit', value)
     }
   },
   components: {
