@@ -18,10 +18,10 @@
         <product-delete-manager :productId="productId"/>
       </q-card-actions>
       <q-card-section>
-        {{ product.title }}
+        {{ product.name }}
         <span slot="subtitle">{{ summary }}</span>
       </q-card-section>
-      <img :src="showImage" alt="product image">
+      <q-img :src="showImage" alt="product image" />
     </q-card>
   </transition>
 </template>
@@ -30,7 +30,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import ProductDeleteManager from '../ProductDeleteManager'
 // import ProductVisibilityManager from '../ProductVisibilityManager'
-import ShowImageMixin from '../../../assets/images/ShowImageMixin'
+import ShowImageMixin from '../../../mixins/ShowImageMixin'
 import types from '../../../types'
 
 export default {
@@ -51,7 +51,9 @@ export default {
       return this.myProducts[this.productId]
     },
     image () {
-      return this.product.image
+      const images = this.product.images
+      if (images[0] && images[0].url) return images[0].url
+      else return null
     },
     summary () {
       const paid = this.pendingOrdersOfProduct({

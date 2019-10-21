@@ -11,7 +11,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import ShowImageMixin from 'assets/images/ShowImageMixin'
+import ShowImageMixin from '../../../mixins/ShowImageMixin'
 
 export default {
   name: 'ProductEditPicture',

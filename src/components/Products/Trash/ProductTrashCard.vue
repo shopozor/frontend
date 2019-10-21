@@ -14,7 +14,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import types from '../../../types'
-import ShowImageMixin from '../../../assets/images/ShowImageMixin'
+import ShowImageMixin from '../../../mixins/ShowImageMixin'
 
 export default {
   name: 'ProductTrashCard',
