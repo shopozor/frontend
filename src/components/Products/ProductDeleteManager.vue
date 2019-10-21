@@ -63,23 +63,23 @@ export default {
       ) {
         vm.$q
           .dialog({ ...vm.dialogs.consfirmDeleteWithOrders })
-          .then(() => {
+          .onOk(() => {
             vm.updateProduct({
               productId: vm.productId,
               newProps: { state: types.productState.DELETED, force: true }
             })
           })
-          .catch(() => {})
+          .onCancel(() => {})
       } else {
         vm.$q
           .dialog({ ...vm.dialogs.confirmDeleteWithoutOrders })
-          .then(() => {
+          .onOk(() => {
             vm.updateProduct({
               productId: vm.productId,
               newProps: { state: types.productState.DELETED }
             })
           })
-          .catch(() => {})
+          .onCancel(() => {})
       }
     }
   }

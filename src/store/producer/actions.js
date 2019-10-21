@@ -19,6 +19,7 @@ export const createProduct = ({ commit, getters }, { newProduct }) => {
 }
 
 export const updateProduct = ({ commit, getters }, { productId, newProps }) => {
+  commit('updateProduct', { productId, newProps })
   // request.updateProduct({
   //   userId: getters.userId,
   //   token: getters.token,
