@@ -3,7 +3,7 @@ export const storeMyProducts = (state, myProducts) => {
 }
 
 export const updateProduct = (state, { productId, newProps }) => {
-  state.myProducts[productId] = { ...state.myProducts.productId, ...newProps }
+  state.myProducts[productId] = { ...state.myProducts[productId], ...newProps }
 }
 
 export const setEditedProduct = (state, product) => { state.editedProduct = { ...product, allowNonTrivialChanges: false } }
