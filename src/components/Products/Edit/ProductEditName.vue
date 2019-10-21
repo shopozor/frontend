@@ -2,20 +2,20 @@
   <q-card class="width-md height-md">
     <q-card-section>
       <q-input
-        :float-label="$t('products.title')"
-        :placeholder="productTitle"
-        :value="productTitle"
-        @input="updateEditedProduct({ newProps: {title: $event} })" />
+        :label="$t('products.name')"
+        :placeholder="initialName"
+        :value="productName"
+        @input="updateEditedProduct({ path: 'name', value: $event })" />
     </q-card-section>
     <q-card-section>
       <q-input
-        :float-label="$t('products.productDescription')"
-        :placeholder="productDescription"
+        :label="$t('products.productDescription')"
+        :placeholder="initialDescription"
         type="textarea"
         :max-height="190"
         rows="8"
         :value="productDescription"
-        @input="updateEditedProduct({ newProps: {description: $event} })" />
+        @input="updateEditedProduct({ path: 'description', value: $event })" />
     </q-card-section>
   </q-card>
 </template>
@@ -25,13 +25,19 @@ import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'ProductEditName',
+  data () {
+    return {
+      initialName: '',
+      initialDescription: ''
+    }
+  },
   computed: {
     ...mapGetters(['editedProduct', 'myProducts']),
     productId () {
       return this.editedProduct.productId
     },
-    productTitle () {
-      return this.editedProduct.title
+    productName () {
+      return this.editedProduct.name
     },
     productDescription () {
       return this.editedProduct.description
@@ -39,10 +45,13 @@ export default {
   },
   methods: {
     ...mapActions(['updateEditedProduct'])
+  },
+  created () {
+    this.initialName = this.editedProduct.name
+    this.initialDescription = this.editedProduct.description
   }
 }
 
-// TODO : si aucune valeur, afficher la valeur actuelle du produit (placeholder)
 // TODO : pouvoir indiquer si la modification est majeure ou mineure (si oui -> notifications)
 
 </script>
