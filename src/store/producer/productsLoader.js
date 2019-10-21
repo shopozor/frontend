@@ -1,3 +1,5 @@
+import types from '../../types'
+
 export function loadAndFilterProducts ({ budzonnerySize, filterAccess, filterValue }) {
   return new Promise(resolve => {
     productsLoader({budzonnerySize})
@@ -52,6 +54,7 @@ function productsLoader ({ budzonnerySize }) {
         import(`../../../graphql/responses/${budzonnerySize}/Consumer/Products/Product-${i}.json`)
           .then(product => {
             const productData = product.data.product
+            adapt(productData)
             productsArray.push(productData)
           })
           .catch(() => { })
@@ -59,6 +62,10 @@ function productsLoader ({ budzonnerySize }) {
     }
     Promise.all(promises).then(() => resolve(productsArray))
   })
+}
+
+function adapt (product) {
+  product.state = types.productState.VISIBLE
 }
 
 function access (path, obj) {
