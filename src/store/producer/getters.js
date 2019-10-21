@@ -40,3 +40,5 @@ export const editedProductConservationDays = state => state.editedProduct.conser
 export const editedProductDefaultFormatUI = state => state.editedProduct.defaultFormatUI
 export const editedProductDefaultConsumerPrice = state => state.editedProduct.defaultConsumerPrice
 export const editedProductDefaultUnit = state => state.editedProduct.defaultConsumerUnit
+
+export const editedVariants = state => state.editedProduct.variants

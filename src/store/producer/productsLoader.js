@@ -1,20 +1,21 @@
 import types from '../../types'
+import { getValueFromObject } from '../../Helpers'
 
 export function loadAndFilterProducts ({ budzonnerySize, filterAccess, filterValue }) {
   return new Promise(resolve => {
     productsLoader({budzonnerySize})
       .then(allProducts => {
         const filteredProducts = allProducts.filter(product => {
-          return access(filterAccess, product) === filterValue
+          return getValueFromObject({ object: product, path: filterAccess }) === filterValue
         })
-        resolve(formatProductsData(filteredProducts))
+        resolve(arrayWithIdsToObjectOfIds(filteredProducts))
       })
   })
 }
 
 export function loadAllProducts ({ budzonnerySize }) {
   return new Promise(resolve => {
-    const allProducts = formatProductsData(productsLoader({ budzonnerySize }))
+    const allProducts = arrayWithIdsToObjectOfIds(productsLoader({ budzonnerySize }))
     resolve(allProducts)
   })
 }
@@ -37,13 +38,6 @@ export function summarizeProducers ({ budzonnerySize }) {
   })
 }
 
-function formatProductsData (productsArray) {
-  return productsArray.reduce((productsList, product) => {
-    productsList[product.id] = product
-    return productsList
-  }, {})
-}
-
 function productsLoader ({ budzonnerySize }) {
   return new Promise(resolve => {
     const productsArray = []
@@ -54,8 +48,8 @@ function productsLoader ({ budzonnerySize }) {
         import(`../../../graphql/responses/${budzonnerySize}/Consumer/Products/Product-${i}.json`)
           .then(product => {
             const productData = product.data.product
-            adapt(productData)
-            productsArray.push(productData)
+            const newProductData = adapt(productData)
+            productsArray.push(newProductData)
           })
           .catch(() => { })
       )
@@ -65,14 +59,32 @@ function productsLoader ({ budzonnerySize }) {
 }
 
 function adapt (product) {
-  product.state = types.productState.VISIBLE
-  product.ordersSummary = {
+  const state = types.productState.VISIBLE
+  const ordersSummary = {
     amount: 0
   }
+  const conservation = {
+    mode: types.conservation.BASEMENT,
+    days: 30
+  }
+  const categories = [
+    types.categories.VEGETABLES
+  ]
+  const variants = arrayWithIdsToObjectOfIds(product.variants)
+  const newProduct = {
+    ...product,
+    state,
+    ordersSummary,
+    variants,
+    conservation,
+    categories
+  }
+  return newProduct
 }
 
-function access (path, obj) {
-  return path.split('.').reduce((prev, curr) => {
-    return prev ? prev[curr] : null
-  }, obj || self)
+function arrayWithIdsToObjectOfIds (arrayWithId) {
+  return arrayWithId.reduce((object, item) => {
+    object[item.id] = item
+    return object
+  }, {})
 }

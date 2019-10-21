@@ -3,6 +3,7 @@ import { loadAndFilterProducts } from './productsLoader'
 export const getMyProducts = ({ commit, getters }, { budzonnerySize, producerId }) => {
   loadAndFilterProducts({ budzonnerySize, filterAccess: 'producer.id', filterValue: producerId })
     .then(response => {
+      console.log(response)
       commit('storeMyProducts', response)
     })
     .catch(error => { console.log(error) })
@@ -31,6 +32,7 @@ export const updateProduct = ({ commit, getters }, { productId, newProps }) => {
 }
 
 export const setEditedProduct = ({ commit, getters }, { productId }) => {
+  commit('setEditedProduct', { productId })
   // const localProduct = getters.productsInInventory[productId]
   // if (localProduct) commit('setEditedProduct', localProduct)
   // else {
@@ -41,4 +43,8 @@ export const setEditedProduct = ({ commit, getters }, { productId }) => {
   //     .then(response => commit('setEditedProduct', response.myProducts[productId]))
   //     .catch(error => console.log(error))
   // }
+}
+
+export const updateEditedProduct = ({ commit, getters }, payload) => {
+  commit('updateEditedProduct', payload)
 }

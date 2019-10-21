@@ -3,7 +3,7 @@ import {mapGetters} from 'vuex'
 export default {
   name: 'FormatCriticalValuesMixin',
   props: {
-    formatId: {
+    variantId: {
       type: String,
       required: true
     }

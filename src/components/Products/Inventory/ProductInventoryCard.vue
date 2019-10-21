@@ -74,12 +74,10 @@ export default {
   methods: {
     ...mapActions([
       'updateProduct',
-      'setEditedProduct',
-      'setEditedFormats'
+      'setEditedProduct'
     ]),
     edit () {
       this.setEditedProduct({ productId: this.productId })
-      this.setEditedFormats({ productId: this.productId })
       this.jumpTo('edit')
     }
   },

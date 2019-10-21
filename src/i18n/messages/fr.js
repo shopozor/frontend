@@ -136,7 +136,7 @@ export default {
     name: 'Nom du produit',
     productDescription: 'Description du produit',
     categories: 'Catégories',
-    conservationMethod: 'Méthode de conservation',
+    conservationMode: 'Méthode de conservation',
     conservationTime: 'Durée de conservation',
     day: 'jour | jour | jours',
     formatDescription: 'description',

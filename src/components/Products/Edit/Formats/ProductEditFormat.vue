@@ -1,10 +1,10 @@
 <template>
   <transition leave-active-class="animated bounceOutLeft">
     <q-card class="row justify-center relative-position" key="cards" v-if="show">
-      <format-description :formatId="formatId"/>
-      <format-price :formatId="formatId"/>
-      <format-amount :formatId="formatId"/>
-      <format-state-manager :formatId="formatId"/>
+      <format-description :formatId="variantId" />
+      <format-price :formatId="variantId" />
+      <format-amount :formatId="variantId" />
+      <format-state-manager :formatId="variantId" />
     </q-card>
   </transition>
 </template>
@@ -26,16 +26,10 @@ export default {
       state: types.formatState
     }
   },
-  props: {
-    formatId: {
-      type: String,
-      required: true
-    }
-  },
   computed: {
-    ...mapGetters(['editedFormats']),
+    ...mapGetters(['editedVariants']),
     show () {
-      const state = this.editedFormats[this.formatId].state
+      const state = this.editedVariants[this.variantId].state
       return state === this.state.VISIBLE || state === this.state.INVISIBLE
     }
   },

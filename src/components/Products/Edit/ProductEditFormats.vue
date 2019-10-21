@@ -13,9 +13,9 @@
     </q-expansion-item>
     <product-edit-format
       class="q-ma-sm"
-      v-for="id in formatsIds"
-      :key="id"
-      :formatId="id"
+      v-for="variant in editedVariants"
+      :key="variant.id"
+      :variantId="variant.id"
     />
     <new-format class="q-ma-sm" />
   </div>
@@ -30,10 +30,7 @@ import NewFormat from './Formats/NewFormat'
 export default {
   name: 'ProductEditFormats',
   computed: {
-    ...mapGetters(['editedProduct']),
-    formatsIds () {
-      return this.editedProduct.formatsIds
-    }
+    ...mapGetters(['editedVariants'])
   },
   components: {ProductEditFormat, ProductDefaultPricePerUnitSelector, NewFormat}
 }

@@ -2,11 +2,11 @@
   <q-card class="width-md height-md">
     <q-card-section>
       <q-select
-        :hint="$t('products.conservationMethod')"
+        :hint="$t('products.conservationMode')"
         separator
         :options="conservationOptions"
-        :value="conservationMethod"
-        @input="updateEditedProduct({ newProps: {conservationMethod: $event} })"
+        :value="$t(`conservation.${conservationMode}`)"
+        @input="updateMode"
       />
     </q-card-section>
     <q-card-section>
@@ -14,20 +14,20 @@
         :hint="$t('products.conservationTime')"
         type="number"
         :value="conservationDays"
-        @input="updateEditedProduct({ newProps: {conservationDays: $event} })"
+        @input="updateDays"
         orientation="horizontal"
-        :suffix="$tc('products.day', editedProduct.conservationDays)"
+        :suffix="$tc('products.day', conservationDays)"
       />
     </q-card-section>
     <q-card-section>
       <q-select
         :hint="$t('products.categories')"
         multiple
-        chips
+        use-chips
         separator
         :options="categoriesOptions"
         :value="categories"
-        @input="updateEditedProduct({ newProps: {categories: $event} })"
+        @input="updateCategories"
       />
     </q-card-section>
   </q-card>
@@ -42,35 +42,42 @@ export default {
   name: 'ProductEditType',
   computed: {
     ...mapGetters(['editedProduct']),
-    conservationMethod () {
-      return this.editedProduct.conservationMethod
+    conservationMode () {
+      return this.editedProduct.conservation.mode
     },
     conservationDays () {
-      console.log(this.editedProduct.conservationDays)
-      return this.editedProduct.conservationDays
+      return this.editedProduct.conservation.days
     },
     categories () {
-      return this.editedProduct.categories
+      return this.labellize(this.editedProduct.categories, 'categories')
     },
     categoriesOptions () {
-      return Object.keys(types.categories).map(categories => {
-        return {
-          value: categories,
-          label: this.$t(`categories.${categories}`)
-        }
-      })
+      return this.labellize(Object.keys(types.categories), 'categories')
     },
     conservationOptions () {
-      return Object.keys(types.conservation).map(conservation => {
-        return {
-          value: conservation,
-          label: this.$t(`conservation.${conservation}`)
-        }
-      })
+      return this.labellize(Object.keys(types.conservation), 'conservation')
     }
   },
   methods: {
-    ...mapActions(['updateEditedProduct'])
+    ...mapActions(['updateEditedProduct']),
+    updateMode (event) {
+      this.updateEditedProduct({ path: 'conservation.mode', value: event.value })
+    },
+    updateDays (event) {
+      this.updateEditedProduct({ path: 'conservation.days', value: event })
+    },
+    updateCategories (event) {
+      const value = event.map(category => category.value)
+      this.updateEditedProduct({ path: 'categories', value })
+    },
+    labellize (arrayOfValues, i18nPath) {
+      return arrayOfValues.map(value => {
+        return {
+          value: value,
+          label: this.$t(`${i18nPath}.${value}`)
+        }
+      })
+    }
   }
 }
 </script>
