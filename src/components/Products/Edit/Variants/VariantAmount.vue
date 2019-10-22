@@ -8,14 +8,12 @@
           round
           color="primary"
           :disable="disableRemove" />
-        <q-field
+        <q-input
           class="q-mx-md"
-          style="width: 4em">
-          <q-input
-            :value="amount"
-            @change="updateAmount"
-            type="number" />
-        </q-field>
+          style="width: 4em"
+          :value="stockQuantity"
+          @change="updateAmount"
+          type="number" />
         <q-btn
           @click="add"
           icon="add"
@@ -26,7 +24,7 @@
         <div>
           <div>{{$tc('products.ordered', pendingOrdersSummary.paid.amount)}}: {{pendingOrdersSummary.paid.amount}}</div>
           <br>
-          <div>{{$tc('products.available', amount - pendingOrdersSummary.paid.amount)}}: {{amount - pendingOrdersSummary.paid.amount}}</div>
+          <div>{{$tc('products.available', stockQuantity - pendingOrdersSummary.paid.amount)}}: {{stockQuantity - pendingOrdersSummary.paid.amount}}</div>
           <br>
           <div>dans un panier : {{pendingOrdersSummary.notPaid.amount}}</div>
         </div>
@@ -49,22 +47,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedVariants', 'ordersPropsOfFilterPropValue']),
-    amount () {
-      return this.editedVariants[this.variantId].amount
+    ...mapGetters(['editedProduct', 'ordersPropsOfFilterPropValue']),
+    stockQuantity () {
+      return this.editedProduct.variants[this.variantId].stockQuantity
     },
     disableRemove () {
-      const noMore = this.amount <= this.pendingOrdersSummary.paid.amount
-      return (noMore && !this.isUpdatable) || this.amount <= 0
+      const noMore = this.stockQuantity <= this.pendingOrdersSummary.paid.amount
+      return (noMore && !this.isUpdatable) || this.stockQuantity <= 0
     }
   },
   methods: {
     ...mapActions(['updateEditedVariant']),
     add () {
-      this.updateAmount(this.amount + 1)
+      this.updateAmount(this.stockQuantity + 1)
     },
     remove () {
-      this.updateAmount(this.amount - 1)
+      this.updateAmount(this.stockQuantity - 1)
     },
     updateAmount (value) {
       if ((value >= this.pendingOrdersSummary.paid.amount || this.isUpdatable) && value >= 0) {

@@ -42,8 +42,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedVariants']),
-    consumerPrice () { return this.editedVariants[this.variantId].consumerPrice }
+    ...mapGetters(['editedProduct']),
+    consumerPrice () { return this.editedProduct.variants[this.variantId].consumerPrice }
   },
   methods: {
     ...mapActions(['updateEditedVariant']),

@@ -84,7 +84,13 @@ function adapt (product) {
         notPaid: {
           amount: 0
         }
-      }
+      },
+      variantUI: types.variantUI.FREE,
+      consumerPrice: variant.costPrice.amount / 0.85,
+      description: variant.name,
+      size: 0,
+      sizeUnit: types.units.KG,
+      consumerPriceUnit: types.units.KG
     }
   })
   const varianttedVariants = arrayWithIdsToObjectOfIds(adaptedVariants)

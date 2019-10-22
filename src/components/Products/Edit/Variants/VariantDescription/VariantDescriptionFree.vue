@@ -1,11 +1,9 @@
 <template>
-  <q-field>
     <q-input
-      :float-label="$t('products.variantDescription')"
-      :value="description"
-      @input="updateDescription"
-      :readonly="!isUpdatable" />
-  </q-field>
+    :hint="$t('products.variantDescription')"
+    :value="description"
+    @input="updateDescription"
+    :readonly="!isUpdatable" />
 </template>
 
 <script>
@@ -22,9 +20,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedVariants']),
-    description () { return this.editedVariants[this.variantId].description },
-    consumerPrice () { return this.editedVariants[this.variantId].consumerPrice }
+    ...mapGetters(['editedProduct']),
+    description () { return this.editedProduct.variants[this.variantId].description },
+    consumerPrice () { return this.editedProduct.variants[this.variantId].consumerPrice }
   },
   methods: {
     ...mapActions(['updateEditedVariant']),

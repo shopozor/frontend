@@ -28,9 +28,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedVariants']),
+    ...mapGetters(['editedProduct']),
     autoPrice () {
-      const variantUI = this.editedVariants[this.variantId].variantUI
+      const variantUI = this.editedProduct.variants[this.variantId].variantUI
       return variantUI === types.variantUI.AUTO_PRICE
     }
   },
