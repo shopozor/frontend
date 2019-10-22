@@ -11,7 +11,6 @@
     <q-page-sticky position="bottom-left">
       <product-toggle-non-trivial-changes class="q-ma-md" />
     </q-page-sticky>
-    {{ editedProduct }}
   </div>
 </template>
 
