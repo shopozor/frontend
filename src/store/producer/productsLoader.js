@@ -121,34 +121,32 @@ function adapt (product) {
        *    measureUnit: ...
        *  }
        */
-      variantUI: types.variantUI.FREE,
-      // description du conditionnement
-      description: variant.name,
-      // mesure de la variante
-      size: 0, // measure
-      // unité de mesure de la variante
-      sizeUnit: types.units.KG,
-
-      /**
-       * unité de mesure du prix
-       * j'ai 1 [tonne] de sel, je le vends 0.50CHF/[kg]
-       */
-      consumerPriceUnit: types.units.KG,
 
       /**
        * reference price: grossPrice
        * doc: https://github.com/shopozor/backend/issues/95
        */
-      consumerPrice: variant.costPrice.amount / 0.85
-
-      /**
-       * grossPrice
-       * softozorPercentage
-       * rexPercentage
-       * managerPercentage
-       * productVAT
-       * serviceVAT
-       */
+      pricing: {
+        grossPrice: variant.pricing.price.gross.amount,
+        mode: types.variantUI.FREE,
+        /**
+         * unité de mesure du prix
+         * j'ai 1 [tonne] de sel, je le vends 0.50CHF/[kg]
+         */
+        priceUnit: types.units.KG,
+        softozorFraction: 0.05,
+        managerFraction: 0.05,
+        rexFraction: 0.05,
+        productVAT: 0.025,
+        serviceVAT: 0.077
+      },
+      // description of variant
+      description: {
+        name: variant.name,
+        // volume / weight / size of variant
+        measure: 0,
+        measureUnit: types.units.KG
+      }
     }
   })
   const formattedVariants = arrayWithIdsToObjectOfIds(adaptedVariants)
