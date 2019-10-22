@@ -76,7 +76,15 @@ function adapt (product) {
   const adaptedVariants = product.variants.map(variant => {
     return {
       ...variant,
-      state: types.variantState.VISIBLE
+      state: types.variantState.VISIBLE,
+      pendingOrdersSummary: {
+        paid: {
+          amount: 0
+        },
+        notPaid: {
+          amount: 0
+        }
+      }
     }
   })
   const varianttedVariants = arrayWithIdsToObjectOfIds(adaptedVariants)
