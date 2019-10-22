@@ -19,7 +19,10 @@ describe('Consumer authentication', function(){
 
     it('redirects to home page if identified Consumer browses /login', function () {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
+      cy.stubServer({
+        'Login': 'Authentication/Login/Consommateur'
+      })
+
       login(email, password)
 
       // When
@@ -31,7 +34,9 @@ describe('Consumer authentication', function(){
 
     it('pops up an error message if a Consumer logs in with invalid e-mail and password', function() {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/WrongCredentials')
+      cy.stubServer({
+        'Login': 'Authentication/Login/WrongCredentials'
+      })
 
       // When
       cy.visit('/login')
@@ -46,7 +51,9 @@ describe('Consumer authentication', function(){
 
     it('pops up an error message if a registered Consumer logs in with an invalid password', function() {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/WrongCredentials')
+      cy.stubServer({
+        'Login': 'Authentication/Login/WrongCredentials'
+      })
 
       // When
       cy.visit('/login')
@@ -61,7 +68,10 @@ describe('Consumer authentication', function(){
 
     it('opens a session if the Consumer provides the correct credentials', function() {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
+      cy.stubServer({
+        'Login': 'Authentication/Login/Consommateur'
+      })
+
 
       // When
       cy.visit('/login')
@@ -83,7 +93,9 @@ describe('Consumer authentication', function(){
 
     it('forgets about the token and redirects to /', function () {
       // Given
-      cy.stubServer('Authentication/LogConsumerIn/Consommateur')
+      cy.stubServer({
+        'Login': 'Authentication/Login/Consommateur'
+      })
       login(email, password)
 
       // When
@@ -137,7 +149,9 @@ describe('Consumer authentication', function(){
 
     it('registers new Consumer with compliant password', function () {
       // Given
-      cy.stubServer('Authentication/RegisterConsumer/SuccessfulConsumerCreation')
+      cy.stubServer({
+        'SignUp': 'Authentication/RegisterConsumer/SuccessfulConsumerCreation'
+      })
 
       // When
       accessRegistrationInterface()
@@ -163,7 +177,9 @@ describe('Consumer authentication', function(){
         
     it('displays a success message when the activation link is visited soon enough', function () {
       // Given
-      cy.stubServer('Authentication/RegisterConsumer/SuccessfulAccountConfirmation')
+      cy.stubServer({
+        'ActivateConsumer': 'Authentication/RegisterConsumer/SuccessfulAccountConfirmation'
+      })
 
       // When
       visitActivationLink()
@@ -177,7 +193,9 @@ describe('Consumer authentication', function(){
 
     it('displays an error message when something is wrong with the link', function () {
       // Given
-      cy.stubServer('Authentication/SignupExpiredLink')
+      cy.stubServer({
+        'ActivateConsumer': 'Authentication/SignupExpiredLink'
+      })
 
       // When
       visitActivationLink()
