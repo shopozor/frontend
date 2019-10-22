@@ -3,7 +3,6 @@ import { loadAndFilterProducts } from './productsLoader'
 export const getMyProducts = ({ commit, getters }, { budzonnerySize, producerId }) => {
   loadAndFilterProducts({ budzonnerySize, filterAccess: 'producer.id', filterValue: producerId })
     .then(response => {
-      console.log(response)
       commit('storeMyProducts', response)
     })
     .catch(error => { console.log(error) })
@@ -47,4 +46,8 @@ export const setEditedProduct = ({ commit, getters }, { productId }) => {
 
 export const updateEditedProduct = ({ commit, getters }, payload) => {
   commit('updateEditedProduct', payload)
+}
+
+export const updateEditedVariant = ({ commit, getters }, payload) => {
+  commit('updateEditedVariant', payload)
 }

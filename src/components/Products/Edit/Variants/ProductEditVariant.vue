@@ -29,7 +29,6 @@ export default {
   computed: {
     ...mapGetters(['editedProduct']),
     show () {
-      console.log('show')
       const state = this.editedProduct.variants[this.variantId].state
       return state === this.state.VISIBLE || state === this.state.INVISIBLE
     }

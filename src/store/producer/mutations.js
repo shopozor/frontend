@@ -20,3 +20,8 @@ export const updateEditedProduct = (state, { path, value }) => {
     value
   })
 }
+
+export const updateEditedVariant = (state, { variantId, path, value }) => {
+  const pathInProduct = `variants.${variantId}.${path}`
+  updateEditedProduct(state, { path: pathInProduct, value })
+}
