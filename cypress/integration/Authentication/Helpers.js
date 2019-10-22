@@ -9,8 +9,13 @@ export function getTokenCookie () {
 export function login (email, password) {
   // TODO: the following code needs to be replaced with a programmatic login
   // i.e. a direct call to store.dispatch('login', { email, password, stayLoggedIn }):
-  cy.visit('/login')
-  connectWithUserCredentialsViaGui(email, password)
+  return cy.visit('/login')
+    .then(() => connectWithUserCredentialsViaGui(email, password))
+    .get('@graphql')
+    .then(getTokenCookie)
+    .then(token => {
+      expect(token).to.not.be.null
+    })
   // TODO: instead of the above code, we need something like
   // // TODO: I will probably need to import the action directly and provide it with the commit method
   // let stayLoggedIn = true
@@ -18,48 +23,47 @@ export function login (email, password) {
   // email = user.email
   // password = user.password
   // store.dispatch('login', { email, password, stayLoggedIn })
-
-  cy.get('@graphql').then(() => {
-    getTokenCookie().then(token => {
-      expect(token).to.not.be.null
-    })
-  })
 }
 
 export function connectWithUserCredentialsViaGui (email, password) {
-  cy.get('input[type=email]').clear().type(email)
-  cy.get('input[type=password]').clear().type(password)
-  cy.get('button[id="loginButton"]')
+  return cy.get('input[type=email]')
+    .clear()
+    .type(email)
+    .get('input[type=password]')
+    .clear()
+    .type(password)
+    .get('button[id="loginButton"]')
     .click()
 }
 
-function openSideDrawer () {
-  cy.get('[id=sideDrawer]').then(drawer => {
-    const transform = drawer.children()[0].style.transform
-    const sideDrawerIsVisible = transform.includes('translateX(0px)')
-    if (!sideDrawerIsVisible) {
-      cy.get('.burger-menu').click()
-    }
-  })
+export function openSideDrawer () {
+  return cy.get('[id=sideDrawer]')
+    .then(drawer => {
+      const transform = drawer.children()[0].style.transform
+      const sideDrawerIsVisible = transform.includes('translateX(0px)')
+      if (!sideDrawerIsVisible) {
+        return cy.get('.burger-menu').click()
+      } else {
+        return cy
+      }
+    })
 }
 
-function getPageLink (label) {
+export function getPageLink (label) {
   return cy.get(`[id="pageLink->${label}"]`)
 }
 
 function clickOnPageLink (label) {
-  getPageLink(label).click()
+  return getPageLink(label).click()
 }
 
 export function navigateTo (label) {
-  openSideDrawer()
-  clickOnPageLink(label)
+  return openSideDrawer().then(() => clickOnPageLink(label))
 }
 
 export function checkIfLinkIsActive (label) {
-  openSideDrawer()
-
-  getPageLink(label)
+  return openSideDrawer()
+    .then(() => getPageLink(label))
     .first()
     .should('have.class', 'isActive')
 }
