@@ -61,14 +61,31 @@ function productsLoader ({ budzonnerySize }) {
 }
 
 function adapt (product) {
+  /**
+   * related flag: product.isAvailable
+   */
   const state = types.productState.VISIBLE
+
+  /**
+   * can be accessed through orderId and orders request
+   */
   const ordersSummary = {
     amount: 0
   }
+
+  /**
+   * conservation.until needs to be replaced
+   * conservation.mode needs to be in a defined list (types.conservation)
+   */
   const conservation = {
     mode: types.conservation.BASEMENT,
     days: 30
   }
+
+  /**
+   * To access categories:
+   * graphql/calls/shopCategories.grphql
+   */
   const categories = [
     types.categories.VEGETABLES
   ]
@@ -76,7 +93,15 @@ function adapt (product) {
   const adaptedVariants = product.variants.map(variant => {
     return {
       ...variant,
+
+      /**
+       * related flag: product.variant[index].isAvailable
+       */
       state: types.variantState.VISIBLE,
+
+      /**
+       * can be accessed through orderId and orders request
+       */
       pendingOrdersSummary: {
         paid: {
           amount: 0
@@ -85,20 +110,53 @@ function adapt (product) {
           amount: 0
         }
       },
+
+      /**
+       * flags for variant UI
+       * > variant.pricing.mode
+       * > variant.pricing.priceUnit
+       * > variant.description = {
+       *    name:...
+       *    measure: ...
+       *    measureUnit: ...
+       *  }
+       */
       variantUI: types.variantUI.FREE,
-      consumerPrice: variant.costPrice.amount / 0.85,
+      // description du conditionnement
       description: variant.name,
-      size: 0,
+      // mesure de la variante
+      size: 0, // measure
+      // unité de mesure de la variante
       sizeUnit: types.units.KG,
-      consumerPriceUnit: types.units.KG
+
+      /**
+       * unité de mesure du prix
+       * j'ai 1 [tonne] de sel, je le vends 0.50CHF/[kg]
+       */
+      consumerPriceUnit: types.units.KG,
+
+      /**
+       * reference price: grossPrice
+       * doc: https://github.com/shopozor/backend/issues/95
+       */
+      consumerPrice: variant.costPrice.amount / 0.85
+
+      /**
+       * grossPrice
+       * softozorPercentage
+       * rexPercentage
+       * managerPercentage
+       * productVAT
+       * serviceVAT
+       */
     }
   })
-  const varianttedVariants = arrayWithIdsToObjectOfIds(adaptedVariants)
+  const formattedVariants = arrayWithIdsToObjectOfIds(adaptedVariants)
   const newProduct = {
     ...product,
     state,
     ordersSummary,
-    variants: varianttedVariants,
+    variants: formattedVariants,
     conservation,
     categories
   }
