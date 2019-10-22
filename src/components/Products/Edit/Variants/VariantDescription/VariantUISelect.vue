@@ -15,7 +15,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import * as variantUI from '../../../../../types/variantUI'
-import VariantCriticalValuesMixin from '../VariantCriticalValuesMixin'
+import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
   name: 'VariantUISelect',

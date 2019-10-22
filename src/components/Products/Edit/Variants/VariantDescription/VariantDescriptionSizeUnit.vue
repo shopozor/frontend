@@ -14,7 +14,7 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import UnitField from '../../../../Units/UnitField'
-import VariantCriticalValuesMixin from '../VariantCriticalValuesMixin.js'
+import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
   name: 'VariantDescriptionSizeUnit',

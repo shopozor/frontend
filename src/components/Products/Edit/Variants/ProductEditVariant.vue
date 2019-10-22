@@ -15,7 +15,7 @@ import VariantDescription from './VariantDescription/VariantDescription'
 import VariantPrice from './VariantPrice/VariantPrice'
 import VariantAmount from './VariantAmount'
 import VariantStateManager from './VariantStateManager'
-import VariantCriticalValuesMixin from './VariantCriticalValuesMixin'
+import VariantCriticalValuesMixin from '../../../../mixins/VariantCriticalValuesMixin'
 import types from '../../../../types'
 
 export default {

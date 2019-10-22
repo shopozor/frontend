@@ -13,7 +13,7 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import UnitSelect from '../../../../Units/UnitSelect'
-import VariantCriticalValuesMixin from '../VariantCriticalValuesMixin.js'
+import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
   name: 'VariantDescriptionBulk',

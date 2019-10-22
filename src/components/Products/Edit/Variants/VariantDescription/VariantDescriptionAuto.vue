@@ -29,7 +29,7 @@ import {mapGetters, mapActions} from 'vuex'
 import UnitField from '../../../../Units/UnitField'
 import ProductDefaultPricePerUnitSelector from '../../ProductDefaultPricePerUnitSelector'
 import {convert, unitsAreCompatible, mainUnit, getPhysicalSize} from '../../../../Units/UnitsHelpers'
-import VariantCriticalValuesMixin from '../VariantCriticalValuesMixin.js'
+import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
   name: 'VariantDescriptionAuto',

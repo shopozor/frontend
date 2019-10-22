@@ -12,7 +12,7 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import PriceInput from '../../../../Price/PriceInput'
-import VariantCriticalValuesMixin from '../VariantCriticalValuesMixin.js'
+import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
   name: 'VariantPriceFree',

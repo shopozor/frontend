@@ -10,7 +10,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import VariantCriticalValuesMixin from './VariantCriticalValuesMixin'
+import VariantCriticalValuesMixin from '../../../../mixins/VariantCriticalValuesMixin'
 import types from '../../../../types'
 
 export default {
