@@ -70,13 +70,13 @@ function createActions (actions) {
           stub.withArgs(sinon.match(Object), sinon.match(states[i].args)).resolves(states[i].resolve)
         } else if (states[i].reject) {
           stub.withArgs(sinon.match(Object), sinon.match(states[i].args)).rejects(states[i].reject)
-        } else console.error('Action format error')
+        } else console.error('Action variant error')
       } else {
         if (states[i].resolve) {
           stub.resolves(states[i].resolve)
         } else if (states[i].reject) {
           stub.rejects(states[i].reject)
-        } else console.error('Action format error')
+        } else console.error('Action variant error')
       }
     }
     builtActions = { ...builtActions, [name]: stub }

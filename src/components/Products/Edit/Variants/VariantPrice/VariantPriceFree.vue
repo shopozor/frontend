@@ -1,22 +1,24 @@
 <template>
   <price-input
     :consumerPrice="consumerPrice"
-    :setConsumerPrice="() => {}"
+    :setConsumerPrice="setConsumerPrice"
     :producerRatio="0.85"
     :consumer="consumer"
     :producer="producer"
     :shop="shop"
-    :readonly="true" />
+    :readonly="!isUpdatable" />
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import PriceInput from '../../../../Price/PriceInput'
+import VariantCriticalValuesMixin from '../VariantCriticalValuesMixin.js'
 
 export default {
-  name: 'FormatPriceAuto',
+  name: 'VariantPriceFree',
+  mixins: [VariantCriticalValuesMixin],
   props: {
-    formatId: {
+    variantId: {
       type: String,
       required: true
     },
@@ -40,8 +42,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedFormats']),
-    consumerPrice () { return this.editedFormats[this.formatId].consumerPrice }
+    ...mapGetters(['editedVariants']),
+    consumerPrice () { return this.editedVariants[this.variantId].consumerPrice }
+  },
+  methods: {
+    ...mapActions(['updateEditedVariant']),
+    setConsumerPrice (value) {
+      this.updateEditedVariant({
+        variantId: this.variantId,
+        newProps: { consumerPrice: value }
+      })
+    }
   },
   components: {PriceInput}
 }

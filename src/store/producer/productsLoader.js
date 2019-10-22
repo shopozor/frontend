@@ -54,7 +54,9 @@ function productsLoader ({ budzonnerySize }) {
           .catch(() => { })
       )
     }
-    Promise.all(promises).then(() => resolve(productsArray))
+    Promise.all(promises).then(() => {
+      resolve(productsArray)
+    })
   })
 }
 
@@ -70,12 +72,19 @@ function adapt (product) {
   const categories = [
     types.categories.VEGETABLES
   ]
-  const variants = arrayWithIdsToObjectOfIds(product.variants)
+
+  const adaptedVariants = product.variants.map(variant => {
+    return {
+      ...variant,
+      state: types.variantState.VISIBLE
+    }
+  })
+  const varianttedVariants = arrayWithIdsToObjectOfIds(adaptedVariants)
   const newProduct = {
     ...product,
     state,
     ordersSummary,
-    variants,
+    variants: varianttedVariants,
     conservation,
     categories
   }

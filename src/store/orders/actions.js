@@ -1,10 +1,10 @@
 // import * as request from '../simulateServer/orders/requestOrders'
 
-export const orderFormats = ({ commit, getters }, { formatsAmounts }) => {
-  // request.orderFormats({
+export const orderVariants = ({ commit, getters }, { variantsAmounts }) => {
+  // request.orderVariants({
   //   userId: getters.userId,
   //   token: getters.token,
-  //   formatsAmounts
+  //   variantsAmounts
   // })
   //   .then(response => {
   //     console.log(response.message)

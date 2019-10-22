@@ -43,11 +43,11 @@ export default {
     [types.conservation.FRIDGE]: 'au frigo',
     [types.conservation.FREEZER]: 'au congélateur'
   },
-  formatUI: {
-    [types.formatUI.FREE]: 'description libre (texte)',
-    [types.formatUI.AUTO_UNIT]: 'taille et unité (300 gr)',
-    [types.formatUI.AUTO_PRICE]: 'calcul du prix automatique',
-    [types.formatUI.BULK]: 'vente en vrac'
+  variantUI: {
+    [types.variantUI.FREE]: 'description libre (texte)',
+    [types.variantUI.AUTO_UNIT]: 'taille et unité (300 gr)',
+    [types.variantUI.AUTO_PRICE]: 'calcul du prix automatique',
+    [types.variantUI.BULK]: 'vente en vrac'
   },
   profile: {
     email: 'e-mail',
@@ -129,7 +129,7 @@ export default {
     hide: 'Cacher',
     letVisible: 'Laisser visible',
     warningDeleteWithoutOrders: 'Vous êtes sur le point de mettre un produit à la corbeille. Il pourra être restauré pendant six mois. Passé ce délai, il sera définitvement effacé.',
-    warningDeleteWithOrders: 'Vous êtes sur le point d\'effacer un produit. Ses formats seront aussi effacés. Il pourra être restauré pendant six mois, mais sera définitivement effacé par la suite. ATTENTION: Ce produit comporte {amount} commandes en cours pour un total de {price} francs payés par les consommateurs. Vous devrez dédommager vos consommateurs si vous ne les livrez pas.',
+    warningDeleteWithOrders: 'Vous êtes sur le point d\'effacer un produit. Ses variants seront aussi effacés. Il pourra être restauré pendant six mois, mais sera définitivement effacé par la suite. ATTENTION: Ce produit comporte {amount} commandes en cours pour un total de {price} francs payés par les consommateurs. Vous devrez dédommager vos consommateurs si vous ne les livrez pas.',
     throwAway: 'Jeter',
     keep: 'Conserver',
     ordersSummary: 'Aucune commande en cours | Une commande: {price} francs | {amount} commandes: {price} francs',
@@ -139,11 +139,11 @@ export default {
     conservationMode: 'Méthode de conservation',
     conservationTime: 'Durée de conservation',
     day: 'jour | jour | jours',
-    formatDescription: 'description',
+    variantDescription: 'description',
     size: 'taille',
     unit: 'unité',
     bulk: 'Vente en vrac. Prix au ',
-    formatType: 'type de conditionnement',
+    variantType: 'type de conditionnement',
     consumerPays: 'le consommateur paie',
     iGet: 'je reçois',
     ordered: 'commandé | commandé | commandés',

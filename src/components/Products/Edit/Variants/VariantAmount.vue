@@ -37,21 +37,21 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import FormatCriticalValuesMixin from './FormatCriticalValuesMixin.js'
+import VariantCriticalValuesMixin from './VariantCriticalValuesMixin.js'
 
 export default {
-  name: 'FormatAmount',
-  mixins: [FormatCriticalValuesMixin],
+  name: 'VariantAmount',
+  mixins: [VariantCriticalValuesMixin],
   props: {
-    formatId: {
+    variantId: {
       type: String,
       required: true
     }
   },
   computed: {
-    ...mapGetters(['editedFormats', 'ordersPropsOfFilterPropValue']),
+    ...mapGetters(['editedVariants', 'ordersPropsOfFilterPropValue']),
     amount () {
-      return this.editedFormats[this.formatId].amount
+      return this.editedVariants[this.variantId].amount
     },
     disableRemove () {
       const noMore = this.amount <= this.pendingOrdersSummary.paid.amount
@@ -59,7 +59,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateEditedFormat']),
+    ...mapActions(['updateEditedVariant']),
     add () {
       this.updateAmount(this.amount + 1)
     },
@@ -68,7 +68,7 @@ export default {
     },
     updateAmount (value) {
       if ((value >= this.pendingOrdersSummary.paid.amount || this.isUpdatable) && value >= 0) {
-        this.updateEditedFormat({formatId: this.formatId, newProps: {amount: value}})
+        this.updateEditedVariant({variantId: this.variantId, newProps: {amount: value}})
       } else if (value >= 0) {
         this.$q.notify({
           message: 'Vous ne pouvez pas baisser votre stock en-dessous du nombre de commandes.',

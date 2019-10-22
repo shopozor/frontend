@@ -1,10 +1,10 @@
 <template>
   <div>
     <unit-field
-      :value="editedFormats[formatId].size"
+      :value="editedVariants[variantId].size"
       :setValue="updateSize"
       valueWidth="50%"
-      :unit="editedFormats[formatId].sizeUnit"
+      :unit="editedVariants[variantId].sizeUnit"
       :setUnit="updateSizeUnit"
       unitWidth="50%"
       :linked="true"
@@ -29,34 +29,34 @@ import {mapGetters, mapActions} from 'vuex'
 import UnitField from '../../../../Units/UnitField'
 import ProductDefaultPricePerUnitSelector from '../../ProductDefaultPricePerUnitSelector'
 import {convert, unitsAreCompatible, mainUnit, getPhysicalSize} from '../../../../Units/UnitsHelpers'
-import FormatCriticalValuesMixin from '../FormatCriticalValuesMixin.js'
+import VariantCriticalValuesMixin from '../VariantCriticalValuesMixin.js'
 
 export default {
-  name: 'FormatDescriptionAuto',
-  mixins: [FormatCriticalValuesMixin],
+  name: 'VariantDescriptionAuto',
+  mixins: [VariantCriticalValuesMixin],
   data () {
     return {
       defineDefaultValues: false
     }
   },
   props: {
-    formatId: {
+    variantId: {
       type: String,
       required: true
     }
   },
   computed: {
-    ...mapGetters(['editedFormats', 'editedProduct']),
-    size () { return this.editedFormats[this.formatId].size },
-    sizeUnit () { return this.editedFormats[this.formatId].sizeUnit },
+    ...mapGetters(['editedVariants', 'editedProduct']),
+    size () { return this.editedVariants[this.variantId].size },
+    sizeUnit () { return this.editedVariants[this.variantId].sizeUnit },
     defaultConsumerPrice () { return this.editedProduct.defaultConsumerPrice },
     defaultUnit () { return this.editedProduct.defaultUnit },
     physicalSize () { return getPhysicalSize({ unit: this.defaultUnit }) }
   },
   methods: {
-    ...mapActions(['updateEditedFormat']),
+    ...mapActions(['updateEditedVariant']),
     update (propName, value) {
-      this.updateEditedFormat({formatId: this.formatId, newProps: {[propName]: value}})
+      this.updateEditedVariant({variantId: this.variantId, newProps: {[propName]: value}})
     },
     updateSizeUnit (newUnit) {
       this.update('sizeUnit', newUnit)

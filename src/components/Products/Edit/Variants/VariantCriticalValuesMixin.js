@@ -1,7 +1,7 @@
 import {mapGetters} from 'vuex'
 
 export default {
-  name: 'FormatCriticalValuesMixin',
+  name: 'VariantCriticalValuesMixin',
   props: {
     variantId: {
       type: String,
@@ -9,9 +9,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['pendingOrdersOfFormatSummary']),
+    ...mapGetters(['pendingOrdersOfVariantSummary']),
     pendingOrdersSummary () {
-      return this.pendingOrdersOfFormatSummary({ formatId: this.formatId })
+      return this.pendingOrdersOfVariantSummary({ variantId: this.variantId })
     },
     hasPendingPaidOrders () {
       const summary = this.pendingOrdersSummary.paid

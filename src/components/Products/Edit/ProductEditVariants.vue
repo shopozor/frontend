@@ -11,27 +11,27 @@
       </q-card>
       <div>interface par défaut</div>
     </q-expansion-item>
-    <product-edit-format
+    <product-edit-variant
       class="q-ma-sm"
-      v-for="variant in editedVariants"
+      v-for="(variant) in editedProduct.variants"
       :key="variant.id"
       :variantId="variant.id"
     />
-    <new-format class="q-ma-sm" />
+    <new-variant class="q-ma-sm" />
   </div>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
-import ProductEditFormat from './Formats/ProductEditFormat'
+import ProductEditVariant from './Variants/ProductEditVariant'
 import ProductDefaultPricePerUnitSelector from './ProductDefaultPricePerUnitSelector'
-import NewFormat from './Formats/NewFormat'
+import NewVariant from './Variants/NewVariant'
 
 export default {
-  name: 'ProductEditFormats',
+  name: 'ProductEditVariants',
   computed: {
-    ...mapGetters(['editedVariants'])
+    ...mapGetters(['editedProduct'])
   },
-  components: {ProductEditFormat, ProductDefaultPricePerUnitSelector, NewFormat}
+  components: { ProductEditVariant, ProductDefaultPricePerUnitSelector, NewVariant }
 }
 </script>

@@ -3,8 +3,8 @@ import * as links from './links'
 import * as orderState from './orderState'
 import * as userState from './userState'
 import * as productState from './productState'
-import * as formatState from './formatState'
-import * as formatUI from './formatUI'
+import * as variantState from './variantState'
+import * as variantUI from './variantUI'
 import * as categories from './categories'
 import units from './units'
 import * as conservation from './conservation'
@@ -16,8 +16,8 @@ export default {
   orderState,
   userState,
   productState,
-  formatState,
-  formatUI,
+  variantState,
+  variantUI,
   categories,
   units,
   conservation,

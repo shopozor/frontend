@@ -1,6 +1,7 @@
 import { setValueOfObject } from '../../Helpers'
 
 export const storeMyProducts = (state, myProducts) => {
+  sessionStorage.setItem('myProducts', JSON.stringify(myProducts))
   state.myProducts = myProducts
 }
 

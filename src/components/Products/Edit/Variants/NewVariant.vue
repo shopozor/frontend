@@ -1,6 +1,6 @@
 <template>
   <q-card class="width-max height-sm row justify-center content-center">
-    <q-btn icon="add" size="xl" round color="primary" @click="createFormat"/>
+    <q-btn icon="add" size="xl" round color="primary" @click="createVariant"/>
   </q-card>
 </template>
 
@@ -8,11 +8,11 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'NewFormat',
+  name: 'NewVariant',
   methods: {
-    ...mapActions(['createEditedFormat']),
-    createFormat () {
-      this.createEditedFormat()
+    ...mapActions(['createEditedVariant']),
+    createVariant () {
+      this.createEditedVariant()
     }
   }
 }

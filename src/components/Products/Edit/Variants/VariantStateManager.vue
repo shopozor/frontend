@@ -10,24 +10,24 @@
 
 <script>
 import { mapActions } from 'vuex'
-import FormatCriticalValuesMixin from './FormatCriticalValuesMixin'
+import VariantCriticalValuesMixin from './VariantCriticalValuesMixin'
 import types from '../../../../types'
 
 export default {
-  name: 'FormatStateManager',
-  mixins: [FormatCriticalValuesMixin],
+  name: 'VariantStateManager',
+  mixins: [VariantCriticalValuesMixin],
   props: {
-    formatId: {
+    variantId: {
       type: String,
       required: true
     }
   },
   methods: {
-    ...mapActions(['updateEditedFormat']),
+    ...mapActions(['updateEditedVariant']),
     del () {
-      this.updateEditedFormat({
-        formatId: this.formatId,
-        newProps: { state: types.formatState.DELETED }
+      this.updateEditedVariant({
+        variantId: this.variantId,
+        newProps: { state: types.variantState.DELETED }
       })
     }
   }

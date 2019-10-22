@@ -2,7 +2,7 @@
   <div>
     <div class="row justify-center items-center">
       <price-input
-        :consumerPrice="defaultConsumerPrice"
+        :consumerPrice="0"
         :setConsumerPrice="setDefaultConsumerPrice"
         :producerRatio="0.85"
         consumer
@@ -47,10 +47,10 @@ export default {
   methods: {
     ...mapActions(['updateEditedProduct']),
     setDefaultConsumerPrice (value) {
-      this.updateEditedProduct({ newProps: { defaultConsumerPrice: value } })
+      this.updateEditedProduct({ path: 'defaultCustomerPrice', value })
     },
     setDefaultUnit (value) {
-      this.updateEditedProduct({ newProps: { defaultUnit: value } })
+      this.updateEditedProduct({ path: 'defaultUnit', value })
     }
   },
   components: {PriceInput, UnitSelect}

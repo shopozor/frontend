@@ -1,9 +1,9 @@
 <template>
   <unit-field
-    :value="editedFormats[formatId].size"
+    :value="editedVariants[variantId].size"
     :setValue="updateSize"
     valueWidth="50%"
-    :unit="editedFormats[formatId].sizeUnit"
+    :unit="editedVariants[variantId].sizeUnit"
     :setUnit="updateSizeUnit"
     unitWidth="50%"
     filter="all"
@@ -14,27 +14,27 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import UnitField from '../../../../Units/UnitField'
-import FormatCriticalValuesMixin from '../FormatCriticalValuesMixin.js'
+import VariantCriticalValuesMixin from '../VariantCriticalValuesMixin.js'
 
 export default {
-  name: 'FormatDescriptionSizeUnit',
-  mixins: [FormatCriticalValuesMixin],
+  name: 'VariantDescriptionSizeUnit',
+  mixins: [VariantCriticalValuesMixin],
   props: {
-    formatId: {
+    variantId: {
       type: String,
       required: true
     }
   },
   computed: {
-    ...mapGetters(['editedFormats']),
-    size () { return this.editedFormats[this.formatId].size },
-    sizeUnit () { return this.editedFormats[this.formatId].sizeUnit }
+    ...mapGetters(['editedVariants']),
+    size () { return this.editedVariants[this.variantId].size },
+    sizeUnit () { return this.editedVariants[this.variantId].sizeUnit }
   },
   components: {UnitField},
   methods: {
-    ...mapActions(['updateEditedFormat']),
+    ...mapActions(['updateEditedVariant']),
     update (propName, value) {
-      this.updateEditedFormat({formatId: this.formatId, newProps: {[propName]: value}})
+      this.updateEditedVariant({variantId: this.variantId, newProps: {[propName]: value}})
     },
     updateSize (value) { this.update('size', value) },
     updateSizeUnit (newUnit) { this.update('sizeUnit', newUnit) }

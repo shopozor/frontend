@@ -2,14 +2,15 @@ export default {
   myProducts: {},
   editedProduct: {
     productId: '',
-    title: '',
+    name: '',
     description: '',
-    image: '',
+    images: [],
     categories: [],
-    conservationMethod: '',
-    conservationDaysAfterSale: 0,
-    defaultFormatUI: '',
-    defaultConsumerPrice: 0,
-    defaultUnit: ''
+    conservationMode: '',
+    conservationDays: 0,
+    defaultVariantUI: '',
+    defaultProducerGrossPrice: 0,
+    defaultUnit: '',
+    variants: []
   }
 }
