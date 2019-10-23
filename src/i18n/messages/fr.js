@@ -140,7 +140,7 @@ export default {
     conservationTime: 'Durée de conservation',
     day: 'jour | jour | jours',
     variantDescription: 'description',
-    size: 'taille',
+    measure: 'taille',
     unit: 'unité',
     bulk: 'Vente en vrac. Prix au ',
     variantType: 'type de conditionnement',

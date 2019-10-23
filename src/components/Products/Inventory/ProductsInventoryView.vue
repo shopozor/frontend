@@ -18,16 +18,12 @@
       <q-btn class="q-ma-md shadow-12" icon="add" round color="primary" size="xl" @click="newProduct" />
     </q-page-sticky>
     <q-page-sticky position="top-right">
-      <q-card style="width: 300px">
+      <q-card style="width: 200px">
         <q-card-section>
           <q-select label="taille des données test" v-model="budzonnerySize" :options="options" @input="() => producer = ''" />
         </q-card-section>
         <q-card-section>
-          <q-select label="producteur" v-model="producer" :options="producers">
-            <template v-slot:after>
-              <q-btn icon="cloud_download" round color="primary" @click="loadTestProducts" :disable="producer === ''" />
-            </template>
-          </q-select>
+          <q-select label="producteur" v-model="producer" :options="producers" @input="loadTestProducts" />
         </q-card-section>
       </q-card>
     </q-page-sticky>

@@ -5,7 +5,7 @@
         :hint="$t('products.conservationMode')"
         separator
         :options="conservationOptions"
-        :value="$t(`conservation.${conservationMode}`)"
+        :value="conservationMode"
         @input="updateMode"
       />
     </q-card-section>
@@ -36,6 +36,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 // import ProductVisibilityManager from '../ProductVisibilityManager'
+import labellize from '../../../mixins/Labellize'
 import types from '../../../types'
 
 export default {
@@ -43,19 +44,30 @@ export default {
   computed: {
     ...mapGetters(['editedProduct']),
     conservationMode () {
-      return this.editedProduct.conservation.mode
+      const value = this.editedProduct.conservation.mode
+      const i18nPath = 'conservation'
+      return this.labellize({ value, i18nPath })
+    },
+    conservationOptions () {
+      return this.labellizeArray({
+        values: Object.keys(types.conservation),
+        i18nPath: 'conservation'
+      })
     },
     conservationDays () {
       return this.editedProduct.conservation.days
     },
     categories () {
-      return this.labellize(this.editedProduct.categories, 'categories')
+      return this.labellizeArray({
+        values: this.editedProduct.categories,
+        i18nPath: 'categories'
+      })
     },
     categoriesOptions () {
-      return this.labellize(Object.keys(types.categories), 'categories')
-    },
-    conservationOptions () {
-      return this.labellize(Object.keys(types.conservation), 'conservation')
+      return this.labellizeArray({
+        values: Object.keys(types.categories),
+        i18nPath: 'categories'
+      })
     }
   },
   methods: {
@@ -69,15 +81,8 @@ export default {
     updateCategories (event) {
       const value = event.map(category => category.value)
       this.updateEditedProduct({ path: 'categories', value })
-    },
-    labellize (arrayOfValues, i18nPath) {
-      return arrayOfValues.map(value => {
-        return {
-          value: value,
-          label: this.$t(`${i18nPath}.${value}`)
-        }
-      })
     }
-  }
+  },
+  mixins: [labellize]
 }
 </script>

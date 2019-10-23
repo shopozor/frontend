@@ -41,7 +41,9 @@ export default {
   },
   computed: {
     ...mapGetters(['editedVariants']),
-    consumerPrice () { return this.editedVariants[this.variantId].consumerPrice }
+    consumerPrice () {
+      return this.editedProduct.variants[this.variantId].pricing.grossPrice * 100
+    }
   },
   components: {PriceInput}
 }

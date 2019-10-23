@@ -36,21 +36,21 @@ export default {
        *  TODO: cet accès est buggué
        * setDefaultConsumerPrice est lancé à chaque event tant que consumerPrice n'est pas défini
        */
-      if (!this.editedProduct.defaultConsumerPrice) this.setDefaultConsumerPrice(0)
-      return this.editedProduct.defaultConsumerPrice
+      if (!this.editedProduct.pricing.defaultGrossPrice) this.setDefaultConsumerPrice(0)
+      return this.editedProduct.pricing.defaultGrossPrice
     },
     defaultUnit () {
-      if (!this.editedProduct.defaultUnit) this.setDefaultUnit(types.units.mass.KG)
-      return this.editedProduct.defaultUnit
+      if (!this.editedProduct.pricing.defaultUnit) this.setDefaultUnit(types.units.mass.KG)
+      return this.editedProduct.pricing.defaultUnit
     }
   },
   methods: {
     ...mapActions(['updateEditedProduct']),
     setDefaultConsumerPrice (value) {
-      this.updateEditedProduct({ path: 'defaultCustomerPrice', value })
+      this.updateEditedProduct({ path: 'pricing.defaultGrossPrice', value })
     },
-    setDefaultUnit (value) {
-      this.updateEditedProduct({ path: 'defaultUnit', value })
+    setDefaultUnit (event) {
+      this.updateEditedProduct({ path: 'pricing.defaultUnit', value: event.value })
     }
   },
   components: {PriceInput, UnitSelect}

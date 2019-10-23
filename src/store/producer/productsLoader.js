@@ -90,6 +90,13 @@ function adapt (product) {
     types.categories.VEGETABLES
   ]
 
+  const pricing = {
+    ...product.pricing,
+    productVAT: 0.025,
+    defaultGrossPrice: 0,
+    defaultUnit: types.units.mass.KG
+  }
+
   const adaptedVariants = product.variants.map(variant => {
     return {
       ...variant,
@@ -133,19 +140,14 @@ function adapt (product) {
          * unité de mesure du prix
          * j'ai 1 [tonne] de sel, je le vends 0.50CHF/[kg]
          */
-        priceUnit: types.units.KG,
-        softozorFraction: 0.05,
-        managerFraction: 0.05,
-        rexFraction: 0.05,
-        productVAT: 0.025,
-        serviceVAT: 0.077
+        priceUnit: types.units.mass.KG
       },
       // description of variant
       description: {
         name: variant.name,
         // volume / weight / size of variant
         measure: 0,
-        measureUnit: types.units.KG
+        measureUnit: types.units.mass.KG
       }
     }
   })
@@ -154,9 +156,10 @@ function adapt (product) {
     ...product,
     state,
     ordersSummary,
-    variants: formattedVariants,
     conservation,
-    categories
+    categories,
+    pricing,
+    variants: formattedVariants
   }
   return newProduct
 }

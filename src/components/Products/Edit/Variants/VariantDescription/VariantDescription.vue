@@ -9,12 +9,13 @@
       <variant-description-auto v-else-if="variantUI === variantUIs.AUTO_PRICE" :variantId="variantId"/>
       <variant-description-bulk v-else-if="variantUI === variantUIs.BULK" :variantId="variantId"/>
       <variant-u-i-select :variantId="variantId" style="width: 100%"/>
+      {{ editedProduct.variants[variantId].description.name }}
     </q-card-section>
   </q-card>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import types from '../../../../../types'
 import VariantDescriptionFree from './VariantDescriptionFree'
 import VariantDescriptionSizeUnit from './VariantDescriptionSizeUnit'
@@ -38,46 +39,7 @@ export default {
   computed: {
     ...mapGetters(['editedProduct']),
     variantUI () {
-      return this.editedProduct.variants[this.variantId].variantUI
-    },
-    description () {
-      return this.editedProduct.variants[this.variantId].description
-    },
-    size () {
-      return this.editedProduct.variants[this.variantId].size
-    },
-    sizeUnit () {
-      return this.editedProduct.variants[this.variantId].sizeUnit
-    },
-    consumerPrice () {
-      return this.editedProduct.variants[this.variantId].consumerPrice
-    },
-    consumerPriceUnit () {
-      return this.editedProduct.variants[this.variantId].consumerPriceUnit
-    }
-  },
-  methods: {
-    ...mapActions(['updateEditedVariant']),
-    update (propName, value) {
-      this.updateEditedVariant({
-        variantId: this.variantId,
-        newProps: { [propName]: value }
-      })
-    },
-    updateDescription (value) {
-      this.update('description', value)
-    },
-    updateSize (value) {
-      this.update('size', value)
-    },
-    updateSizeUnit (newUnit) {
-      this.update('sizeUnit', newUnit)
-    },
-    updateConsumerPrice (value) {
-      this.update('consumerPrice', value)
-    },
-    updateConsumerPriceUnit (value) {
-      this.update('consumerPriceUnit', value)
+      return this.editedProduct.variants[this.variantId].pricing.mode
     }
   },
   components: {

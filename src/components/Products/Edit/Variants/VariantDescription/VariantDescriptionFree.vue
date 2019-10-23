@@ -1,8 +1,8 @@
 <template>
     <q-input
     :hint="$t('products.variantDescription')"
-    :value="description"
-    @input="updateDescription"
+    :value="name"
+    @input="updateName"
     :readonly="!isUpdatable" />
 </template>
 
@@ -21,16 +21,17 @@ export default {
   },
   computed: {
     ...mapGetters(['editedProduct']),
-    description () { return this.editedProduct.variants[this.variantId].description },
-    consumerPrice () { return this.editedProduct.variants[this.variantId].consumerPrice }
+    name () { return this.editedProduct.variants[this.variantId].description.name }
   },
   methods: {
     ...mapActions(['updateEditedVariant']),
-    update (propName, value) {
-      this.updateEditedVariant({variantId: this.variantId, newProps: {[propName]: value}})
-    },
-    updateDescription (value) { this.update('description', value) },
-    updateConsumerPrice (value) { this.update('consumerPrice', value) }
+    updateName (value) {
+      this.updateEditedVariant({
+        variantId: this.variantId,
+        path: 'description.name',
+        value
+      })
+    }
   }
 }
 </script>

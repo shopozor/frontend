@@ -1,10 +1,10 @@
 <template>
   <unit-field
-    :value="editedVariants[variantId].size"
-    :setValue="updateSize"
+    :value="measure"
+    :setValue="updateMeasure"
     valueWidth="50%"
-    :unit="editedVariants[variantId].sizeUnit"
-    :setUnit="updateSizeUnit"
+    :unit="measureUnit"
+    :setUnit="updateMeasureUnit"
     unitWidth="50%"
     filter="all"
     :readonly="!isUpdatable"
@@ -26,18 +26,29 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedVariants']),
-    size () { return this.editedVariants[this.variantId].size },
-    sizeUnit () { return this.editedVariants[this.variantId].sizeUnit }
+    ...mapGetters(['editedProduct']),
+    measure () { return this.editedProduct.variants[this.variantId].description.measure },
+    measureUnit () {
+      return this.editedProduct.variants[this.variantId].description.measureUnit
+    }
   },
   components: {UnitField},
   methods: {
     ...mapActions(['updateEditedVariant']),
-    update (propName, value) {
-      this.updateEditedVariant({variantId: this.variantId, newProps: {[propName]: value}})
+    updateMeasure (value) {
+      this.updateEditedVariant({
+        variantId: this.variantId,
+        path: 'description.measure',
+        value
+      })
     },
-    updateSize (value) { this.update('size', value) },
-    updateSizeUnit (newUnit) { this.update('sizeUnit', newUnit) }
+    updateMeasureUnit (event) {
+      this.updateEditedVariant({
+        variantId: this.variantId,
+        path: 'description.measureUnit',
+        value: event.value
+      })
+    }
   }
 }
 </script>

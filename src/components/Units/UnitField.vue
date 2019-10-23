@@ -1,15 +1,13 @@
 <template>
   <div class="row no-wrap justify-center">
-    <q-field
-      :style="`width: ${valueWidth}`">
-      <q-input
-        class="self-baseline"
-        :value="value"
-        @input="setValue"
-        type="number"
-        :float-label="$t('products.size')"
-        :readonly="readonly" />
-    </q-field>
+    <q-input
+      class="self-baseline"
+      :style="`width: ${valueWidth}`"
+      :value="value"
+      @input="setValue"
+      type="number"
+      :hint="$t('products.measure')"
+      :readonly="readonly" />
     <unit-select
       class="self-baseline"
       :unit="unit"
@@ -76,6 +74,7 @@ export default {
   },
   methods: {
     updateUnitAndValue (newUnit) {
+      console.log(newUnit)
       const unit1 = this.unit
       this.setUnit(newUnit)
       if (this.linked && helpers.unitsAreCompatible({unit1, unit2: newUnit})) {

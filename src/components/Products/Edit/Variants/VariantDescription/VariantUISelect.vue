@@ -4,7 +4,7 @@
     @input="updateVariantUI"
   :options="options" />-->
   <q-select
-    float-label="Type de conditionnement"
+    :hint="$t('products.variantType')"
     :value="UI"
     @input="updateVariantUI"
     :options="options"
@@ -16,28 +16,29 @@
 import { mapGetters, mapActions } from 'vuex'
 import * as variantUI from '../../../../../types/variantUI'
 import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
+import labellize from '../../../../../mixins/Labellize'
 
 export default {
   name: 'VariantUISelect',
-  mixins: [VariantCriticalValuesMixin],
+  mixins: [VariantCriticalValuesMixin, labellize],
   computed: {
     ...mapGetters(['editedProduct']),
     UI () {
-      return this.editedProduct.variants[this.variantId].variantUI
+      const value = this.editedProduct.variants[this.variantId].pricing.mode
+      const i18nPath = 'variantUI'
+      return this.labellize({ value, i18nPath })
     },
     options () {
-      const vm = this
-      return Object.values(variantUI).map(UI => {
-        return { label: vm.$t(`variantUI.${UI}`), value: UI }
-      })
+      return this.labellizeArray({ values: Object.values(variantUI), i18nPath: 'variantUI' })
     }
   },
   methods: {
     ...mapActions(['updateEditedVariant']),
-    updateVariantUI (value) {
+    updateVariantUI (event) {
       this.updateEditedVariant({
         variantId: this.variantId,
-        newProps: { variantUI: value }
+        path: 'pricing.mode',
+        value: event.value
       })
     }
   }
