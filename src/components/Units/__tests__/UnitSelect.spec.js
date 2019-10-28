@@ -1,17 +1,17 @@
 import UnitSelect from '../UnitSelect'
 import { mountQuasar } from '../../../../test/utils'
-import types from '../../../types'
+import * as units from '../../../types/units'
 
 describe('UnitSelect', () => {
   const wrapper = mountQuasar(UnitSelect, {
     shallow: true,
     propsData: {
-      unit: types.units.KG
+      unit: units.KG
     }
   })
   beforeEach(() => {
     wrapper.setProps({
-      unit: types.units.KG,
+      unit: units.KG,
       compatibleUnits: undefined,
       completeSet: undefined,
       abbreviations: undefined
@@ -21,18 +21,18 @@ describe('UnitSelect', () => {
   describe('emits the event input: { newUnit, oldUnit, unitsAreCompatible } when selecting new unit', () => {
     const qSelect = wrapper.find({ name: 'QSelect' })
     test('when KG is set, selecting GR, receiving { newUnit: KG, oldUnit: GR, unitsAreCompatible: true }', () => {
-      qSelect.vm.$emit('input', types.units.GR)
+      qSelect.vm.$emit('input', units.GR)
       expect(wrapper.emitted().input[0][0]).toEqual({
-        newUnit: types.units.GR,
-        oldUnit: types.units.KG,
+        newUnit: units.GR,
+        oldUnit: units.KG,
         unitsAreCompatible: true
       })
     })
     test('when GR is set, selecting L, receiving { newUnit: GR, oldUnit: L, unitsAreCompatible: false }', () => {
-      qSelect.vm.$emit('input', types.units.L)
+      qSelect.vm.$emit('input', units.L)
       expect(wrapper.emitted().input[1][0]).toEqual({
-        newUnit: types.units.L,
-        oldUnit: types.units.GR,
+        newUnit: units.L,
+        oldUnit: units.GR,
         unitsAreCompatible: false
       })
     })
@@ -42,9 +42,9 @@ describe('UnitSelect', () => {
     describe('with a current unit of KG:', () => {
       test('contains GR, L, but not HG if compatibleUnits and completeSet are unset', () => {
         const options = wrapper.vm.options.map(option => option.value)
-        expect(options).toContain(types.units.GR)
-        expect(options).toContain(types.units.L)
-        expect(options).not.toContain(types.units.HG)
+        expect(options).toContain(units.GR)
+        expect(options).toContain(units.L)
+        expect(options).not.toContain(units.HG)
       })
 
       test('contains GR, but not L neither HG if compatibleUnits is true and completeSet is unset', () => {
@@ -52,9 +52,9 @@ describe('UnitSelect', () => {
           compatibleUnits: true
         })
         const options = wrapper.vm.options.map(option => option.value)
-        expect(options).toContain(types.units.GR)
-        expect(options).not.toContain(types.units.L)
-        expect(options).not.toContain(types.units.HG)
+        expect(options).toContain(units.GR)
+        expect(options).not.toContain(units.L)
+        expect(options).not.toContain(units.HG)
       })
 
       test('contains GR, L and HG if compatibleUnits is unset and completeSet is true', () => {
@@ -62,9 +62,9 @@ describe('UnitSelect', () => {
           completeSet: true
         })
         const options = wrapper.vm.options.map(option => option.value)
-        expect(options).toContain(types.units.GR)
-        expect(options).toContain(types.units.L)
-        expect(options).toContain(types.units.HG)
+        expect(options).toContain(units.GR)
+        expect(options).toContain(units.L)
+        expect(options).toContain(units.HG)
       })
 
       test('contains GR and HG, but not L if compatibleUnits completeSet are true', () => {
@@ -73,9 +73,9 @@ describe('UnitSelect', () => {
           completeSet: true
         })
         const options = wrapper.vm.options.map(option => option.value)
-        expect(options).toContain(types.units.GR)
-        expect(options).not.toContain(types.units.L)
-        expect(options).toContain(types.units.HG)
+        expect(options).toContain(units.GR)
+        expect(options).not.toContain(units.L)
+        expect(options).toContain(units.HG)
       })
     })
   })
