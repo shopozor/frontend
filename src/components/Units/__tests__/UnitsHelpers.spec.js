@@ -3,7 +3,8 @@ import {
   options,
   unitsAreCompatible,
   mainUnit,
-  defaultUnit
+  defaultUnit,
+  getPhysicalSize
 } from '../UnitsHelpers'
 import * as units from '../../../types/units'
 import * as physicalSizes from '../../../types/physicalSizes'
@@ -76,6 +77,12 @@ describe('UnitHelpers', () => {
         const physcalSizeOfCandidate = unitsDefinitions[candidateUnit].physicalSize
         expect(physcalSizeOfCandidate).toBe(physicalSize)
       })
+    })
+  })
+
+  describe('getPhysicalSize returns the physical size of the unit', () => {
+    test('KG has physicalSize MASS', () => {
+      expect(getPhysicalSize({ unit: units.KG })).toBe(physicalSizes.MASS)
     })
   })
 })

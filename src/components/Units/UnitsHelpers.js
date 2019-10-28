@@ -48,3 +48,7 @@ export function defaultUnit ({ physicalSize }) {
     default: return units.PIECE
   }
 }
+
+export function getPhysicalSize ({ unit }) {
+  return unitsDefinitions[unit].physicalSize
+}
