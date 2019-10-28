@@ -6,7 +6,8 @@ import * as productState from './productState'
 import * as variantState from './variantState'
 import * as variantUI from './variantUI'
 import * as categories from './categories'
-import units from './units'
+import * as units from './units'
+import * as physicalSizes from './physicalSizes'
 import * as conservation from './conservation'
 import * as cookies from './cookies'
 
@@ -20,6 +21,7 @@ export default {
   variantUI,
   categories,
   units,
+  physicalSizes,
   conservation,
   cookies
 }

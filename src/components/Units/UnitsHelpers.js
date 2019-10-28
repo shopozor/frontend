@@ -1,119 +1,50 @@
-import { unitsDefinitions, physicalSizesRank } from '../../types/UnitsDefinitions'
+import { unitsDefinitions } from './UnitsDefinitions'
+import * as units from '../../types/units'
+import * as physicalSizes from '../../types/physicalSizes'
 
-export const convert = ({ startValue, startUnit, endUnit }) => {
-  if (unitsAreCompatible({ unit1: startUnit, unit2: endUnit })) {
-    return unsafeConvert({ startValue, startUnit, endUnit })
+export function convert ({ oldValue, oldUnit, newUnit }) {
+  if (unitsAreCompatible({ unit1: oldUnit, unit2: newUnit })) {
+    return unsafeConvert({ oldValue, oldUnit, newUnit })
   } else {
-    console.error(`Conversion error. Units ${startUnit} and ${endUnit} are not compatible.`)
+    throw new Error(`Conversion error. Units ${oldUnit} and ${newUnit} are not compatible.`)
   }
 }
 
-export const unsafeConvert = ({ startValue, startUnit, endUnit }) => {
-  return startValue * getUnitInfos({ unit: startUnit }).weight / getUnitInfos({ unit: endUnit }).weight
+function unsafeConvert ({ oldValue, oldUnit, newUnit }) {
+  return oldValue * unitsDefinitions[oldUnit].wheight / unitsDefinitions[newUnit].wheight
 }
 
-export const options = ({ filter, unit, withPriceReferenceQuantities }) => {
-  switch (filter) {
-    case 'all': return allOptions({ withPriceReferenceQuantities })
-    case 'warning': return warningOptions({ unit, withPriceReferenceQuantities })
-    case 'compatible': return compatibleOptions({ unit, withPriceReferenceQuantities })
-    default: return compatibleOptions({ unit: defaultUnit({ physicalSize: filter }).short, withPriceReferenceQuantities })
-  }
+export function options ({ unit, withCompleteSet }) {
+  if (unit) return compatibleOptions({ unit, withCompleteSet })
+  else return allOptions({ withCompleteSet })
 }
 
-const allOptions = ({ withPriceReferenceQuantities }) => {
-  return generateOptions({
-    withPriceReferenceQuantities,
-    generationFunction: ({ optionsArrayToGenerate, candidateOption }) => {
-      optionsArrayToGenerate.push(candidateOption)
-    }
+function compatibleOptions ({ unit, withCompleteSet }) {
+  return allOptions({ withCompleteSet }).filter(candidateUnit => {
+    return unitsAreCompatible({ unit1: unit, unit2: candidateUnit })
   })
 }
 
-const warningOptions = ({ unit, withPriceReferenceQuantities }) => {
-  return generateOptions({
-    unit,
-    withPriceReferenceQuantities,
-    generationFunction: ({ referenceUnit, physicalSizeOfCandidate, optionsArrayToGenerate, candidateOption }) => {
-      if (physicalSizeOfCandidate === getPhysicalSize({ unit: referenceUnit })) {
-        candidateOption.rightIcon = 'check_circle'
-        candidateOption.rightColor = 'positive'
-        optionsArrayToGenerate.unshift(candidateOption)
-      } else {
-        candidateOption.rightIcon = 'error'
-        candidateOption.rightColor = 'negative'
-        optionsArrayToGenerate.push(candidateOption)
-      }
-    }
+function allOptions ({ withCompleteSet }) {
+  const allUnits = Object.values(units)
+  return allUnits.filter(candidateUnit => {
+    return withCompleteSet || !unitsDefinitions[candidateUnit].misc
   })
 }
 
-const compatibleOptions = ({ unit, withPriceReferenceQuantities }) => {
-  return generateOptions({
-    unit,
-    withPriceReferenceQuantities,
-    generationFunction: ({ referenceUnit, physicalSizeOfCandidate, optionsArrayToGenerate, candidateOption }) => {
-      if (physicalSizeOfCandidate === getPhysicalSize({ unit: referenceUnit })) optionsArrayToGenerate.push(candidateOption)
-    }
-  })
-}
-// TODO: foreach
-const generateOptions = ({ unit, withPriceReferenceQuantities, generationFunction }) => {
-  const optionsArrayToGenerate = []
-  physicalSizes.map(physicalSize => {
-    Object.keys(unitsDefinitions[physicalSize]).map(unitId => {
-      const unitInfo = unitsDefinitions[physicalSize][unitId]
-      if (withPriceReferenceQuantities || !unitInfo.onlyPriceReferenceQuantity) {
-        const candidateOption = {
-          label: unitInfo.short,
-          value: unitInfo.short
-        }
-        generationFunction({
-          referenceUnit: unit,
-          physicalSizeOfCandidate: physicalSize,
-          unitIdOfCandidate: unitId,
-          optionsArrayToGenerate,
-          candidateOption
-        })
-      }
-    })
-  })
-  return optionsArrayToGenerate
+function unitsAreCompatible ({ unit1, unit2 }) {
+  return unitsDefinitions[unit1].physicalSize === unitsDefinitions[unit2].physicalSize
 }
 
-export const unitsAreCompatible = ({ unit1, unit2 }) => getPhysicalSize({ unit: unit1 }) === getPhysicalSize({ unit: unit2 })
-
-export const mainUnit = ({ unit }) => {
-  return defaultUnit({ physicalSize: getPhysicalSize({ unit }) })
+export function mainUnit ({ unit }) {
+  return defaultUnit({ physicalSize: unitsDefinitions[unit].physicalSize })
 }
 
-export const defaultUnit = ({ physicalSize }) => {
+export function defaultUnit ({ physicalSize }) {
   switch (physicalSize) {
-    case 'volume': return unitsDefinitions.volume.L
-    case 'mass': return unitsDefinitions.mass.KG
-    case 'number': return unitsDefinitions.number.PIECE
-    default: return unitsDefinitions.number.PIECE
+    case physicalSizes.MASS: return units.KG
+    case physicalSizes.VOLUME: return units.L
+    case physicalSizes.NUMBER: return units.PIECE
+    default: return units.PIECE
   }
-}
-
-export const getUnitInfos = ({ unit }) => {
-  const unitFamily = unitsDefinitions[getPhysicalSize({ unit })]
-  return Object.values(unitFamily).find(unitInfo => {
-    return unit === unitInfo.name || unit === unitInfo.short
-  })
-}
-
-export const getPhysicalSize = ({ unit }) => {
-  return physicalSizes.find(physicalSize => {
-    return Object.keys(unitsDefinitions[physicalSize]).some(unitId => {
-      const unitInfo = unitsDefinitions[physicalSize][unitId]
-      return unit === unitInfo.short || unit === unitInfo.name
-    })
-  })
-}
-
-export const physicalSizes = Object.keys(unitsDefinitions)
-
-export const comparePhysicalSizes = (a, b) => {
-  return Math.sign(physicalSizesRank[b] - physicalSizesRank[a])
 }
