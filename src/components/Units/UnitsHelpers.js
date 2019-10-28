@@ -32,7 +32,7 @@ function allOptions ({ withCompleteSet }) {
   })
 }
 
-function unitsAreCompatible ({ unit1, unit2 }) {
+export function unitsAreCompatible ({ unit1, unit2 }) {
   return unitsDefinitions[unit1].physicalSize === unitsDefinitions[unit2].physicalSize
 }
 

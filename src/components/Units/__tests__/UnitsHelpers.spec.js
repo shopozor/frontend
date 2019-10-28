@@ -1,6 +1,7 @@
 import {
   convert,
   options,
+  unitsAreCompatible,
   mainUnit,
   defaultUnit
 } from '../UnitsHelpers'
@@ -45,6 +46,15 @@ describe('UnitHelpers', () => {
         const physcalSizeOfCandidate = unitsDefinitions[candidateUnit].physicalSize
         expect(physcalSizeOfCandidate).toBe(physicalSizes.MASS)
       })
+    })
+  })
+
+  describe('units are compatible returns true if the two units have the same physicalSize', () => {
+    test('kg and gr are compatible', () => {
+      expect(unitsAreCompatible({ unit1: units.KG, unit2: units.GR })).toBe(true)
+    })
+    test('kg and l ar not compatible', () => {
+      expect(unitsAreCompatible({ unit1: units.KG, unit2: units.L })).toBe(false)
     })
   })
 
