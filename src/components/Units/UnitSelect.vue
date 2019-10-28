@@ -1,7 +1,7 @@
 <template>
   <q-select
     :label="label"
-    :hint="$t('products.unit')"
+    :hint="hint"
     :value="labellizedUnit"
     @input="input"
     :options="options"
@@ -54,6 +54,12 @@ export default {
       default () {
         return false
       }
+    },
+    withHint: {
+      type: Boolean,
+      default () {
+        return false
+      }
     }
   },
   computed: {
@@ -73,6 +79,10 @@ export default {
       }
       const labellized = this.labellizeArray({ values: opts, i18nPath: this.i18nPath })
       return labellized
+    },
+    hint () {
+      if (this.withHint) return this.$t('products.unit')
+      else return undefined
     }
   },
   methods: {
