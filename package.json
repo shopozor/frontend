@@ -83,12 +83,16 @@
     "husky": "^3.0.5",
     "jest-junit": "^8.0.0",
     "jwt-decode": "^2.2.0",
+    "lint-staged": "^9.4.2",
     "majestic": "^1.6.0",
     "moment": "^2.24.0",
     "strip-ansi": "5.2.0",
     "vue-template-compiler": "^2.6.10",
     "wait-on": "^3.3.0",
     "wallaby-vue-compiler": "^1.0.6"
+  },
+  "lint-staged": {
+    "*.js|*.vue": "yarn lint --fix"
   },
   "engines": {
     "node": ">= 8.9.0",
@@ -97,8 +101,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint --fix",
-      "pre-push": "yarn lint --fix"
+      "pre-commit": "yarn lint-staged",
+      "pre-push": "yarn lint-staged"
     }
   },
   "browserslist": [
