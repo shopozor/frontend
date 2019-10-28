@@ -4,11 +4,13 @@ import {
   unitsAreCompatible,
   mainUnit,
   defaultUnit,
-  getPhysicalSize
+  getPhysicalSize,
+  unitsOfClass
 } from '../UnitsHelpers'
 import * as units from '../../../types/units'
 import * as physicalSizes from '../../../types/physicalSizes'
 import { unitsDefinitions } from '../UnitsDefinitions'
+import types from '../../../types'
 
 describe('UnitHelpers', () => {
   describe('convert converts an oldValue given in oldUnit into a newValue given in newunit', () => {
@@ -83,6 +85,16 @@ describe('UnitHelpers', () => {
   describe('getPhysicalSize returns the physical size of the unit', () => {
     test('KG has physicalSize MASS', () => {
       expect(getPhysicalSize({ unit: units.KG })).toBe(physicalSizes.MASS)
+    })
+  })
+
+  describe('unitsOfClass returns all the units of the given physicalSize', () => {
+    test('the physicalSize MASS contains KG but not L', () => {
+      const unitsOfMass = unitsOfClass({ physicalSize: physicalSizes.MASS })
+      const hasKG = unitsOfMass.some(unit => unit === units.KG)
+      expect(hasKG).toBe(true)
+      const hasL = unitsOfMass.some(unit => unit === units.L)
+      expect(hasL).toBe(false)
     })
   })
 })

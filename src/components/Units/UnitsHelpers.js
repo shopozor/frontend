@@ -49,6 +49,13 @@ export function defaultUnit ({ physicalSize }) {
   }
 }
 
+export function unitsOfClass ({ physicalSize }) {
+  return Object.entries(unitsDefinitions).reduce((unitsOfClass, definition) => {
+    if (definition[1].physicalSize === physicalSize) unitsOfClass.push(definition[0])
+    return unitsOfClass
+  }, [])
+}
+
 export function getPhysicalSize ({ unit }) {
   return unitsDefinitions[unit].physicalSize
 }
