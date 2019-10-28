@@ -2,7 +2,7 @@
   <q-select
     :label="label"
     :hint="$t('products.unit')"
-    :value="labellizedValue"
+    :value="labellizedUnit"
     @input="input"
     :options="options"
     :readonly="readonly"
@@ -17,11 +17,11 @@ export default {
   name: 'UnitSelect',
   data () {
     return {
-      oldUnit: this.value
+      oldUnit: this.unit
     }
   },
   props: {
-    value: {
+    unit: {
       type: String,
       required: true
     },
@@ -61,13 +61,13 @@ export default {
       if (this.abbreviations) return 'units.abbreviations'
       else return 'units.names'
     },
-    labellizedValue () {
-      return this.labellize({ value: this.value, i18nPath: this.i18nPath })
+    labellizedUnit () {
+      return this.labellize({ value: this.unit, i18nPath: this.i18nPath })
     },
     options () {
       let opts = []
       if (this.compatibleUnits) {
-        opts = options({ unit: this.value, withCompleteSet: this.completeSet })
+        opts = options({ unit: this.unit, withCompleteSet: this.completeSet })
       } else {
         opts = options({ withCompleteSet: this.completeSet })
       }
@@ -76,14 +76,14 @@ export default {
     }
   },
   methods: {
-    input (value) {
+    input (unit) {
       const event = {
-        newUnit: value,
+        newUnit: unit,
         oldUnit: this.oldUnit,
-        unitsAreCompatible: unitsAreCompatible({ unit1: value, unit2: this.oldUnit })
+        unitsAreCompatible: unitsAreCompatible({ unit1: unit, unit2: this.oldUnit })
       }
       this.$emit('input', event)
-      this.oldUnit = value
+      this.oldUnit = unit
     }
   },
   mixins: [Labellize]
