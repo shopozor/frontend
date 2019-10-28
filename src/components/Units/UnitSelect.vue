@@ -1,38 +1,40 @@
 <template>
   <q-select
-    :style="`width: ${width}`"
     :label="label"
     :hint="$t('products.unit')"
-    :value="unit"
-    @input="setUnit"
+    :value="labellizedValue"
+    @input="input"
     :options="options"
-    :readonly="readonly" />
+    :readonly="readonly"
+    emit-value />
 </template>
 
 <script>
-import * as helpers from './UnitsHelpers'
+import { options, unitsAreCompatible } from './UnitsHelpers'
+import Labellize from '../../mixins/Labellize'
 
 export default {
   name: 'UnitSelect',
+  data () {
+    return {
+      oldUnit: this.value
+    }
+  },
   props: {
-    unit: {
+    value: {
       type: String,
       required: true
     },
-    setUnit: {
-      type: Function,
-      required: true
-    },
-    filter: {
-      type: String,
+    compatibleUnits: {
+      type: Boolean,
       default () {
-        return 'compatible'
+        return false
       }
     },
-    width: {
-      type: String,
+    completeSet: {
+      type: Boolean,
       default () {
-        return '100%'
+        return false
       }
     },
     label: {
@@ -41,13 +43,13 @@ export default {
         return ''
       }
     },
-    withPriceReferenceQuantities: {
+    readonly: {
       type: Boolean,
       default () {
         return false
       }
     },
-    readonly: {
+    abbreviations: {
       type: Boolean,
       default () {
         return false
@@ -55,13 +57,35 @@ export default {
     }
   },
   computed: {
+    i18nPath () {
+      if (this.abbreviations) return 'units.abbreviations'
+      else return 'units.names'
+    },
+    labellizedValue () {
+      return this.labellize({ value: this.value, i18nPath: this.i18nPath })
+    },
     options () {
-      return helpers.options({
-        filter: this.filter,
-        unit: this.unit,
-        withPriceReferenceQuantities: this.withPriceReferenceQuantities
-      })
+      let opts = []
+      if (this.compatibleUnits) {
+        opts = options({ unit: this.value, withCompleteSet: this.completeSet })
+      } else {
+        opts = options({ withCompleteSet: this.completeSet })
+      }
+      const labellized = this.labellizeArray({ values: opts, i18nPath: this.i18nPath })
+      return labellized
     }
-  }
+  },
+  methods: {
+    input (value) {
+      const event = {
+        newUnit: value,
+        oldUnit: this.oldUnit,
+        unitsAreCompatible: unitsAreCompatible({ unit1: value, unit2: this.oldUnit })
+      }
+      this.$emit('input', event)
+      this.oldUnit = value
+    }
+  },
+  mixins: [Labellize]
 }
 </script>

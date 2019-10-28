@@ -148,5 +148,29 @@ export default {
     iGet: 'je reçois',
     ordered: 'commandé | commandé | commandés',
     available: 'disponible | disponible | disponibles'
+  },
+  units: {
+    names: {
+      KG: 'kilo',
+      HG: '100 grammes',
+      DAG: '10 grammes',
+      GR: 'gramme',
+      L: 'litre',
+      DL: 'décilitre',
+      CL: 'centilitre',
+      ML: 'millilitre',
+      PIECE: 'pièce'
+    },
+    abbreviations: {
+      KG: 'kg',
+      HG: '100gr',
+      DAG: '10gr',
+      GR: 'gr',
+      L: 'lt',
+      DL: 'dl',
+      CL: 'cl',
+      ML: 'ml',
+      PIECE: 'pce'
+    }
   }
 }
