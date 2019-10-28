@@ -6,12 +6,12 @@ describe('UnitSelect', () => {
   const wrapper = mountQuasar(UnitSelect, {
     shallow: true,
     propsData: {
-      value: types.units.KG
+      unit: types.units.KG
     }
   })
   beforeEach(() => {
     wrapper.setProps({
-      value: types.units.KG,
+      unit: types.units.KG,
       compatibleUnits: undefined,
       completeSet: undefined,
       abbreviations: undefined
@@ -82,7 +82,7 @@ describe('UnitSelect', () => {
 
   describe('displays the units name or abbreviation according to abbreviations prop', () => {
     test('uses i18n path "units.names.<<unit>>" for value and options if abbreviations is unset', () => {
-      expect(wrapper.vm.labellizedValue.label).toMatch('units.names.')
+      expect(wrapper.vm.labellizedUnit.label).toMatch('units.names.')
       wrapper.vm.options.forEach(option => {
         expect(option.label).toMatch('units.names.')
       })
@@ -92,7 +92,7 @@ describe('UnitSelect', () => {
       wrapper.setProps({
         abbreviations: true
       })
-      expect(wrapper.vm.labellizedValue.label).toMatch('units.abbreviations.')
+      expect(wrapper.vm.labellizedUnit.label).toMatch('units.abbreviations.')
       wrapper.vm.options.forEach(option => {
         expect(option.label).toMatch('units.abbreviations.')
       })
