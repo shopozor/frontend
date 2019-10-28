@@ -101,8 +101,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint-staged --fix",
-      "pre-push": "yarn lint-staged --fix"
+      "pre-commit": "yarn lint-staged",
+      "pre-push": "yarn lint-staged"
     }
   },
   "browserslist": [
