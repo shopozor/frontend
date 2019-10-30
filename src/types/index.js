@@ -4,7 +4,7 @@ import * as orderState from './orderState'
 import * as userState from './userState'
 import * as productState from './productState'
 import * as variantState from './variantState'
-import * as variantUI from './variantUI'
+import * as priceModes from './priceModes'
 import * as categories from './categories'
 import * as units from './units'
 import * as physicalSizes from './physicalSizes'
@@ -18,7 +18,7 @@ export default {
   userState,
   productState,
   variantState,
-  variantUI,
+  priceModes,
   categories,
   units,
   physicalSizes,

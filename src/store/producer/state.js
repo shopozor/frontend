@@ -1,3 +1,5 @@
+import types from '../../types'
+
 export default {
   myProducts: {},
   editedProduct: {
@@ -11,6 +13,12 @@ export default {
     defaultVariantUI: '',
     defaultProducerGrossPrice: 0,
     defaultUnit: '',
-    variants: []
+    variants: {
+      testId: {
+        pricing: {
+          mode: types.priceModes.FREE
+        }
+      }
+    }
   }
 }

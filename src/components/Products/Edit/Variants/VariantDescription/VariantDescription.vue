@@ -8,7 +8,7 @@
       />
       <variant-description-auto v-else-if="variantUI === variantUIs.AUTO_PRICE" :variantId="variantId"/>
       <variant-description-bulk v-else-if="variantUI === variantUIs.BULK" :variantId="variantId"/>
-      <variant-u-i-select :variantId="variantId" style="width: 100%"/>
+      <variant-price-mode-select :variantId="variantId" style="width: 100%"/>
       {{ editedProduct.variants[variantId].description.name }}
     </q-card-section>
   </q-card>
@@ -21,7 +21,7 @@ import VariantDescriptionFree from './VariantDescriptionFree'
 import VariantDescriptionSizeUnit from './VariantDescriptionSizeUnit'
 import VariantDescriptionAuto from './VariantDescriptionAuto'
 import VariantDescriptionBulk from './VariantDescriptionBulk'
-import VariantUISelect from './VariantUISelect'
+import VariantPriceModeSelect from './VariantPriceModeSelect'
 
 export default {
   name: 'VariantDescription',
@@ -47,7 +47,7 @@ export default {
     VariantDescriptionSizeUnit,
     VariantDescriptionAuto,
     VariantDescriptionBulk,
-    VariantUISelect
+    VariantPriceModeSelect
   }
 }
 </script>

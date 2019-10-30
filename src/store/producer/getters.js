@@ -34,9 +34,12 @@ export const editedProductImage = state => {
 }
 export const editedProductTitle = state => state.editedProduct.title
 export const editedProductDescription = state => state.editedProduct.description
-export const editedProductcategories = state => state.editedProduct.categories
+export const editedProductCategories = state => state.editedProduct.categories
 export const editedProductConservationMethod = state => state.editedProduct.conservationMathod
 export const editedProductConservationDays = state => state.editedProduct.conservationDays
 export const editedProductDefaultVariantUI = state => state.editedProduct.defaultVariantUI
 export const editedProductDefaultConsumerPrice = state => state.editedProduct.defaultConsumerPrice
 export const editedProductDefaultUnit = state => state.editedProduct.defaultConsumerUnit
+
+export const editedVariant = state => ({ variantId }) => state.editedProduct.variants[variantId]
+export const editedVariantPriceMode = state => ({ variantId }) => editedVariant(state)({ variantId }).pricing.mode

@@ -44,10 +44,14 @@ export const setEditedProduct = ({ commit, getters }, { productId }) => {
   // }
 }
 
-export const updateEditedProduct = ({ commit, getters }, { path, value }) => {
+export const updateEditedProduct = ({ commit }, { path, value }) => {
   commit('updateEditedProduct', { path, value })
 }
 
-export const updateEditedVariant = ({ commit, getters }, { variantId, path, value }) => {
+export const updateEditedVariant = ({ commit }, { variantId, path, value }) => {
   commit('updateEditedVariant', { variantId, path, value })
+}
+
+export const updateEditedVariantPriceMode = ({ commit }, { variantId, value }) => {
+  updateEditedVariant({ commit }, { variantId, path: 'pricing.mode', value })
 }

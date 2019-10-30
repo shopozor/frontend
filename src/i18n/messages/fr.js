@@ -43,11 +43,11 @@ export default {
     [types.conservation.FRIDGE]: 'au frigo',
     [types.conservation.FREEZER]: 'au congélateur'
   },
-  variantUI: {
-    [types.variantUI.FREE]: 'description libre (texte)',
-    [types.variantUI.AUTO_UNIT]: 'taille et unité (300 gr)',
-    [types.variantUI.AUTO_PRICE]: 'calcul du prix automatique',
-    [types.variantUI.BULK]: 'vente en vrac'
+  priceModes: {
+    [types.priceModes.FREE]: 'description libre (texte)',
+    [types.priceModes.AUTO_UNIT]: 'taille et unité (300 gr)',
+    [types.priceModes.AUTO_PRICE]: 'calcul du prix automatique',
+    [types.priceModes.BULK]: 'vente en vrac'
   },
   profile: {
     email: 'e-mail',
@@ -143,11 +143,13 @@ export default {
     measure: 'taille',
     unit: 'unité',
     bulk: 'Vente en vrac. Prix au ',
-    variantType: 'type de conditionnement',
     consumerPays: 'le consommateur paie',
     iGet: 'je reçois',
     ordered: 'commandé | commandé | commandés',
-    available: 'disponible | disponible | disponibles'
+    available: 'disponible | disponible | disponibles',
+    variant: {
+      priceMode: 'type de conditionnement'
+    }
   },
   units: {
     names: {
