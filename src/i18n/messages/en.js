@@ -37,9 +37,9 @@ export default {
     [types.categories.GROCERY]: 'grocery'
   },
   conservation: {
-    [types.conservation.BASEMENT]: 'in the basement',
-    [types.conservation.FRIDGE]: 'in the fridge',
-    [types.conservation.FREEZER]: 'in the freezer'
+    [types.conservationModes.BASEMENT]: 'in the basement',
+    [types.conservationModes.FRIDGE]: 'in the fridge',
+    [types.conservationModes.FREEZER]: 'in the freezer'
   },
   profile: {
     email: 'e-mail',

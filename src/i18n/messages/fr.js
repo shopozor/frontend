@@ -39,9 +39,9 @@ export default {
     [types.categories.GROCERY]: 'épicerie'
   },
   conservation: {
-    [types.conservation.BASEMENT]: 'à la cave',
-    [types.conservation.FRIDGE]: 'au frigo',
-    [types.conservation.FREEZER]: 'au congélateur'
+    [types.conservationModes.BASEMENT]: 'à la cave',
+    [types.conservationModes.FRIDGE]: 'au frigo',
+    [types.conservationModes.FREEZER]: 'au congélateur'
   },
   priceModes: {
     [types.priceModes.FREE]: 'description libre (texte)',
