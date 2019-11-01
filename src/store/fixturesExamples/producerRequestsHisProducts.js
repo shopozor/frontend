@@ -1,3 +1,7 @@
+/**
+ * Producer requests his products
+ */
+
 import types from '../../types'
 
 export const products = {
