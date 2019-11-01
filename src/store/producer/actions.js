@@ -61,7 +61,7 @@ export const updateEditedVariant = ({ commit }, { variantId, path, value }) => {
 }
 
 export const updateEditedVariantPriceMode = ({ commit }, { variantId, value }) => {
-  updateEditedVariant({ commit }, { variantId, path: 'pricing.mode', value })
+  updateEditedVariant({ commit }, { variantId, path: 'priceMode', value })
 }
 
 export const updateEditedVariantName = ({ commit }, { variantId, value }) => {
@@ -77,5 +77,5 @@ export const updateEditedVariantDescriptionUnit = ({ commit }, { variantId, valu
 }
 
 export const updateEditedVariantGrossConsumerPrice = ({ commit }, { variantId, value }) => {
-  updateEditedVariant({ commit }, { variantId, path: 'pricing.grossConsumerPrice', value })
+  updateEditedVariant({ commit }, { variantId, path: 'grossConsumerPrice', value })
 }

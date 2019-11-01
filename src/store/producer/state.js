@@ -26,10 +26,8 @@ export default {
           amount: 12,
           unit: types.units.KG
         },
-        pricing: {
-          mode: types.priceModes.FREE,
-          grossConsumerPrice: 20
-        }
+        priceMode: types.priceModes.FREE,
+        grossConsumerPrice: 20
       }
     }
   }

@@ -42,7 +42,8 @@ export const editedProductDefaultGrossConsumerPrice = state => state.editedProdu
 export const editedProductDefaultUnit = state => state.editedProduct.defaultUnit
 
 export const editedVariant = state => ({ variantId }) => state.editedProduct.variants[variantId]
-export const editedVariantPriceMode = state => ({ variantId }) => editedVariant(state)({ variantId }).pricing.mode
 export const editedVariantName = state => ({ variantId }) => editedVariant(state)({ variantId }).description.name
 export const editedVariantDescriptionAmount = state => ({ variantId }) => editedVariant(state)({ variantId }).description.amount
 export const editedVariantDescriptionUnit = state => ({ variantId }) => editedVariant(state)({ variantId }).description.unit
+export const editedVariantPriceMode = state => ({ variantId }) => editedVariant(state)({ variantId }).priceMode
+export const editedVariantGrossConsumerPrice = state => ({ variantId }) => editedVariant(state)({ variantId }).grossConsumerPrice

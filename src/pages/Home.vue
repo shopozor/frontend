@@ -1,7 +1,6 @@
 <template>
   <q-page class="">
-    <variant-description-auto variantId="testId"
-    @input="log" />
+    <variant-description variantId="testId" />
     <div>
       {{ this.$store.getters.editedVariant({ variantId: 'testId' }) }}
     </div>
@@ -12,14 +11,14 @@
 </template>
 
 <script>
-import VariantDescriptionAuto from '../components/Products/Edit/Variants/VariantDescription/VariantDescriptionAuto'
+import VariantDescription from '../components/Products/Edit/Variants/VariantDescription/VariantDescription'
 export default {
   name: 'PageHome',
   data () {
     return {
     }
   },
-  components: { VariantDescriptionAuto },
+  components: { VariantDescription },
   methods: {
     log (event) { console.log(event) }
   }

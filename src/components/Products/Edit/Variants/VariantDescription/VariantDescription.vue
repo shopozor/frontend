@@ -1,15 +1,14 @@
 <template>
   <q-card inline class="width-md q-ma-sm">
     <q-card-section>
-      <variant-description-free v-if="variantUI === variantUIs.FREE" :variantId="variantId"/>
+      <variant-description-free v-if="priceMode === priceModes.FREE" :variantId="variantId"/>
       <variant-description-size-unit
-        v-else-if="variantUI === variantUIs.AUTO_UNIT"
+        v-else-if="priceMode === priceModes.AUTO_UNIT"
         :variantId="variantId"
       />
-      <variant-description-auto v-else-if="variantUI === variantUIs.AUTO_PRICE" :variantId="variantId"/>
-      <variant-description-bulk v-else-if="variantUI === variantUIs.BULK" :variantId="variantId"/>
-      <variant-price-mode-select :variantId="variantId" style="width: 100%"/>
-      {{ editedProduct.variants[variantId].description.name }}
+      <variant-description-auto v-else-if="priceMode === priceModes.AUTO_PRICE" :variantId="variantId"/>
+      <variant-description-bulk v-else-if="priceMode === priceModes.BULK" :variantId="variantId"/>
+      <variant-price-mode-select :variantId="variantId" />
     </q-card-section>
   </q-card>
 </template>
@@ -27,7 +26,7 @@ export default {
   name: 'VariantDescription',
   data () {
     return {
-      variantUIs: types.variantUI
+      priceModes: types.priceModes
     }
   },
   props: {
@@ -37,9 +36,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedProduct']),
-    variantUI () {
-      return this.editedProduct.variants[this.variantId].pricing.mode
+    ...mapGetters(['editedVariantPriceMode']),
+    priceMode () {
+      return this.editedVariantPriceMode({ variantId: this.variantId })
     }
   },
   components: {
