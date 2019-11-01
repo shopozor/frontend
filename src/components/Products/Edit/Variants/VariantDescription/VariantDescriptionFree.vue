@@ -1,5 +1,5 @@
 <template>
-    <q-input
+  <q-input
     :hint="$t('products.variantDescription')"
     :value="name"
     @input="updateName"
@@ -13,22 +13,17 @@ import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalVal
 export default {
   name: 'VariantDescriptionFree',
   mixins: [VariantCriticalValuesMixin],
-  props: {
-    variantId: {
-      type: String,
-      required: true
+  computed: {
+    ...mapGetters(['editedVariantName']),
+    name () {
+      return this.editedVariantName({ variantId: this.variantId })
     }
   },
-  computed: {
-    ...mapGetters(['editedProduct']),
-    name () { return this.editedProduct.variants[this.variantId].description.name }
-  },
   methods: {
-    ...mapActions(['updateEditedVariant']),
+    ...mapActions(['updateEditedVariantName']),
     updateName (value) {
-      this.updateEditedVariant({
+      this.updateEditedVariantName({
         variantId: this.variantId,
-        path: 'description.name',
         value
       })
     }

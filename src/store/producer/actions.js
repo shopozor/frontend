@@ -55,3 +55,7 @@ export const updateEditedVariant = ({ commit }, { variantId, path, value }) => {
 export const updateEditedVariantPriceMode = ({ commit }, { variantId, value }) => {
   updateEditedVariant({ commit }, { variantId, path: 'pricing.mode', value })
 }
+
+export const updateEditedVariantName = ({ commit }, { variantId, value }) => {
+  updateEditedVariant({ commit }, { variantId, path: 'description.name', value })
+}

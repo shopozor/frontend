@@ -15,6 +15,9 @@ export default {
     defaultUnit: '',
     variants: {
       testId: {
+        description: {
+          name: 'testName'
+        },
         pricing: {
           mode: types.priceModes.FREE
         }
