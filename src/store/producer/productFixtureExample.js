@@ -44,7 +44,8 @@ export const products = {
           // types.stockModes.AMOUNT: removes 1 from stock if 1 is bought
           // types.stockModes.MAX_PER_DAY: acts as AMOUNT, but resets stock every day
           mode: types.stockModes.AMOUNT,
-          amount: 100,
+          max: 100, // can be undefined if mode is AMOUNT
+          amount: 97,
           unit: types.units.KG, // can be undefined if priceMode is not BULK
           // ordersSummary can me generated through an "orders" request
           // it may not be useful
