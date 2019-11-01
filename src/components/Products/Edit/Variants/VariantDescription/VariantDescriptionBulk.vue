@@ -1,13 +1,12 @@
 <template>
-  <unit-select
-    :unit="sizeUnit"
-    :setUnit="updateSizeUnit"
-    width="100%"
-    filter="all"
-    withPriceReferenceQuantities
-    :label="$t('products.bulk')"
-    :readonly="!isUpdatable"
-  />
+  <div>
+    Je vends en vrac par:
+    <unit-select
+      :unit="unit"
+      @input="update"
+      :readonly="!isUpdatable"
+    />
+  </div>
 </template>
 
 <script>
@@ -18,27 +17,21 @@ import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalVal
 export default {
   name: 'VariantDescriptionBulk',
   mixins: [VariantCriticalValuesMixin],
-  props: {
-    variantId: {
-      type: String,
-      required: true
-    }
-  },
   computed: {
-    ...mapGetters(['editedVariants']),
-    sizeUnit () {
-      const sizeUnit = this.editedVariants[this.variantId].sizeUnit
-      if (sizeUnit) return sizeUnit
-      else return ''
+    ...mapGetters(['editedVariantDescriptionUnit']),
+    unit () {
+      return this.editedVariantDescriptionUnit({ variantId: this.variantId })
     }
   },
   components: {UnitSelect},
   methods: {
-    ...mapActions(['updateEditedVariant']),
-    update (propName, value) {
-      this.updateEditedVariant({variantId: this.variantId, newProps: {[propName]: value}})
-    },
-    updateSizeUnit (newUnit) { this.update('sizeUnit', newUnit) }
+    ...mapActions(['updateEditedVariantDescriptionUnit']),
+    update (event) {
+      this.updateEditedVariantDescriptionUnit({
+        variantId: this.variantId,
+        value: event.newUnit
+      })
+    }
   }
 }
 </script>
