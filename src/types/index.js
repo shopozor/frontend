@@ -4,11 +4,13 @@ import * as orderState from './orderState'
 import * as userState from './userState'
 import * as productState from './productState'
 import * as variantState from './variantState'
-import * as priceModes from './priceModes'
+import * as stockModes from './stockModes'
 import * as categories from './categories'
+import * as priceModes from './priceModes'
+import * as currencies from './currencies'
 import * as units from './units'
 import * as physicalSizes from './physicalSizes'
-import * as conservation from './conservation'
+import * as conservationModes from './conservationModes'
 import * as cookies from './cookies'
 
 export default {
@@ -18,10 +20,12 @@ export default {
   userState,
   productState,
   variantState,
-  priceModes,
+  stockModes,
   categories,
+  priceModes,
+  currencies,
   units,
   physicalSizes,
-  conservation,
+  conservationModes,
   cookies
 }

@@ -1,0 +1,1 @@
+export const CHF = 'CHF'

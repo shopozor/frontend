@@ -94,7 +94,7 @@ function adapt (product) {
     ...product.pricing,
     productVAT: 0.025,
     defaultGrossPrice: 0,
-    defaultUnit: types.units.mass.KG
+    defaultUnit: types.units.KG
   }
 
   const adaptedVariants = product.variants.map(variant => {
