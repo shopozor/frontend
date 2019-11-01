@@ -1,8 +1,4 @@
 <template>
-  <!-- <q-btn-toggle
-    :value="UI"
-    @input="updateVariantUI"
-  :options="options" />-->
   <q-select
     :hint="hint"
     :value="priceMode"
