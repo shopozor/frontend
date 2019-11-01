@@ -20,7 +20,7 @@ export const products = {
     conservationDays: 30,
     categories: [types.categories.VEGETABLES, types.categories.FRUITS],
     defaultPriceMode: types.priceModes.FREE, // can be undefined
-    defaultConsumerPrice: 10, // can be undefined
+    defaultGrossConsumerPrice: 10, // can be undefined
     defaultUnit: types.units.KG, // can be undefined
     variants: {
       variantId1: { // should be ['variantId1'], but eslint does not agree
