@@ -1,12 +1,8 @@
 <template>
   <unit-field
-    :value="measure"
-    :setValue="updateMeasure"
-    valueWidth="50%"
-    :unit="measureUnit"
-    :setUnit="updateMeasureUnit"
-    unitWidth="50%"
-    filter="all"
+    :value="value"
+    @input="update"
+    linked
     :readonly="!isUpdatable"
   />
 </template>
@@ -19,34 +15,26 @@ import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalVal
 export default {
   name: 'VariantDescriptionSizeUnit',
   mixins: [VariantCriticalValuesMixin],
-  props: {
-    variantId: {
-      type: String,
-      required: true
-    }
-  },
   computed: {
-    ...mapGetters(['editedProduct']),
-    measure () { return this.editedProduct.variants[this.variantId].description.measure },
-    measureUnit () {
-      return this.editedProduct.variants[this.variantId].description.measureUnit
+    ...mapGetters(['editedVariantDescriptionAmount', 'editedVariantDescriptionUnit']),
+    value () {
+      return {
+        amount: this.editedVariantDescriptionAmount({ variantId: this.variantId }),
+        unit: this.editedVariantDescriptionUnit({ variantId: this.variantId })
+      }
     }
   },
   components: {UnitField},
   methods: {
-    ...mapActions(['updateEditedVariant']),
-    updateMeasure (value) {
-      this.updateEditedVariant({
+    ...mapActions(['updateEditedVariantDescriptionAmount', 'updateEditedVariantDescriptionUnit']),
+    update (event) {
+      this.updateEditedVariantDescriptionAmount({
         variantId: this.variantId,
-        path: 'description.measure',
-        value
+        value: event.amount
       })
-    },
-    updateMeasureUnit (event) {
-      this.updateEditedVariant({
+      this.updateEditedVariantDescriptionUnit({
         variantId: this.variantId,
-        path: 'description.measureUnit',
-        value: event.value
+        value: event.unit
       })
     }
   }

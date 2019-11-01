@@ -16,7 +16,9 @@ export default {
     variants: {
       testId: {
         description: {
-          name: 'testName'
+          name: 'testName',
+          amount: 12,
+          unit: types.units.KG
         },
         pricing: {
           mode: types.priceModes.FREE
