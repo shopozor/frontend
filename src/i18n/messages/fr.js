@@ -147,6 +147,7 @@ export default {
     iGet: 'je reçois',
     ordered: 'commandé | commandé | commandés',
     available: 'disponible | disponible | disponibles',
+    defineDefaultPricePerUnit: 'prix à l\'unité par défaut',
     variant: {
       priceMode: 'type de conditionnement'
     }

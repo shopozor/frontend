@@ -2,10 +2,12 @@
   <q-btn
     class="q-ma-md"
     :class="{'animated shake': isShaking, enabled: !disable}"
-    :color="disable ? 'ghost' : 'primary'"
+    :color="disable ? 'ghost' : color"
     :unelevated="disable"
     :label="label"
-    @click="tryAction">
+    :round="round"
+    :icon="icon"
+    @click="tryEmit">
     <slot />
   </q-btn>
 </template>
@@ -21,21 +23,29 @@ export default {
   props: {
     label: {
       type: String,
-      default: () => ''
-    },
-    action: {
-      type: Function,
-      default: () => () => {}
+      default: () => undefined
     },
     disable: {
       type: Boolean,
       default: () => false
+    },
+    round: {
+      type: Boolean,
+      default: () => undefined
+    },
+    icon: {
+      type: String,
+      default: () => undefined
+    },
+    color: {
+      type: String,
+      default: () => undefined
     }
   },
   methods: {
-    tryAction () {
+    tryEmit () {
       if (!this.disable) {
-        this.action()
+        this.$emit('success')
       } else {
         this.$emit('error')
         if (!this.isShaking) {

@@ -1,19 +1,16 @@
 <template>
-  <div>
+  <div class="row justify-center items-baseline">
+    <q-btn icon="settings" flat round @click="openSetDefault" />
     <unit-field
-      :value="measure"
-      :setValue="updateSize"
-      valueWidth="50%"
-      :unit="measureUnit"
-      :setUnit="updateSizeUnit"
-      unitWidth="50%"
-      :linked="true"
-      :filter="physicalSize"
+      :value="value"
+      @input="update"
+      linked
+      compatibleUnits
       :readonly="!isUpdatable"
     />
     <q-dialog
       v-model="defineDefaultValues"
-      persistent
+      :persistent="!defaultIsSet"
       >
       <q-card>
         <q-card-section>
@@ -24,8 +21,13 @@
           <product-default-price-per-unit-selector />
         </q-card-section>
         <q-card-actions>
-          <q-btn icon="close" round color="negative" @click="defineDefaultValues = false" />
-          <q-btn icon="done" round color="positive" @click="defineDefaultValues = false" />
+          <shaking-btn
+            icon="check"
+            @success="closeSetDefault"
+            :disable="!defaultIsSet"
+            round
+            color="positive"
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -35,8 +37,9 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import UnitField from '../../../../Units/UnitField'
+import ShakingBtn from '../../../../form/ShakingBtn'
 import ProductDefaultPricePerUnitSelector from '../../ProductDefaultPricePerUnitSelector'
-import {convert, unitsAreCompatible, mainUnit, getPhysicalSize} from '../../../../Units/UnitsHelpers'
+import {convert, unitsAreCompatible, mainUnit} from '../../../../Units/UnitsHelpers'
 import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
@@ -47,66 +50,90 @@ export default {
       defineDefaultValues: false
     }
   },
-  props: {
-    variantId: {
-      type: String,
-      required: true
+  computed: {
+    ...mapGetters([
+      'editedVariantDescriptionAmount',
+      'editedVariantDescriptionUnit',
+      'editedProductDefaultGrossConsumerPrice',
+      'editedProductDefaultUnit',
+      'editedVariantGrossConsumerPrice'
+    ]),
+    value () {
+      return {
+        amount: this.editedVariantDescriptionAmount({ variantId: this.variantId }),
+        unit: this.editedVariantDescriptionUnit({ variantId: this.variantId })
+      }
+    },
+    defaultGrossConsumerPrice () {
+      return this.editedProductDefaultGrossConsumerPrice
+    },
+    defaultUnit () {
+      return this.editedProductDefaultUnit
+    },
+    defaultIsSet () {
+      return this.defaultGrossConsumerPrice !== undefined &&
+        this.defaultGrossConsumerPrice !== 0 &&
+        this.defaultUnit !== undefined &&
+        this.defaultUnit !== ''
     }
   },
-  computed: {
-    ...mapGetters(['editedProduct']),
-    measure () { return this.editedProduct.variants[this.variantId].description.measure },
-    measureUnit () { return this.editedProduct.variants[this.variantId].description.measureUnit },
-    defaultConsumerPrice () { return this.editedProduct.pricing.defaultGrossPrice },
-    defaultUnit () { return this.editedProduct.pricing.defaultUnit },
-    physicalSize () { return getPhysicalSize({ unit: this.defaultUnit }) }
-  },
   methods: {
-    ...mapActions(['updateEditedVariant']),
-    updateSizeUnit (value) {
-      this.updateEditedVariant({
+    ...mapActions([
+      'updateEditedVariantDescriptionAmount',
+      'updateEditedVariantDescriptionUnit',
+      'updateEditedProductDefaultGrossConsumerPrice',
+      'updateEditedProductDefaultUnit',
+      'updateEditedVariantGrossConsumerPrice'
+    ]),
+    update (event) {
+      this.updateEditedVariantDescriptionAmount({
         variantId: this.variantId,
-        path: 'description.measureUnit',
-        value
+        value: event.amount
       })
-      this.updateConsumerPrice()
+      this.updateEditedVariantDescriptionUnit({
+        variantId: this.variantId,
+        value: event.unit
+      })
+      this.updateGrossConsumerPrice()
     },
-    updateSize (value) {
-      this.updateEditedVariant({
-        variantId: this.variantId,
-        path: 'description.measure',
-        value
-      })
-      this.updateConsumerPrice()
+    adaptUnitToDefault () {
+      const incompatible = !unitsAreCompatible({ unit1: this.defaultUnit, unit2: this.value.unit })
+      if (incompatible) {
+        this.updateEditedVariantDescriptionUnit({
+          variantId: this.variantId,
+          value: mainUnit({ unit: this.defaultUnit })
+        })
+      }
     },
-    updateConsumerPrice () {
-      const newPricePerUnit = 1 / convert({
-        startValue: 1 / this.defaultConsumerPrice,
-        startUnit: this.defaultUnit,
-        endUnit: this.measureUnit
+    updateGrossConsumerPrice () {
+      this.adaptUnitToDefault()
+      const newPrice = convert({
+        oldValue: this.value.amount * this.defaultGrossConsumerPrice,
+        oldUnit: this.defaultUnit,
+        newUnit: this.value.unit
       })
-      const value = newPricePerUnit * this.measure
-      this.updateEditedVariant({
+      this.updateEditedVariantGrossConsumerPrice({
         variantId: this.variantId,
-        path: 'pricing.grossPrice',
-        value
+        value: Math.round(newPrice)
       })
+    },
+    openSetDefault () {
+      this.defineDefaultValues = true
+    },
+    closeSetDefault () {
+      this.defineDefaultValues = false
     }
   },
   watch: {
-    defaultUnit (newUnit, oldUnit) { this.updateConsumerPrice() },
-    defaultConsumerPrice (newPrice, oldPrice) { this.updateConsumerPrice() }
+    defaultUnit (newUnit, oldUnit) { this.updateGrossConsumerPrice() },
+    defaultGrossConsumerPrice (newPrice, oldPrice) { this.updateGrossConsumerPrice() }
   },
-  components: { UnitField, ProductDefaultPricePerUnitSelector },
+  components: { UnitField, ProductDefaultPricePerUnitSelector, ShakingBtn },
   mounted () {
-    if (this.defaultConsumerPrice === 0 || this.defaultUnit === '') {
-      console.log('machin')
-      this.defineDefaultValues = true
-    } else if (unitsAreCompatible({unit1: this.sizeUnit, unit2: this.defaultUnit})) {
-      this.updateConsumerPrice()
+    if (!this.defaultIsSet) {
+      this.openSetDefault()
     } else {
-      this.updateSizeUnit(mainUnit({ unit: this.defaultUnit }).short)
-      this.updateSize(1)
+      this.updateGrossConsumerPrice()
     }
   }
 }

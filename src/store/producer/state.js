@@ -4,15 +4,21 @@ export default {
   myProducts: {},
   editedProduct: {
     productId: '',
+    ordersSummary: {
+      unPaid: 0,
+      paid: 0,
+      delivered: 0
+    },
+    image: undefined,
     name: '',
     description: '',
-    images: [],
-    categories: [],
+    productVAT: undefined,
     conservationMode: '',
     conservationDays: 0,
-    defaultVariantUI: '',
-    defaultProducerGrossPrice: 0,
-    defaultUnit: '',
+    categories: [],
+    defaultPriceMode: '',
+    defaultGrossConsumerPrice: undefined,
+    defaultUnit: undefined,
     variants: {
       testId: {
         description: {
@@ -21,7 +27,8 @@ export default {
           unit: types.units.KG
         },
         pricing: {
-          mode: types.priceModes.FREE
+          mode: types.priceModes.FREE,
+          grossConsumerPrice: 20
         }
       }
     }

@@ -1,9 +1,16 @@
 export default {
   methods: {
     labellize ({ value, i18nPath }) {
-      return {
-        value,
-        label: this.$t(`${i18nPath}.${value}`)
+      if (value) {
+        return {
+          value,
+          label: this.$t(`${i18nPath}.${value}`)
+        }
+      } else {
+        return {
+          value: undefined,
+          label: ''
+        }
       }
     },
     labellizeArray ({ values, i18nPath }) {

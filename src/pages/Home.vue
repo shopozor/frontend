@@ -1,19 +1,25 @@
 <template>
-  <q-page>
-    <variant-price-mode-select variantId="testId" withHint />
-    {{ this.$store.getters.editedProduct.variants.testId }}
+  <q-page class="">
+    <variant-description-auto variantId="testId"
+    @input="log" />
+    <div>
+      {{ this.$store.getters.editedVariant({ variantId: 'testId' }) }}
+    </div>
+    <div>
+      {{ this.$store.getters.editedProduct }}
+    </div>
   </q-page>
 </template>
 
 <script>
-import VariantPriceModeSelect from '../components/Products/Edit/Variants/VariantDescription/VariantPriceModeSelect'
+import VariantDescriptionAuto from '../components/Products/Edit/Variants/VariantDescription/VariantDescriptionAuto'
 export default {
   name: 'PageHome',
   data () {
     return {
     }
   },
-  components: { VariantPriceModeSelect },
+  components: { VariantDescriptionAuto },
   methods: {
     log (event) { console.log(event) }
   }

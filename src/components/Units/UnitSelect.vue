@@ -23,7 +23,7 @@ export default {
   props: {
     unit: {
       type: String,
-      required: true
+      default: () => undefined
     },
     compatibleUnits: {
       type: Boolean,

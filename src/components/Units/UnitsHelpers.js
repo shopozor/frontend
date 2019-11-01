@@ -3,7 +3,9 @@ import * as units from '../../types/units'
 import * as physicalSizes from '../../types/physicalSizes'
 
 export function convert ({ oldValue, oldUnit, newUnit }) {
-  if (unitsAreCompatible({ unit1: oldUnit, unit2: newUnit })) {
+  if (!oldUnit || !newUnit) {
+    return oldValue
+  } else if (unitsAreCompatible({ unit1: oldUnit, unit2: newUnit })) {
     return unsafeConvert({ oldValue, oldUnit, newUnit })
   } else {
     throw new Error(`Conversion error. Units ${oldUnit} and ${newUnit} are not compatible.`)
@@ -33,11 +35,19 @@ function allOptions ({ withCompleteSet }) {
 }
 
 export function unitsAreCompatible ({ unit1, unit2 }) {
-  return unitsDefinitions[unit1].physicalSize === unitsDefinitions[unit2].physicalSize
+  if (unit1 && unit2) {
+    return unitsDefinitions[unit1].physicalSize === unitsDefinitions[unit2].physicalSize
+  } else {
+    return undefined
+  }
 }
 
 export function mainUnit ({ unit }) {
-  return defaultUnit({ physicalSize: unitsDefinitions[unit].physicalSize })
+  if (unit) {
+    return defaultUnit({ physicalSize: getPhysicalSize({ unit }) })
+  } else {
+    return undefined
+  }
 }
 
 export function defaultUnit ({ physicalSize }) {

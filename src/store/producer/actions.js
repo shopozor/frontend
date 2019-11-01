@@ -48,6 +48,14 @@ export const updateEditedProduct = ({ commit }, { path, value }) => {
   commit('updateEditedProduct', { path, value })
 }
 
+export const updateEditedProductDefaultGrossConsumerPrice = ({ commit }, { value }) => {
+  updateEditedProduct({ commit }, { path: 'defaultGrossConsumerPrice', value })
+}
+
+export const updateEditedProductDefaultUnit = ({ commit }, { value }) => {
+  updateEditedProduct({ commit }, { path: 'defaultUnit', value })
+}
+
 export const updateEditedVariant = ({ commit }, { variantId, path, value }) => {
   commit('updateEditedVariant', { variantId, path, value })
 }
@@ -66,4 +74,8 @@ export const updateEditedVariantDescriptionAmount = ({ commit }, { variantId, va
 
 export const updateEditedVariantDescriptionUnit = ({ commit }, { variantId, value }) => {
   updateEditedVariant({ commit }, { variantId, path: 'description.unit', value })
+}
+
+export const updateEditedVariantGrossConsumerPrice = ({ commit }, { variantId, value }) => {
+  updateEditedVariant({ commit }, { variantId, path: 'pricing.grossConsumerPrice', value })
 }
