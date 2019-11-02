@@ -70,7 +70,7 @@ export default {
       inputSoftozorPrice: 0,
       inputRexPrice: 0,
       inputManagerPrice: 0,
-      focusAt: 'undefined'
+      focusAt: undefined
     }
   },
   props: {
@@ -179,7 +179,7 @@ export default {
       this.focusAt = fieldName
     },
     unFocus (fieldName) {
-      if (this.focusAt === fieldName) this.focusAt = 'undefined'
+      if (this.focusAt === fieldName) this.focusAt = undefined
       this.inputProducerPrice = Math.round(this.inputConsumerPrice * (1 - this.shopRatio))
       this.inputShopPrice = Math.round(this.inputConsumerPrice * this.shopRatio)
       this.$emit('input', this.inputConsumerPrice)
