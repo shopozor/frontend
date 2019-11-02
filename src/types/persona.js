@@ -1,0 +1,6 @@
+export const UNKNOWN = 'UNKNOWN'
+export const CONSUMER = 'CONSUMER'
+export const PRODUCER = 'PRODUCER'
+export const MANAGER = 'MANAGER'
+export const REX = 'REX'
+export const SOFTOZOR = 'SOFTOZOR'

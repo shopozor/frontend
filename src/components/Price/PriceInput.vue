@@ -1,127 +1,197 @@
 <template>
   <q-card-section>
-    <q-input
+    <single-price-input
       v-if="consumer"
-      :style="`width: ${width}`"
-      :hint="$t('products.consumerPays')"
-      :value="readonly ? computedConsumerPrice : tempConsumerPrice"
-      @blur="updateConsumerPrice"
-      @input="tempConsumerPriceChanged"
-      suffix="CHF"
+      :label="$t('products.consumerPays')"
+      :value="inputConsumerPrice"
+      @focus="focus('consumer')"
+      @blur="unFocus('consumer')"
+      @input="inputConsumerPriceChanged"
       :readonly="readonly"
     />
-    <q-input
+    <single-price-input
       v-if="producer"
-      :style="`width: ${width}`"
-      :hint="$t('products.iGet')"
-      :value="readonly ? computedProducerPrice : tempProducerPrice"
-      @blur="updateConsumerPrice"
-      @input="tempProducerPriceChanged"
-      suffix="CHF"
+      :label="$t('products.iGet')"
+      :value="inputProducerPrice"
+      @focus="focus('producer')"
+      @blur="unFocus('producer')"
+      @input="inputProducerPriceChanged"
       :readonly="readonly"
     />
-    <q-input
+    <single-price-input
       v-if="shop"
-      :style="`width: ${width}`"
-      :hint="$t('products.shopGets')"
-      :value="readonly ? computedShopPrice : tempShopPrice"
-      @blur="updateConsumerPrice"
-      @input="tempShopPriceChanged"
-      suffix="CHF"
+      :label="$t('products.shopGets')"
+      :value="inputShopPrice"
+      @focus="focus('shop')"
+      @blur="unFocus('shop')"
+      @input="inputShopPriceChanged"
+      :readonly="readonly"
+    />
+    <single-price-input
+      v-if="softozor"
+      :label="$t('products.softozorGets')"
+      :value="inputSoftozorPrice"
+      @focus="focus('softozor')"
+      @blur="unFocus('softozor')"
+      @input="inputSoftozorPriceChanged"
+      :readonly="readonly"
+    />
+    <single-price-input
+      v-if="rex"
+      :label="$t('products.rexGets')"
+      :value="inputRexPrice"
+      @focus="focus('rex')"
+      @blur="unFocus('rex')"
+      @input="inputRexPriceChanged"
+      :readonly="readonly"
+    />
+    <single-price-input
+      v-if="manager"
+      :label="$t('products.managerGets')"
+      :value="inputManagerPrice"
+      @focus="focus('manager')"
+      @blur="unFocus('manager')"
+      @input="inputManagerPriceChanged"
       :readonly="readonly"
     />
   </q-card-section>
 </template>
 
 <script>
+import SinglePriceInput from './SinglePriceInput'
+
 export default {
   name: 'PriceInput',
   data () {
     return {
-      tempConsumerPrice: 0,
-      tempProducerPrice: 0,
-      tempShopPrice: 0
+      inputConsumerPrice: 0,
+      inputProducerPrice: 0,
+      inputShopPrice: 0,
+      inputSoftozorPrice: 0,
+      inputRexPrice: 0,
+      inputManagerPrice: 0,
+      focusAt: 'undefined'
     }
   },
   props: {
-    consumerPrice: {
+    grossConsumerPrice: {
       type: Number,
       required: true
     },
-    setConsumerPrice: {
-      type: Function,
-      required: true
-    },
-    producerRatio: {
+    softozorRatio: {
       type: Number,
       required: true
     },
-    consumer: {
-      type: Boolean,
-      default () {
-        return false
-      }
+    rexRatio: {
+      type: Number,
+      required: true
     },
-    producer: {
-      type: Boolean,
-      default () {
-        return false
-      }
+    managerRatio: {
+      type: Number,
+      required: true
     },
-    shop: {
-      type: Boolean,
-      default () {
-        return false
-      }
-    },
-    readonly: {
-      type: Boolean,
-      default () {
-        return false
-      }
-    },
-    width: {
-      type: String,
-      default () {
-        return '100%'
-      }
-    }
+    consumer: Boolean,
+    producer: Boolean,
+    shop: Boolean,
+    softozor: Boolean,
+    rex: Boolean,
+    manager: Boolean,
+    readonly: Boolean
   },
   computed: {
-    computedConsumerPrice () { return (this.consumerPrice / 100).toFixed(2) },
-    computedProducerPrice () { return (this.consumerPrice * this.producerRatio / 100).toFixed(2) },
-    computedShopPrice () { return (this.consumerPrice * (1 - this.producerRatio) / 100).toFixed(2) }
-  },
-  methods: {
-    tempConsumerPriceChanged (value) {
-      const num = value * 1
-      this.tempConsumerPrice = num
-      this.tempProducerPrice = (num * this.producerRatio).toFixed(2)
-      this.tempShopPrice = (num * (1 - this.producerRatio)).toFixed(2)
-    },
-    tempProducerPriceChanged (value) {
-      const num = value * 1
-      this.tempConsumerPrice = (num / this.producerRatio).toFixed(2)
-      this.tempProducerPrice = num
-      this.tempShopPrice = (num / this.producerRatio * (1 - this.producerRatio)).toFixed(2)
-    },
-    tempShopPriceChanged (value) {
-      const num = value * 1
-      this.tempConsumerPrice = (num / (1 - this.producerRatio)).toFixed(2)
-      this.tempProducerPrice = (num / (1 - this.producerRatio) * this.producerRatio).toFixed(2)
-      this.tempShopPrice = num
-    },
-    updateConsumerPrice () {
-      this.setConsumerPrice(Number.parseInt(this.tempConsumerPrice * 100))
-      this.tempConsumerPrice = Number.parseFloat(this.tempConsumerPrice).toFixed(2)
-      this.tempProducerPrice = Number.parseFloat(this.tempProducerPrice).toFixed(2)
-      this.tempShopPrice = Number.parseFloat(this.tempShopPrice).toFixed(2)
+    shopRatio () {
+      return this.softozorRatio + this.rexRatio + this.managerRatio
     }
   },
+  methods: {
+    inputConsumerPriceChanged (value) {
+      if (this.focusAt === 'consumer') {
+        this.inputConsumerPrice = value
+        this.inputProducerPrice = Math.round(value * (1 - this.shopRatio))
+        this.inputShopPrice = Math.round(value * this.shopRatio)
+        this.inputSoftozorPrice = Math.round(value * this.softozorRatio)
+        this.inputRexPrice = Math.round(value * this.rexRatio)
+        this.inputManagerPrice = Math.round(value * this.managerRatio)
+        this.$emit('input', this.inputConsumerPrice)
+      }
+    },
+    inputProducerPriceChanged (value) {
+      if (this.focusAt === 'producer') {
+        const grossConsumerPrice = Math.round(value / (1 - this.shopRatio))
+        this.inputConsumerPrice = grossConsumerPrice
+        this.inputProducerPrice = value
+        this.inputShopPrice = Math.round(grossConsumerPrice * this.shopRatio)
+        this.inputSoftozorPrice = Math.round(grossConsumerPrice * this.softozorRatio)
+        this.inputRexPrice = Math.round(grossConsumerPrice * this.rexRatio)
+        this.inputManagerPrice = Math.round(grossConsumerPrice * this.managerRatio)
+        this.$emit('input', this.inputConsumerPrice)
+      }
+    },
+    inputShopPriceChanged (value) {
+      if (this.focusAt === 'shop') {
+        const grossConsumerPrice = Math.round(value / this.shopRatio)
+        this.inputConsumerPrice = grossConsumerPrice
+        this.inputProducerPrice = Math.round(grossConsumerPrice * (1 - this.shopRatio))
+        this.inputShopPrice = value
+        this.inputSoftozorPrice = Math.round(grossConsumerPrice * this.softozorRatio)
+        this.inputRexPrice = Math.round(grossConsumerPrice * this.rexRatio)
+        this.inputManagerPrice = Math.round(grossConsumerPrice * this.managerRatio)
+        this.$emit('input', this.inputConsumerPrice)
+      }
+    },
+    inputSoftozorPriceChanged (value) {
+      if (this.focusAt === 'softozor') {
+        const grossConsumerPrice = Math.round(value / this.softozorRatio)
+        this.inputConsumerPrice = grossConsumerPrice
+        this.inputProducerPrice = Math.round(grossConsumerPrice * (1 - this.shopRatio))
+        this.inputShopPrice = Math.round(grossConsumerPrice * this.shopRatio)
+        this.inputSoftozorPrice = value
+        this.inputRexPrice = Math.round(grossConsumerPrice * this.rexRatio)
+        this.inputManagerPrice = Math.round(grossConsumerPrice * this.managerRatio)
+        this.$emit('input', this.inputConsumerPrice)
+      }
+    },
+    inputRexPriceChanged (value) {
+      if (this.focusAt === 'rex') {
+        const grossConsumerPrice = Math.round(value / this.rexRatio)
+        this.inputConsumerPrice = grossConsumerPrice
+        this.inputProducerPrice = Math.round(grossConsumerPrice * (1 - this.shopRatio))
+        this.inputShopPrice = Math.round(grossConsumerPrice * this.shopRatio)
+        this.inputSoftozorPrice = Math.round(grossConsumerPrice * this.softozorRatio)
+        this.inputRexPrice = value
+        this.inputManagerPrice = Math.round(grossConsumerPrice * this.managerRatio)
+        this.$emit('input', this.inputConsumerPrice)
+      }
+    },
+    inputManagerPriceChanged (value) {
+      if (this.focusAt === 'manager') {
+        const grossConsumerPrice = Math.round(value / this.managerRatio)
+        this.inputConsumerPrice = grossConsumerPrice
+        this.inputProducerPrice = Math.round(grossConsumerPrice * (1 - this.shopRatio))
+        this.inputShopPrice = Math.round(grossConsumerPrice * this.shopRatio)
+        this.inputSoftozorPrice = Math.round(grossConsumerPrice * this.softozorRatio)
+        this.inputRexPrice = Math.round(grossConsumerPrice * this.rexRatio)
+        this.inputManagerPrice = value
+        this.$emit('input', this.inputConsumerPrice)
+      }
+    },
+    focus (fieldName) {
+      this.focusAt = fieldName
+    },
+    unFocus (fieldName) {
+      if (this.focusAt === fieldName) this.focusAt = 'undefined'
+      this.inputProducerPrice = Math.round(this.inputConsumerPrice * (1 - this.shopRatio))
+      this.inputShopPrice = Math.round(this.inputConsumerPrice * this.shopRatio)
+      this.$emit('input', this.inputConsumerPrice)
+    }
+  },
+  components: {
+    SinglePriceInput
+  },
   mounted () {
-    this.tempConsumerPrice = (this.consumerPrice / 100).toFixed(2)
-    this.tempProducerPrice = (this.consumerPrice * this.producerRatio / 100).toFixed(2)
-    this.tempShopPrice = (this.consumerPrice * (1 - this.producerRatio) / 100).toFixed(2)
+    this.inputConsumerPrice = this.grossConsumerPrice
+    this.inputProducerPrice = Math.round(this.grossConsumerPrice * this.producerRatio)
+    this.inputShopPrice = Math.round(this.grossConsumerPrice * (1 - this.producerRatio))
   }
 }
 </script>

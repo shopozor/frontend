@@ -1,4 +1,5 @@
 import * as permissions from './permissions'
+import * as persona from './persona'
 import * as links from './links'
 import * as orderState from './orderState'
 import * as userState from './userState'
@@ -15,6 +16,7 @@ import * as cookies from './cookies'
 
 export default {
   permissions,
+  persona,
   links,
   orderState,
   userState,

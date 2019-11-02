@@ -1,26 +1,36 @@
 <template>
   <q-page class="">
-    <variant-description variantId="testId" />
-    <div>
-      {{ this.$store.getters.editedVariant({ variantId: 'testId' }) }}
-    </div>
-    <div>
-      {{ this.$store.getters.editedProduct }}
-    </div>
+    <price-input
+      :grossConsumerPrice="grossConsumerPrice"
+      :setConsumerPrice="setConsumerPrice"
+      :softozorRatio="0.05"
+      :rexRatio="0.05"
+      :managerRatio="0.05"
+      consumer
+      producer
+      shop
+      softozor
+      rex
+      manager
+    />
   </q-page>
 </template>
 
 <script>
-import VariantDescription from '../components/Products/Edit/Variants/VariantDescription/VariantDescription'
+import PriceInput from '../components/Price/PriceInput'
 export default {
   name: 'PageHome',
   data () {
     return {
+      grossConsumerPrice: 0
     }
   },
-  components: { VariantDescription },
+  components: { PriceInput },
   methods: {
-    log (event) { console.log(event) }
+    log (event) { console.log(event) },
+    setConsumerPrice (e) {
+      this.grossConsumerPrice = e
+    }
   }
 }
 </script>
