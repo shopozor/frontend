@@ -2,18 +2,19 @@ import { unitsDefinitions } from './UnitsDefinitions'
 import * as units from '../../types/units'
 import * as physicalSizes from '../../types/physicalSizes'
 
-export function convert ({ oldValue, oldUnit, newUnit }) {
+export function convert ({ oldValue, per, oldUnit, newUnit }) {
   if (!oldUnit || !newUnit) {
     return oldValue
   } else if (unitsAreCompatible({ unit1: oldUnit, unit2: newUnit })) {
-    return unsafeConvert({ oldValue, oldUnit, newUnit })
+    return unsafeConvert({ oldValue, per, oldUnit, newUnit })
   } else {
     throw new Error(`Conversion error. Units ${oldUnit} and ${newUnit} are not compatible.`)
   }
 }
 
-function unsafeConvert ({ oldValue, oldUnit, newUnit }) {
-  return oldValue * unitsDefinitions[oldUnit].wheight / unitsDefinitions[newUnit].wheight
+function unsafeConvert ({ oldValue, per, oldUnit, newUnit }) {
+  if (per) return oldValue * unitsDefinitions[newUnit].wheight / unitsDefinitions[oldUnit].wheight
+  else return oldValue * unitsDefinitions[oldUnit].wheight / unitsDefinitions[newUnit].wheight
 }
 
 export function options ({ unit, withCompleteSet }) {

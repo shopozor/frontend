@@ -1,23 +1,23 @@
 <template>
-  <q-card inline class="width-md q-ma-sm">
-    <variant-price-auto
-      v-if="autoPrice"
-      :variantId="variantId"
-      consumer
-      producer />
-    <variant-price-free
-      v-else
-      :variantId="variantId"
-      consumer
-      producer />
+  <q-card>
+    <q-card-section>
+      <Price-input
+        :grossConsumerPrice="grossConsumerPrice"
+        :softozorRatio="softozorRatio"
+        :rexRatio="rexRatio"
+        :managerRatio="managerRatio"
+        :readonly="autoMode"
+        @input="updateGrossConsumerPrice"
+        consumer
+        producer />
+    </q-card-section>
   </q-card>
 </template>
 
 <script>
 import types from '../../../../../types'
-import VariantPriceAuto from './VariantPriceAuto'
-import VariantPriceFree from './VariantPriceFree'
-import { mapGetters } from 'vuex'
+import PriceInput from '../../../../Price/PriceInput'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'VariantPrice',
@@ -28,12 +28,37 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedProduct']),
-    autoPrice () {
-      const variantUI = this.editedProduct.variants[this.variantId].variantUI
-      return variantUI === types.variantUI.AUTO_PRICE
+    ...mapGetters([
+      'editedProductDefaultGrossConsumerPrice',
+      'editedProductDefaultUnit',
+      'editedVariantDescriptionAmount',
+      'editedVariantDescriptionUnit',
+      'editedVariantGrossConsumerPrice',
+      'editedVariantPriceMode',
+      'softozorRatio',
+      'rexRatio',
+      'managerRatio'
+    ]),
+    autoMode () {
+      const priceMode = this.editedVariantPriceMode({ variantId: this.variantId })
+      return priceMode === types.priceModes.AUTO_PRICE
+    },
+    grossConsumerPrice () {
+      const price = this.editedVariantGrossConsumerPrice({ variantId: this.variantId })
+      return price
     }
   },
-  components: { VariantPriceAuto, VariantPriceFree }
+  methods: {
+    ...mapActions(['updateEditedVariantGrossConsumerPrice']),
+    updateGrossConsumerPrice (value) {
+      if (!this.autoMode) {
+        this.updateEditedVariantGrossConsumerPrice({
+          variantId: this.variantId,
+          value
+        })
+      }
+    }
+  },
+  components: { PriceInput }
 }
 </script>

@@ -1,6 +1,6 @@
 export default {
-  softozorFraction: 0.05,
-  managerFraction: 0.05,
-  rexFraction: 0.05,
+  softozorRatio: 0.05,
+  managerRatio: 0.05,
+  rexRatio: 0.05,
   serviceVAT: 0.077
 }

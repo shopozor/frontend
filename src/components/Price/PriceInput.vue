@@ -1,5 +1,5 @@
 <template>
-  <q-card-section>
+  <div>
     <single-price-input
       v-if="consumer"
       :label="$t('products.consumerPays')"
@@ -54,7 +54,7 @@
       @input="inputManagerPriceChanged"
       :readonly="readonly"
     />
-  </q-card-section>
+  </div>
 </template>
 
 <script>
@@ -188,10 +188,23 @@ export default {
   components: {
     SinglePriceInput
   },
+  watch: {
+    grossConsumerPrice (value) {
+      this.inputConsumerPrice = value
+      this.inputProducerPrice = Math.round(value * (1 - this.shopRatio))
+      this.inputShopPrice = Math.round(value * this.shopRatio)
+      this.inputSoftozorPrice = Math.round(value * this.softozorRatio)
+      this.inputRexPrice = Math.round(value * this.rexRatio)
+      this.inputManagerPrice = Math.round(value * this.managerRatio)
+    }
+  },
   mounted () {
     this.inputConsumerPrice = this.grossConsumerPrice
-    this.inputProducerPrice = Math.round(this.grossConsumerPrice * this.producerRatio)
-    this.inputShopPrice = Math.round(this.grossConsumerPrice * (1 - this.producerRatio))
+    this.inputProducerPrice = Math.round(this.grossConsumerPrice * (1 - this.shopRatio))
+    this.inputShopPrice = Math.round(this.grossConsumerPrice * this.shopRatio)
+    this.inputSoftozorPrice = Math.round(this.grossConsumerPrice * this.softozorRatio)
+    this.inputRexPrice = Math.round(this.grossConsumerPrice * this.rexRatio)
+    this.inputManagerPrice = Math.round(this.grossConsumerPrice * this.managerRatio)
   }
 }
 </script>

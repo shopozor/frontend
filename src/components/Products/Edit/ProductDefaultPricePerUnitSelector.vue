@@ -2,11 +2,13 @@
   <div>
     <div class="row justify-center items-center">
       <price-input
-        :consumerPrice="defaultGrossConsumerPrice"
-        :setConsumerPrice="updateDefaultGrossConsumerPrice"
-        :producerRatio="0.85"
+        :grossConsumerPrice="defaultGrossConsumerPrice"
+        :softozorRatio="softozorRatio"
+        :rexRatio="rexRatio"
+        :managerRatio="managerRatio"
         consumer
         producer
+        @input="updateDefaultGrossConsumerPrice"
         width="220px" />
       <div class="row no-wrap items-center items-baseline">
         <div class="q-ml-md q-mr-lg"> par </div>
@@ -31,7 +33,10 @@ export default {
   computed: {
     ...mapGetters([
       'editedProductDefaultGrossConsumerPrice',
-      'editedProductDefaultUnit'
+      'editedProductDefaultUnit',
+      'softozorRatio',
+      'rexRatio',
+      'managerRatio'
     ]),
     defaultGrossConsumerPrice () {
       const defaultValue = 0
@@ -61,11 +66,16 @@ export default {
       this.updateEditedProductDefaultGrossConsumerPrice({ value })
     },
     updateDefaultUnit (event) {
-      const oldUnit = event.oldUnit
       const oldValue = this.defaultGrossConsumerPrice
+      const per = true
+      const oldUnit = event.oldUnit
       const newUnit = event.newUnit
-      const newValue = convert({ oldValue, oldUnit, newUnit })
-      console.log(newValue)
+      const newValue = convert({
+        oldValue,
+        per,
+        oldUnit,
+        newUnit
+      })
       this.updateEditedProductDefaultGrossConsumerPrice({ value: newValue })
       this.updateEditedProductDefaultUnit({ value: event.newUnit })
     }

@@ -109,6 +109,7 @@ export default {
       this.adaptUnitToDefault()
       const newPrice = convert({
         oldValue: this.value.amount * this.defaultGrossConsumerPrice,
+        per: true,
         oldUnit: this.defaultUnit,
         newUnit: this.value.unit
       })
