@@ -37,11 +37,18 @@ describe('VariantPriceModeSelect', () => {
     expect(optionsValues).toEqual(priceModes)
   })
 
-  test('updates the store if a new priceMode is selected', () => {
+  test('dispatches updateEditedVariantPriceMode with the new priceMode when q-select emits input', () => {
     const qSelect = wrapper.find({ name: 'QSelect' })
-    const value = types.priceModes.BULK
-    qSelect.vm.$emit('input', value)
-    expect(store.actions.updateEditedVariantPriceMode).toHaveBeenCalled()
+    const priceMode = types.priceModes.BULK
+    qSelect.vm.$emit('input', priceMode)
+    expect(store.actions.updateEditedVariantPriceMode).toHaveBeenCalledWith(
+      expect.anything(),
+      {
+        variantId,
+        value: priceMode
+      },
+      undefined
+    )
   })
 
   test('displays the editedVariantPriceMode from the store', () => {

@@ -4,11 +4,11 @@ import types from '../../../../../../types'
 
 const variantId = 'testId'
 
-const unit = types.units.KG
+const oldUnit = types.units.KG
 
 const store = {
   getters: {
-    editedVariantDescriptionUnit: () => () => unit,
+    editedVariantDescriptionUnit: () => () => oldUnit,
     pendingOrdersOfVariantSummary: () => () => {
       return {
         paid: {
@@ -36,10 +36,18 @@ const wrapper = mountQuasar(VariantDescriptionBulk, {
 const unitSelect = wrapper.find({ name: 'UnitSelect' })
 
 test('has a unit-select with unit editedVariantDescriptionUnit', () => {
-  expect(unitSelect.vm.unit).toEqual(unit)
+  expect(unitSelect.vm.unit).toEqual(oldUnit)
 })
 
-test('triggers updateEditedVariantDescriptionUnit when unit-field emits input', () => {
-  unitSelect.vm.$emit('input', types.units.GR)
-  expect(store.actions.updateEditedVariantDescriptionUnit).toHaveBeenCalled()
+test('dispatches updateEditedVariantDescriptionUnit with new unit when unitSelect emits input', () => {
+  const newUnit = types.units.GR
+  unitSelect.vm.$emit('input', { newUnit, oldUnit })
+  expect(store.actions.updateEditedVariantDescriptionUnit).toHaveBeenCalledWith(
+    expect.anything(),
+    {
+      variantId,
+      value: newUnit
+    },
+    undefined
+  )
 })

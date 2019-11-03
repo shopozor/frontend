@@ -44,12 +44,35 @@ test('has a unit-field with value { amount: editedVariantDescriptionAmount, unit
   expect(unitField.vm.value).toEqual(value)
 })
 
-test('triggers updateEditedVariantDescriptionAmount and updateEditedVariantDescriptionUnit when unit-field emits input', () => {
+describe('when unitField emit input', () => {
   const newValue = {
     amount: 2,
     unit: types.units.GR
   }
-  unitField.vm.$emit('input', newValue)
-  expect(store.actions.updateEditedVariantDescriptionAmount).toHaveBeenCalled()
-  expect(store.actions.updateEditedVariantDescriptionUnit).toHaveBeenCalled()
+
+  beforeAll(() => {
+    unitField.vm.$emit('input', newValue)
+  })
+
+  test('dispatches updateEditedVariantDescriptionAmount with new amount', () => {
+    expect(store.actions.updateEditedVariantDescriptionAmount).toHaveBeenCalledWith(
+      expect.anything(),
+      {
+        variantId,
+        value: newValue.amount
+      },
+      undefined
+    )
+  })
+
+  test('dispatches updateEditedVariantDescriptionUnit with new unit', () => {
+    expect(store.actions.updateEditedVariantDescriptionUnit).toHaveBeenCalledWith(
+      expect.anything(),
+      {
+        variantId,
+        value: newValue.unit
+      },
+      undefined
+    )
+  })
 })

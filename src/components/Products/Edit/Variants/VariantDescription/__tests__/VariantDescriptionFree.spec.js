@@ -38,7 +38,15 @@ test('has a q-input with value editedVariantName', () => {
   expect(qInput.vm.value).toEqual(name)
 })
 
-test('triggers updateEditedVariantName when unit-field emits input', () => {
-  qInput.vm.$emit('input', 'newName')
-  expect(store.actions.updateEditedVariantName).toHaveBeenCalled()
+test('dispatches updateEditedVariantName with new name when q-input emits input', () => {
+  const newName = 'newName'
+  qInput.vm.$emit('input', newName)
+  expect(store.actions.updateEditedVariantName).toHaveBeenCalledWith(
+    expect.anything(),
+    {
+      variantId,
+      value: newName
+    },
+    undefined
+  )
 })

@@ -55,8 +55,7 @@ export default {
       'editedVariantDescriptionAmount',
       'editedVariantDescriptionUnit',
       'editedProductDefaultGrossConsumerPrice',
-      'editedProductDefaultUnit',
-      'editedVariantGrossConsumerPrice'
+      'editedProductDefaultUnit'
     ]),
     value () {
       return {
@@ -81,8 +80,6 @@ export default {
     ...mapActions([
       'updateEditedVariantDescriptionAmount',
       'updateEditedVariantDescriptionUnit',
-      'updateEditedProductDefaultGrossConsumerPrice',
-      'updateEditedProductDefaultUnit',
       'updateEditedVariantGrossConsumerPrice'
     ]),
     update (event) {
@@ -94,9 +91,10 @@ export default {
         variantId: this.variantId,
         value: event.unit
       })
-      this.updateGrossConsumerPrice()
+      this.updateGrossConsumerPrice(event)
     },
     adaptUnitToDefault () {
+      console.error(new Error('adaptUnitToDefault needs to be reworked. All variants need to be taken into account.'))
       const incompatible = !unitsAreCompatible({ unit1: this.defaultUnit, unit2: this.value.unit })
       if (incompatible) {
         this.updateEditedVariantDescriptionUnit({
@@ -105,14 +103,15 @@ export default {
         })
       }
     },
-    updateGrossConsumerPrice () {
+    updateGrossConsumerPrice ({ amount, unit }) {
       this.adaptUnitToDefault()
-      const newPrice = convert({
-        oldValue: this.value.amount * this.defaultGrossConsumerPrice,
+      const newPricePerUnit = convert({
+        oldValue: this.defaultGrossConsumerPrice,
         per: true,
         oldUnit: this.defaultUnit,
-        newUnit: this.value.unit
+        newUnit: unit
       })
+      const newPrice = amount * newPricePerUnit
       this.updateEditedVariantGrossConsumerPrice({
         variantId: this.variantId,
         value: Math.round(newPrice)
@@ -126,15 +125,15 @@ export default {
     }
   },
   watch: {
-    defaultUnit (newUnit, oldUnit) { this.updateGrossConsumerPrice() },
-    defaultGrossConsumerPrice (newPrice, oldPrice) { this.updateGrossConsumerPrice() }
+    defaultUnit (newUnit, oldUnit) { this.updateGrossConsumerPrice(this.value) },
+    defaultGrossConsumerPrice (newPrice, oldPrice) { this.updateGrossConsumerPrice(this.value) }
   },
   components: { UnitField, ProductDefaultPricePerUnitSelector, ShakingBtn },
   mounted () {
     if (!this.defaultIsSet) {
       this.openSetDefault()
     } else {
-      this.updateGrossConsumerPrice()
+      this.updateGrossConsumerPrice(this.value)
     }
   }
 }
