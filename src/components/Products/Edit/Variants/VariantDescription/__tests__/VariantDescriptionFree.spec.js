@@ -1,6 +1,5 @@
 import VariantDescriptionFree from '../VariantDescriptionFree'
 import { mountQuasar } from '../../../../../../../test/utils'
-import types from '../../../../../../types'
 
 const variantId = 'testId'
 
