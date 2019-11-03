@@ -2,7 +2,6 @@
   <q-page>
     <variant-description variantId="testId" />
     <variant-price variantId="testId" />
-    {{ $store.getters.editedProduct }}
   </q-page>
 </template>
 

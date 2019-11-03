@@ -70,6 +70,13 @@ export default {
       const per = true
       const oldUnit = event.oldUnit
       const newUnit = event.newUnit
+      /**
+       * TODO: handle physicalSize changes
+       *
+       * If units are not compatible:
+       *  1: ask for density with a dialog
+       *  2: send density to convert (see how the value can be kept and used everywhere)
+       */
       const newValue = convert({
         oldValue,
         per,

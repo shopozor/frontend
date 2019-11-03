@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     input (val) {
-      const value = Math.floor(Number.parseFloat(val) * 100)
+      const value = Math.round(Number.parseFloat(val) * 100)
       this.$emit('input', value)
     },
     focus () {
