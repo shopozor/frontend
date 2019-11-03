@@ -37,8 +37,8 @@ test('when priceMode is BULK, has a variantDescriptionBulk field', () => {
   expect(variantDescriptionBulk).toBeTruthy()
 })
 
-test('when priceMode is AUTO_PRICE, has a variantDescriptionSizeUnit field', () => {
-  wrapper.vm.priceMode = types.priceModes.AUTO_PRICE
+test('when priceMode is AUTO_UNIT, has a variantDescriptionSizeUnit field', () => {
+  wrapper.vm.priceMode = types.priceModes.AUTO_UNIT
   const variantDescriptionSizeUnit = wrapper.find({ name: 'VariantDescriptionSizeUnit' })
   expect(variantDescriptionSizeUnit).toBeTruthy()
 })
