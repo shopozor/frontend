@@ -3,7 +3,6 @@ import { createLocalVue, mount, shallowMount } from 'test-utils'
 import Vuex from 'vuex'
 import Quasar, { Cookies } from 'quasar'
 
-import { createStore } from './store'
 import { initRouter } from './router'
 
 const mockSsrContext = () => {
@@ -23,8 +22,8 @@ export const mountQuasar = (component, options = {}) => {
   const app = {}
 
   localVue.use(Vuex)
+  let store
   localVue.use(Quasar)
-  const store = createStore(options)
   const router = initRouter(localVue, options)
 
   // mock vue-i18n
@@ -36,6 +35,10 @@ export const mountQuasar = (component, options = {}) => {
 
   if (options) {
     const ssrContext = options.ssr ? mockSsrContext() : null
+
+    if (options.store) {
+      store = new Vuex.Store(options.store)
+    }
 
     if (options.cookies) {
       const cookieStorage = ssrContext ? Cookies.parseSSR(ssrContext) : Cookies
