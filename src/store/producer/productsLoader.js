@@ -78,7 +78,7 @@ function adapt (product) {
    * conservation.mode needs to be in a defined list (types.conservation)
    */
   const conservation = {
-    mode: types.conservation.BASEMENT,
+    mode: types.conservationModes.BASEMENT,
     days: 30
   }
 
@@ -135,19 +135,19 @@ function adapt (product) {
        */
       pricing: {
         grossPrice: variant.pricing.price.gross.amount,
-        mode: types.variantUI.FREE,
+        mode: types.priceModes.FREE,
         /**
          * unité de mesure du prix
          * j'ai 1 [tonne] de sel, je le vends 0.50CHF/[kg]
          */
-        priceUnit: types.units.mass.KG
+        priceUnit: types.units.KG
       },
       // description of variant
       description: {
         name: variant.name,
         // volume / weight / size of variant
         measure: 0,
-        measureUnit: types.units.mass.KG
+        measureUnit: types.units.KG
       }
     }
   })
