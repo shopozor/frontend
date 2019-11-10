@@ -90,6 +90,10 @@ export default {
       type: Number,
       required: true
     },
+    smallestConsumerAmount: {
+      type: Number,
+      default: () => 1
+    },
     consumer: Boolean,
     producer: Boolean,
     shop: Boolean,
@@ -104,75 +108,56 @@ export default {
     }
   },
   methods: {
+    setPrices ({ grossConsumerPrice, grossProducerPrice, grossShopPrice, grossSoftozorPrice, grossRexPrice, grossManagerPrice}) {
+      this.inputConsumerPrice = grossConsumerPrice
+      this.inputProducerPrice = grossProducerPrice !== undefined ? grossProducerPrice : Math.round(grossConsumerPrice * (1 - this.shopRatio))
+      this.inputShopPrice = grossShopPrice !== undefined ? grossShopPrice : Math.round(grossConsumerPrice * this.shopRatio)
+      this.inputSoftozorPrice = grossSoftozorPrice !== undefined ? grossSoftozorPrice : Math.round(grossConsumerPrice * this.softozorRatio)
+      this.inputRexPrice = grossRexPrice !== undefined ? grossRexPrice : Math.round(grossConsumerPrice * this.rexRatio)
+      this.inputManagerPrice = grossManagerPrice !== undefined ? grossManagerPrice : Math.round(grossConsumerPrice * this.managerRatio)
+    },
+    round (value) {
+      return Math.round(value / this.smallestConsumerAmount) * this.smallestConsumerAmount
+    },
     inputConsumerPriceChanged (value) {
       if (this.focusAt === 'consumer') {
-        this.inputConsumerPrice = value
-        this.inputProducerPrice = Math.round(value * (1 - this.shopRatio))
-        this.inputShopPrice = Math.round(value * this.shopRatio)
-        this.inputSoftozorPrice = Math.round(value * this.softozorRatio)
-        this.inputRexPrice = Math.round(value * this.rexRatio)
-        this.inputManagerPrice = Math.round(value * this.managerRatio)
-        this.$emit('input', this.inputConsumerPrice)
+        this.setPrices({ grossConsumerPrice: value })
+        this.$emit('input', value)
       }
     },
     inputProducerPriceChanged (value) {
       if (this.focusAt === 'producer') {
-        const grossConsumerPrice = Math.round(value / (1 - this.shopRatio))
-        this.inputConsumerPrice = grossConsumerPrice
-        this.inputProducerPrice = value
-        this.inputShopPrice = Math.round(grossConsumerPrice * this.shopRatio)
-        this.inputSoftozorPrice = Math.round(grossConsumerPrice * this.softozorRatio)
-        this.inputRexPrice = Math.round(grossConsumerPrice * this.rexRatio)
-        this.inputManagerPrice = Math.round(grossConsumerPrice * this.managerRatio)
-        this.$emit('input', this.inputConsumerPrice)
+        const grossConsumerPrice = this.round(value / (1 - this.shopRatio))
+        this.setPrices({ grossConsumerPrice, grossProducerPrice: value })
+        this.$emit('input', grossConsumerPrice)
       }
     },
     inputShopPriceChanged (value) {
       if (this.focusAt === 'shop') {
-        const grossConsumerPrice = Math.round(value / this.shopRatio)
-        this.inputConsumerPrice = grossConsumerPrice
-        this.inputProducerPrice = Math.round(grossConsumerPrice * (1 - this.shopRatio))
-        this.inputShopPrice = value
-        this.inputSoftozorPrice = Math.round(grossConsumerPrice * this.softozorRatio)
-        this.inputRexPrice = Math.round(grossConsumerPrice * this.rexRatio)
-        this.inputManagerPrice = Math.round(grossConsumerPrice * this.managerRatio)
-        this.$emit('input', this.inputConsumerPrice)
+        const grossConsumerPrice = this.round(value / this.shopRatio)
+        this.setPrices({ grossConsumerPrice, grossShopPrice: value })
+        this.$emit('input', grossConsumerPrice)
       }
     },
     inputSoftozorPriceChanged (value) {
       if (this.focusAt === 'softozor') {
-        const grossConsumerPrice = Math.round(value / this.softozorRatio)
-        this.inputConsumerPrice = grossConsumerPrice
-        this.inputProducerPrice = Math.round(grossConsumerPrice * (1 - this.shopRatio))
-        this.inputShopPrice = Math.round(grossConsumerPrice * this.shopRatio)
-        this.inputSoftozorPrice = value
-        this.inputRexPrice = Math.round(grossConsumerPrice * this.rexRatio)
-        this.inputManagerPrice = Math.round(grossConsumerPrice * this.managerRatio)
-        this.$emit('input', this.inputConsumerPrice)
+        const grossConsumerPrice = this.round(value / this.softozorRatio)
+        this.setPrices({ grossConsumerPrice, grossSoftozorPrice: value })
+        this.$emit('input', grossConsumerPrice)
       }
     },
     inputRexPriceChanged (value) {
       if (this.focusAt === 'rex') {
-        const grossConsumerPrice = Math.round(value / this.rexRatio)
-        this.inputConsumerPrice = grossConsumerPrice
-        this.inputProducerPrice = Math.round(grossConsumerPrice * (1 - this.shopRatio))
-        this.inputShopPrice = Math.round(grossConsumerPrice * this.shopRatio)
-        this.inputSoftozorPrice = Math.round(grossConsumerPrice * this.softozorRatio)
-        this.inputRexPrice = value
-        this.inputManagerPrice = Math.round(grossConsumerPrice * this.managerRatio)
-        this.$emit('input', this.inputConsumerPrice)
+        const grossConsumerPrice = this.round(value / this.rexRatio)
+        this.setPrices({ grossConsumerPrice, grossRexPrice: value })
+        this.$emit('input', grossConsumerPrice)
       }
     },
     inputManagerPriceChanged (value) {
       if (this.focusAt === 'manager') {
-        const grossConsumerPrice = Math.round(value / this.managerRatio)
-        this.inputConsumerPrice = grossConsumerPrice
-        this.inputProducerPrice = Math.round(grossConsumerPrice * (1 - this.shopRatio))
-        this.inputShopPrice = Math.round(grossConsumerPrice * this.shopRatio)
-        this.inputSoftozorPrice = Math.round(grossConsumerPrice * this.softozorRatio)
-        this.inputRexPrice = Math.round(grossConsumerPrice * this.rexRatio)
-        this.inputManagerPrice = value
-        this.$emit('input', this.inputConsumerPrice)
+        const grossConsumerPrice = this.round(value / this.managerRatio)
+        this.setPrices({ grossConsumerPrice, grossManagerPrice: value })
+        this.$emit('input', grossConsumerPrice)
       }
     },
     focus (fieldName) {
@@ -180,8 +165,7 @@ export default {
     },
     unFocus (fieldName) {
       if (this.focusAt === fieldName) this.focusAt = undefined
-      this.inputProducerPrice = Math.round(this.inputConsumerPrice * (1 - this.shopRatio))
-      this.inputShopPrice = Math.round(this.inputConsumerPrice * this.shopRatio)
+      this.setPrices({ grossConsumerPrice: this.round(this.inputConsumerPrice) })
       this.$emit('input', this.inputConsumerPrice)
     }
   },
@@ -190,21 +174,13 @@ export default {
   },
   watch: {
     grossConsumerPrice (value) {
-      this.inputConsumerPrice = value
-      this.inputProducerPrice = Math.round(value * (1 - this.shopRatio))
-      this.inputShopPrice = Math.round(value * this.shopRatio)
-      this.inputSoftozorPrice = Math.round(value * this.softozorRatio)
-      this.inputRexPrice = Math.round(value * this.rexRatio)
-      this.inputManagerPrice = Math.round(value * this.managerRatio)
+      if (this.readonly) {
+        this.setPrices({ grossConsumerPrice: value })
+      }
     }
   },
   mounted () {
-    this.inputConsumerPrice = this.grossConsumerPrice
-    this.inputProducerPrice = Math.round(this.grossConsumerPrice * (1 - this.shopRatio))
-    this.inputShopPrice = Math.round(this.grossConsumerPrice * this.shopRatio)
-    this.inputSoftozorPrice = Math.round(this.grossConsumerPrice * this.softozorRatio)
-    this.inputRexPrice = Math.round(this.grossConsumerPrice * this.rexRatio)
-    this.inputManagerPrice = Math.round(this.grossConsumerPrice * this.managerRatio)
+    this.setPrices({ grossConsumerPrice: this.grossConsumerPrice })
   }
 }
 </script>

@@ -27,7 +27,7 @@ export default {
           unit: types.units.KG
         },
         priceMode: types.priceModes.FREE,
-        grossConsumerPrice: 20
+        grossConsumerPrice: 200
       }
     }
   }
