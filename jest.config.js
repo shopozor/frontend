@@ -15,10 +15,10 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/components/**/*.vue',
     '<rootDir>/src/components/**/*.js',
-    '<rootDir>/src/pages/**/*.vue',
-    '<rootDir>/src/pages/**/*.js',
     '<rootDir>/src/store/**/*.vue',
-    '<rootDir>/src/store/**/*.js'
+    '<rootDir>/src/store/**/*.js',
+    '<rootDir>/src/router/**/*.vue',
+    '<rootDir>/src/router/**/*.js'
   ],
   coverageThreshold: {
     global: {
@@ -29,7 +29,9 @@ module.exports = {
     }
   },
   testMatch: [
-    '<rootDir>/src/**/__tests__/*.spec.js'
+    '<rootDir>/src/components/**/__tests_/*.spec.js',
+    '<rootDir>/src/store/**/__tests_/*.spec.js',
+    '<rootDir>/src/router/**/__tests_/*.spec.js'
   ],
   moduleFileExtensions: [
     'vue',
