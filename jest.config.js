@@ -29,9 +29,9 @@ module.exports = {
     }
   },
   testMatch: [
-    '<rootDir>/src/components/**/__tests_/*.spec.js',
-    '<rootDir>/src/store/**/__tests_/*.spec.js',
-    '<rootDir>/src/router/**/__tests_/*.spec.js'
+    '<rootDir>/src/components/**/__tests__/*.spec.js',
+    '<rootDir>/src/store/**/__tests__/*.spec.js',
+    '<rootDir>/src/router/**/__tests__/*.spec.js'
   ],
   moduleFileExtensions: [
     'vue',
