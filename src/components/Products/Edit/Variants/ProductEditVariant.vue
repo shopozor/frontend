@@ -13,7 +13,7 @@
 import { mapGetters } from 'vuex'
 import VariantDescription from './VariantDescription/VariantDescription'
 import VariantPrice from './VariantPrice/VariantPrice'
-import VariantAmount from './VariantAmount'
+import VariantAmount from './VariantAmount/VariantAmount'
 import VariantStateManager from './VariantStateManager'
 import VariantCriticalValuesMixin from '../../../../mixins/VariantCriticalValuesMixin'
 import types from '../../../../types'
