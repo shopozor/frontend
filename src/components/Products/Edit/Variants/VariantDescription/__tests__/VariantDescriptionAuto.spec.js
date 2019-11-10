@@ -92,6 +92,7 @@ describe('when unitField emits input', () => {
     unit: types.units.KG
   }
   beforeAll(() => {
+    store.actions.updateEditedVariantGrossConsumerPrice.mockClear()
     unitField.vm.$emit('input', newField)
   })
 
@@ -122,21 +123,9 @@ describe('when unitField emits input', () => {
       expect.anything(),
       {
         variantId,
-        value: 2
+        value: 2000
       },
       undefined
     )
   })
 })
-
-// describe('when unitField emits input with an incompatible new unit', () => {
-//   const newField = {
-//     amount: 3,
-//     unit: types.units.L
-//   }
-//   beforeAll(() => {
-//     unitField.vm.$emit('input', newField)
-//   })
-
-//   test('needs to be specified', () => {})
-// })

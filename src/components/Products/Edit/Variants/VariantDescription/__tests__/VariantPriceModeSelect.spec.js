@@ -4,6 +4,8 @@ import types from '../../../../../../types'
 
 describe('VariantPriceModeSelect', () => {
   const variantId = 'testId'
+  const variantUnit = types.units.L
+  const defaultUnit = types.units.KG
   const store = {
     getters: {
       editedVariantPriceMode: () => () => types.priceModes.FREE,
@@ -16,10 +18,13 @@ describe('VariantPriceModeSelect', () => {
             amount: 0
           }
         }
-      }
+      },
+      editedVariantDescriptionUnit: () => () => variantUnit,
+      editedProductDefaultUnit: () => defaultUnit
     },
     actions: {
-      updateEditedVariantPriceMode: jest.fn()
+      updateEditedVariantPriceMode: jest.fn(),
+      updateEditedVariantDescriptionUnit: jest.fn()
     }
   }
   const wrapper = mountQuasar(VariantPriceModeSelect, {
@@ -30,6 +35,8 @@ describe('VariantPriceModeSelect', () => {
     store
   })
 
+  const qSelect = wrapper.find({ name: 'QSelect' })
+
   test('provides all priceModes options', () => {
     const options = wrapper.vm.options
     const optionsValues = options.map(option => option.value)
@@ -38,14 +45,13 @@ describe('VariantPriceModeSelect', () => {
   })
 
   test('dispatches updateEditedVariantPriceMode with the new priceMode when q-select emits input', () => {
-    const qSelect = wrapper.find({ name: 'QSelect' })
-    const priceMode = types.priceModes.BULK
-    qSelect.vm.$emit('input', priceMode)
+    const priceModeNotAutoPrice = types.priceModes.BULK
+    qSelect.vm.$emit('input', priceModeNotAutoPrice)
     expect(store.actions.updateEditedVariantPriceMode).toHaveBeenCalledWith(
       expect.anything(),
       {
         variantId,
-        value: priceMode
+        value: priceModeNotAutoPrice
       },
       undefined
     )
@@ -54,5 +60,24 @@ describe('VariantPriceModeSelect', () => {
   test('displays the editedVariantPriceMode from the store', () => {
     const value = wrapper.vm.priceMode.value
     expect(value).toBe(types.priceModes.FREE)
+  })
+
+  describe('when user selects AUTO_PRICE as default unit and variant unit are not compatible', () => {
+    beforeAll(() => {
+      qSelect.vm.$emit('input', types.priceModes.AUTO_PRICE)
+    })
+    test('replaces variant unit with default unit', () => {
+      expect(store.actions.updateEditedVariantDescriptionUnit).toBeCalledWith(
+        expect.anything(),
+        {
+          variantId,
+          value: defaultUnit
+        },
+        undefined
+      )
+    })
+    test('alerts user about change', () => {
+      expect(wrapper.vm.alertUnitChange).toBeTruthy()
+    })
   })
 })
