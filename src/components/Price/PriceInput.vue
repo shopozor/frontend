@@ -59,6 +59,7 @@
 
 <script>
 import SinglePriceInput from './SinglePriceInput'
+import { round } from './priceHelpers'
 
 export default {
   name: 'PriceInput',
@@ -117,7 +118,7 @@ export default {
       this.inputManagerPrice = grossManagerPrice !== undefined ? grossManagerPrice : Math.round(grossConsumerPrice * this.managerRatio)
     },
     round (value) {
-      return Math.round(value / this.smallestConsumerAmount) * this.smallestConsumerAmount
+      return round({ value, smallestAmount: this.smallestConsumerAmount })
     },
     inputConsumerPriceChanged (value) {
       if (this.focusAt === 'consumer') {
