@@ -18,7 +18,9 @@ module.exports = {
     '<rootDir>/src/store/**/*.vue',
     '<rootDir>/src/store/**/*.js',
     '<rootDir>/src/router/**/*.vue',
-    '<rootDir>/src/router/**/*.js'
+    '<rootDir>/src/router/**/*.js',
+    '<rootDir>/src/mixins/**/*.vue',
+    '<rootDir>/src/mixins/**/*.js'
   ],
   coverageThreshold: {
     global: {
@@ -31,7 +33,8 @@ module.exports = {
   testMatch: [
     '<rootDir>/src/components/**/__tests__/*.spec.js',
     '<rootDir>/src/store/**/__tests__/*.spec.js',
-    '<rootDir>/src/router/**/__tests__/*.spec.js'
+    '<rootDir>/src/router/**/__tests__/*.spec.js',
+    '<rootDir>/src/mixins/**/__tests__/*.spec.js'
   ],
   moduleFileExtensions: [
     'vue',
