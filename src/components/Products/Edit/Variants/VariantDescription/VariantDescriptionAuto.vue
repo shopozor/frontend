@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import UnitField from '../../../../Units/UnitField'
 import ShakingBtn from '../../../../form/ShakingBtn'
 import ProductDefaultPricePerUnitSelector from '../../ProductDefaultPricePerUnitSelector'
-import {convert, unitsAreCompatible, mainUnit} from '../../../../Units/UnitsHelpers'
+import { convert } from '../../../../Units/UnitsHelpers'
 import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
@@ -93,18 +93,7 @@ export default {
       })
       this.updateGrossConsumerPrice(event)
     },
-    adaptUnitToDefault () {
-      console.error(new Error('adaptUnitToDefault needs to be reworked. All variants need to be taken into account.'))
-      const incompatible = !unitsAreCompatible({ unit1: this.defaultUnit, unit2: this.value.unit })
-      if (incompatible) {
-        this.updateEditedVariantDescriptionUnit({
-          variantId: this.variantId,
-          value: mainUnit({ unit: this.defaultUnit })
-        })
-      }
-    },
     updateGrossConsumerPrice ({ amount, unit }) {
-      this.adaptUnitToDefault()
       const newPricePerUnit = convert({
         oldValue: this.defaultGrossConsumerPrice,
         per: true,

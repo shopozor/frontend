@@ -153,7 +153,10 @@ export default {
     available: 'disponible | disponible | disponibles',
     defineDefaultPricePerUnit: 'prix à l\'unité par défaut',
     variant: {
-      priceMode: 'type de conditionnement'
+      priceMode: 'type de conditionnement',
+      thisVariantUnit: 'L\'unité de ce conditionnement',
+      wasNotCompatibleWithDefaultUnit: 'n\'était pas compatible avec l\'unité par défaut de ce produit',
+      nowThisVariantUnitIs: 'À présent, l\'unité de ce conditionnement est'
     }
   },
   units: {
