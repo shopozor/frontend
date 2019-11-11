@@ -9,6 +9,7 @@ export default {
       paid: 0,
       delivered: 0
     },
+    allowNonTrivialChanges: false,
     image: undefined,
     name: '',
     description: '',
@@ -27,7 +28,18 @@ export default {
           unit: types.units.KG
         },
         priceMode: types.priceModes.FREE,
-        grossConsumerPrice: 200
+        grossConsumerPrice: 200,
+        stock: {
+          mode: types.stockModes.AMOUNT,
+          max: 100,
+          amount: 97,
+          unit: types.units.KG,
+          ordersSummary: {
+            unPaid: 1,
+            paid: 2,
+            delivered: 51
+          }
+        }
       }
     }
   }

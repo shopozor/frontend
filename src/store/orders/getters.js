@@ -20,14 +20,3 @@ export const ordersPropsOfFilterPropValue = state => ({arrayOfPropsKeys, filterK
     return filteredOrders
   }, {})
 }
-
-export const pendingOrdersOfVariantSummary = state => ({ productID, variantId }) => {
-  return {
-    paid: {
-      amount: 0
-    },
-    notPaid: {
-      amount: 0
-    }
-  }
-}

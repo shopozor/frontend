@@ -152,11 +152,12 @@ export default {
     ordered: 'commandé | commandé | commandés',
     available: 'disponible | disponible | disponibles',
     defineDefaultPricePerUnit: 'prix à l\'unité par défaut',
-    variant: {
+    variants: {
       priceMode: 'type de conditionnement',
       thisVariantUnit: 'L\'unité de ce conditionnement',
       wasNotCompatibleWithDefaultUnit: 'n\'était pas compatible avec l\'unité par défaut de ce produit',
-      nowThisVariantUnitIs: 'À présent, l\'unité de ce conditionnement est'
+      nowThisVariantUnitIs: 'À présent, l\'unité de ce conditionnement est',
+      stockBelowOrders: 'stock inférieur aux commandes'
     }
   },
   units: {

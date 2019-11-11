@@ -6,7 +6,7 @@
         :softozorRatio="softozorRatio"
         :rexRatio="rexRatio"
         :managerRatio="managerRatio"
-        :readonly="autoMode"
+        :readonly="autoMode || !isUpdatable"
         @input="updateGrossConsumerPrice"
         consumer
         producer />
@@ -18,15 +18,10 @@
 import types from '../../../../../types'
 import PriceInput from '../../../../Price/PriceInput'
 import { mapGetters, mapActions } from 'vuex'
+import VariantCriticalValue from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
   name: 'VariantPrice',
-  props: {
-    variantId: {
-      type: String,
-      required: true
-    }
-  },
   computed: {
     ...mapGetters([
       'editedProductDefaultGrossConsumerPrice',
@@ -59,6 +54,7 @@ export default {
       }
     }
   },
-  components: { PriceInput }
+  components: { PriceInput },
+  mixins: [VariantCriticalValue]
 }
 </script>

@@ -13,7 +13,7 @@ const store = {
   getters: {
     editedVariantDescriptionAmount: () => () => value.amount,
     editedVariantDescriptionUnit: () => () => value.unit,
-    pendingOrdersOfVariantSummary: () => () => {
+    editedVariantOrdersSummary: () => () => {
       return {
         paid: {
           amount: 0

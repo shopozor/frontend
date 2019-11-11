@@ -15,7 +15,7 @@ const store = {
     editedVariantDescriptionUnit: () => () => unit,
     editedProductDefaultGrossConsumerPrice: () => defaultGrossConsumerPrice,
     editedProductDefaultUnit: () => defaultUnit,
-    pendingOrdersOfVariantSummary: () => () => {
+    editedVariantOrdersSummary: () => () => {
       return {
         paid: {
           amount: 0

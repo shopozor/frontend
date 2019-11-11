@@ -9,7 +9,7 @@ describe('VariantPriceModeSelect', () => {
   const store = {
     getters: {
       editedVariantPriceMode: () => () => types.priceModes.FREE,
-      pendingOrdersOfVariantSummary: () => () => {
+      editedVariantOrdersSummary: () => () => {
         return {
           paid: {
             amount: 0

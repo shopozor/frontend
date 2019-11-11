@@ -40,6 +40,7 @@ export const editedProductImage = state => {
 // export const editedProductDefaultVariantUI = state => state.editedProduct.defaultVariantUI
 export const editedProductDefaultGrossConsumerPrice = state => state.editedProduct.defaultGrossConsumerPrice
 export const editedProductDefaultUnit = state => state.editedProduct.defaultUnit
+export const editedProductAllowNonTrivialChanges = state => state.editedProduct.allowNonTrivialChanges
 
 export const editedVariant = state => ({ variantId }) => state.editedProduct.variants[variantId]
 export const editedVariantName = state => ({ variantId }) => editedVariant(state)({ variantId }).description.name
@@ -47,3 +48,8 @@ export const editedVariantDescriptionAmount = state => ({ variantId }) => edited
 export const editedVariantDescriptionUnit = state => ({ variantId }) => editedVariant(state)({ variantId }).description.unit
 export const editedVariantPriceMode = state => ({ variantId }) => editedVariant(state)({ variantId }).priceMode
 export const editedVariantGrossConsumerPrice = state => ({ variantId }) => editedVariant(state)({ variantId }).grossConsumerPrice
+export const editedVariantStockMode = state => ({ variantId }) => editedVariant(state)({ variantId }).stock.mode
+export const editedVariantStockAmount = state => ({ variantId }) => editedVariant(state)({ variantId }).stock.amount
+export const editedVariantStockMax = state => ({ variantId }) => editedVariant(state)({ variantId }).stock.max
+export const editedVariantStockUnit = state => ({ variantId }) => editedVariant(state)({ variantId }).stock.unit
+export const editedVariantOrdersSummary = state => ({ variantId }) => editedVariant(state)({ variantId }).stock.ordersSummary

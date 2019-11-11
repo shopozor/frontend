@@ -8,7 +8,7 @@ const name = 'testName'
 const store = {
   getters: {
     editedVariantName: () => () => name,
-    pendingOrdersOfVariantSummary: () => () => {
+    editedVariantOrdersSummary: () => () => {
       return {
         paid: {
           amount: 0

@@ -9,7 +9,7 @@ const oldUnit = types.units.KG
 const store = {
   getters: {
     editedVariantDescriptionUnit: () => () => oldUnit,
-    pendingOrdersOfVariantSummary: () => () => {
+    editedVariantOrdersSummary: () => () => {
       return {
         paid: {
           amount: 0

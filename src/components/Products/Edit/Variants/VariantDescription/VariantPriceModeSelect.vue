@@ -12,10 +12,10 @@
     <q-dialog v-model="alertUnitChange">
       <q-card>
         <q-card-section>
-          {{ `${$t(`products.variant.thisVariantUnit`)} (${$t(`units.names.${previousUnit}`)}) ${$t(`products.variant.wasNotCompatibleWithDefaultUnit`)} (${$t(`units.names.${defaultUnit}`)}).` }}
+          {{ `${$t(`products.variants.thisVariantUnit`)} (${$t(`units.names.${previousUnit}`)}) ${$t(`products.variants.wasNotCompatibleWithDefaultUnit`)} (${$t(`units.names.${defaultUnit}`)}).` }}
         </q-card-section>
         <q-card-section>
-          {{ `${$t(`products.variant.nowThisVariantUnitIs`)} ${$t(`units.names.${defaultUnit}`)}.`}}
+          {{ `${$t(`products.variants.nowThisVariantUnitIs`)} ${$t(`units.names.${defaultUnit}`)}.`}}
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -51,7 +51,7 @@ export default {
       return this.labellizeArray({ values: Object.values(priceModes), i18nPath: 'priceModes' })
     },
     hint () {
-      return this.withHint ? this.$t('products.variant.priceMode') : undefined
+      return this.withHint ? this.$t('products.variants.priceMode') : undefined
     },
     unit () {
       return this.editedVariantDescriptionUnit({ variantId: this.variantId })

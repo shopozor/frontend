@@ -73,6 +73,8 @@ function adapt (product) {
     amount: 0
   }
 
+  const allowNonTrivialChanges = true
+
   /**
    * conservation.until needs to be replaced
    * conservation.mode needs to be in a defined list (types.conservation)
@@ -106,15 +108,18 @@ function adapt (product) {
        */
       state: types.variantState.VISIBLE,
 
-      /**
-       * can be accessed through orderId and orders request
-       */
-      pendingOrdersSummary: {
-        paid: {
-          amount: 0
-        },
-        notPaid: {
-          amount: 0
+      stock: {
+        mode: types.stockModes.AMOUNT,
+        max: 100,
+        amount: 97,
+        unit: types.units.KG,
+        /**
+         * can be accessed through orderId and orders request
+         */
+        ordersSummary: {
+          unPaid: 1,
+          paid: 2,
+          delivered: 51
         }
       },
 
@@ -156,6 +161,7 @@ function adapt (product) {
     ...product,
     state,
     ordersSummary,
+    allowNonTrivialChanges,
     conservation,
     categories,
     pricing,

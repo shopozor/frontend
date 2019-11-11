@@ -9,20 +9,21 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['pendingOrdersOfVariantSummary']),
+    ...mapGetters(['editedProductAllowNonTrivialChanges', 'editedVariantOrdersSummary']),
     pendingOrdersSummary () {
-      return this.pendingOrdersOfVariantSummary({ variantId: this.variantId })
+      return this.editedVariantOrdersSummary({ variantId: this.variantId })
     },
     hasPendingPaidOrders () {
       const summary = this.pendingOrdersSummary.paid
-      return summary.amount > 0
+      return summary > 0
     },
     hasPendingNotPaidOrders () {
       const summary = this.pendingOrdersSummary.notPaid
-      return summary.amount > 0
+      return summary > 0
     },
     allowNonTrivialChanges () {
-      return this.$store.getters.editedProduct.allowNonTrivialChanges
+      console.log(this.editedProductAllowNonTrivialChanges)
+      return this.editedProductAllowNonTrivialChanges
     },
     isUpdatable () {
       return (!this.hasPendingPaidOrders && !this.hasPendingNotPaidOrders) || this.allowNonTrivialChanges

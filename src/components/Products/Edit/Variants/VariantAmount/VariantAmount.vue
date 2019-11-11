@@ -10,10 +10,13 @@
           :disable="disableRemove" />
         <q-input
           class="q-mx-md"
-          style="width: 4em"
-          :value="stockQuantity"
-          @change="updateAmount"
-          type="number" />
+          mask="#"
+          input-class="text-center"
+          reverse-fill-mask
+          style="width: 8em"
+          v-model="inputAmount"
+          @blur="updateAmount(inputAmount)"
+          :rules="[val => (val >= ordersSummary.paid || isUpdatable) || $t('products.variants.stockBelowOrders')]" />
         <q-btn
           @click="add"
           icon="add"
@@ -22,11 +25,11 @@
       </div>
       <div class="row justify-between q-mt-md">
         <div>
-          <div>{{$tc('products.ordered', pendingOrdersSummary.paid.amount)}}: {{pendingOrdersSummary.paid.amount}}</div>
+          <div>{{$tc('products.ordered', ordersSummary.paid)}}: {{ordersSummary.paid}}</div>
           <br>
-          <div>{{$tc('products.available', stockQuantity - pendingOrdersSummary.paid.amount)}}: {{stockQuantity - pendingOrdersSummary.paid.amount}}</div>
+          <div>{{$tc('products.available', inputAmount - ordersSummary.paid)}}: {{inputAmount - ordersSummary.paid}}</div>
           <br>
-          <div>dans un panier : {{pendingOrdersSummary.notPaid.amount}}</div>
+          <div>dans un panier : {{ordersSummary.unPaid}}</div>
         </div>
       </div>
     </q-card-section>
@@ -35,11 +38,16 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import VariantCriticalValuesMixin from '../../../../mixins/VariantCriticalValuesMixin'
+import VariantCriticalValuesMixin from '../../../../../mixins/VariantCriticalValuesMixin'
 
 export default {
   name: 'VariantAmount',
   mixins: [VariantCriticalValuesMixin],
+  data () {
+    return {
+      inputAmount: 0
+    }
+  },
   props: {
     variantId: {
       type: String,
@@ -47,27 +55,37 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['editedProduct', 'ordersPropsOfFilterPropValue']),
-    stockQuantity () {
-      return this.editedProduct.variants[this.variantId].stockQuantity
+    ...mapGetters([
+      'editedVariantStockAmount'
+    ]),
+    stockAmount () {
+      return this.editedVariantStockAmount({ variantId: this.variantId })
+    },
+    ordersSummary () {
+      return this.editedVariantOrdersSummary({ variantId: this.variantId })
     },
     disableRemove () {
-      const noMore = this.stockQuantity <= this.pendingOrdersSummary.paid.amount
-      return (noMore && !this.isUpdatable) || this.stockQuantity <= 0
+      const noMore = this.stockAmount <= this.ordersSummary.paid
+      return (noMore && !this.isUpdatable) || this.stockAmount <= 0
     }
   },
   methods: {
-    ...mapActions(['updateEditedVariant']),
+    ...mapActions(['updateEditedVariantStockAmount']),
     add () {
-      this.updateAmount(this.stockQuantity + 1)
+      this.updateAmount(this.stockAmount + 1)
     },
     remove () {
-      this.updateAmount(this.stockQuantity - 1)
+      this.updateAmount(this.stockAmount - 1)
     },
-    updateAmount (value) {
-      if ((value >= this.pendingOrdersSummary.paid.amount || this.isUpdatable) && value >= 0) {
-        this.updateEditedVariant({variantId: this.variantId, newProps: {amount: value}})
-      } else if (value >= 0) {
+    updateAmount (val) {
+      let value = Number.parseInt(val)
+      value = Number.isNaN(value) ? 0 : value
+      if (value >= this.ordersSummary.paid || this.isUpdatable) {
+        this.inputAmount = value
+        this.updateEditedVariantStockAmount({ variantId: this.variantId, value })
+      } else {
+        this.inputAmount = this.ordersSummary.paid
+        this.updateEditedVariantStockAmount({ variantId: this.variantId, value: this.ordersSummary.paid })
         this.$q.notify({
           message: 'Vous ne pouvez pas baisser votre stock en-dessous du nombre de commandes.',
           icon: 'warning',
@@ -79,20 +97,11 @@ export default {
             }
           ]
         })
-      } else {
-        this.$q.notify({
-          message: 'Votre stock ne peut pas être inférieur à 0.',
-          icon: 'warning',
-          timeout: 5000,
-          position: 'top',
-          actions: [
-            {
-              icon: 'close'
-            }
-          ]
-        })
       }
     }
+  },
+  mounted () {
+    this.inputAmount = this.stockAmount
   }
 }
 </script>
