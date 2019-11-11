@@ -22,7 +22,6 @@ export default {
       return summary > 0
     },
     allowNonTrivialChanges () {
-      console.log(this.editedProductAllowNonTrivialChanges)
       return this.editedProductAllowNonTrivialChanges
     },
     isUpdatable () {
