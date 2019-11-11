@@ -1,7 +1,7 @@
 <template>
   <q-card inline class="width-md q-ma-sm">
     <q-card-section>
-      <div class="row justify-center">
+      <div class="row justify-center items-baseline">
         <q-btn
           @click="remove"
           icon="remove"
@@ -23,14 +23,29 @@
           round
           color="primary" />
       </div>
-      <div class="row justify-between q-mt-md">
-        <div>
+      <div class="row justify-around q-mt-md">
+        <div class="column items-center">
+          <q-icon name="shopping_cart" size="md" />
+          {{ ordersSummary.unPaid }}
+          <q-tooltip>{{ $t('products.variants.inShoppingCart') }}</q-tooltip>
+        </div>
+        <div class="column items-center">
+          <q-icon name="storefront" size="md" />
+          {{ ordersSummary.paid }}
+          <q-tooltip>{{ $t('products.variants.ordered') }}</q-tooltip>
+        </div>
+        <div class="column items-center">
+          <q-icon name="img:statics/img/budzicone_head.svg" size="md" />
+          {{ inputAmount - ordersSummary.paid }}
+          <q-tooltip>{{ $t('products.variants.available') }}</q-tooltip>
+        </div>
+        <!-- <div>
           <div>{{$tc('products.ordered', ordersSummary.paid)}}: {{ordersSummary.paid}}</div>
           <br>
           <div>{{$tc('products.available', inputAmount - ordersSummary.paid)}}: {{inputAmount - ordersSummary.paid}}</div>
           <br>
           <div>dans un panier : {{ordersSummary.unPaid}}</div>
-        </div>
+        </div> -->
       </div>
     </q-card-section>
   </q-card>
